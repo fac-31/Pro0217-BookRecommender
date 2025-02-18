@@ -4,9 +4,9 @@ const app = express();
 app.use(express.json()); // Middleware to parse JSON bodie
 const PORT = process.env.PORT || 3000;
 
-import {recommendRoutes} from './routes/recommendRoutes';
-import {userRoutes} from './routes/userRoutes';
-import {bookRoutes} from './routes/bookRoutes';
+import {recommendRoutes} from './routes/recommendRoutes.js';
+import {userRoutes} from './routes/userRoutes.js';
+import {bookRoutes} from './routes/bookRoutes.js';
 
 //CRUD operations for books
 app.use("/recomendations", recommendRoutes);

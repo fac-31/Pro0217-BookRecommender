@@ -1,4 +1,4 @@
-//import { User } from '../models/User';
+//import { User } from '../models/User.js';
 
 // GET all users (Read)
 export async function getUsers (req, res) {

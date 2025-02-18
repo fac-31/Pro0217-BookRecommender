@@ -1,4 +1,4 @@
-//import { Recommendation } from '../models/Recommendation';
+//import { Recommendation } from '../models/Recommendation.js';
 
 
 export async function getRecommendations(req, res) {

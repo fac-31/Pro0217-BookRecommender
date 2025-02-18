@@ -1,15 +1,23 @@
 // server.js
-const express = require("express");
+import express from 'express';
 const app = express();
+app.use(express.json()); // Middleware to parse JSON bodie
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from the "public" directory
-app.use(express.static("public"));
+import {recommendRoutes} from './routes/recommendRoutes.js';
+import {userRoutes} from './routes/userRoutes.js';
+import {bookRoutes} from './routes/bookRoutes.js';
 
-// Define a route for the home page
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
-});
+//CRUD operations for books
+app.use("/recomendations", recommendRoutes);
+
+//CRUD operations for users
+app.use("/users", userRoutes);
+
+//CRUD operations for books
+app.use("/books", bookRoutes);
+
+app.use(express.static('public'));  // This auto-adds public/index.html to the "/" page
 
 // Start the server
 app.listen(PORT, () => {

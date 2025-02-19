@@ -9,7 +9,7 @@ import {userRoutes} from './routes/userRoutes.js';
 import {bookRoutes} from './routes/bookRoutes.js';
 
 //CRUD operations for books
-app.use("/recomendations", recommendRoutes);
+app.use("/recommendations", recommendRoutes);
 
 //CRUD operations for users
 app.use("/users", userRoutes);

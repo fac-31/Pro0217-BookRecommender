@@ -1,10 +1,12 @@
 import express from 'express';
 const router = express.Router();
-import {getRecommendations,createRecommendation , updateRecommendation, deleteRecommendation} from '../controllers/recommendController.js';
+import { getRecommendations } from '../controllers/recommendController.js';
 
-router.get("/", getRecommendations);
-router.post("/add", createRecommendation);
-router.post("/update/", updateRecommendation); //How will it work? do we need it?
-router.post("/delete/", deleteRecommendation);  //How will it work? do we need it?
+router.post('/', getRecommendations);
+
+// For the future
+// router.post('/:userId', createRecommendation); adds to the users history?
+// router.get('/:userId');  gets the users recommendation history?
+// then maybe update/delete ?
 
 export { router as recommendRoutes };

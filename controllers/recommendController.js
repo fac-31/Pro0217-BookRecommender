@@ -1,5 +1,5 @@
 //import { Recommendation } from '../models/Recommendation.js';
-
+import {fetchBooks, getCovers} from '../googleBooksAPIWrapper.js'
 
 export async function getRecommendations(req, res) {
   try {
@@ -34,6 +34,9 @@ export async function createRecommendation (req, res) {
   // the user will also be able to add books history -
   // let's figure it out together how to approach it.
 
+  const titles = ["Harry Potter", "Pride and Prejudice", "Wuthering Heights"];
+  const books = await fetchBooks(titles);
+  const urlTitles = getCovers(books);
 
   //3. send back the list of books recommendations +book_covers to the front end (index.html)
   //res.json( books list...)

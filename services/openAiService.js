@@ -1,8 +1,8 @@
 import openai from '../config/openai.js';
-import { booksSchema } from '../models/Book.js';
+import { booksSchema } from '../models/schemas/bookSchema.js';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 
-export async function fetchBookRecommendations(userPrompt) {
+export async function generateAIBookRecommendations(userPrompt) {
   if (!userPrompt) {
     throw new Error('Missing userPrompt in body of request');
   }

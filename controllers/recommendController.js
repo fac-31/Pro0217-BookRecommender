@@ -1,13 +1,32 @@
 import { fetchBookRecommendations } from '../services/openAiService.js';
+import { fetchBooks, getCovers } from '../googleBooksAPIWrapper.js'
 
 export async function getRecommendations(req, res) {
   try {
     const userPrompt = req.body.userPrompt;
     const recommendations = await fetchBookRecommendations(userPrompt);
-
-    //getCovers() goes here maybe? and enhances the recommendations object?
-
-    res.status(200).json(recommendations);
+    let recommendationsWithCovers = [];
+    if (recommendations && recommendations.books)
+    {
+      const titles = recommendations.books.map(book => book.title)
+      const booksInfoFromGoogleBooks = await fetchBooks(titles);
+      const covers = getCovers(booksInfoFromGoogleBooks);
+      
+      for(let i=0;i<recommendations.books.length;i++)
+      {
+        let recommendationWithCover = {
+          "recommendation" : recommendations.books[i],
+          "cover": covers[i]
+        };
+        recommendationsWithCovers.push(recommendationWithCover);
+      }
+      res.status(200).json(recommendationsWithCovers);
+    }
+    else
+    {
+      res.status(406).json();
+    }
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({

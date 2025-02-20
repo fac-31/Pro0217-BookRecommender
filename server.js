@@ -8,7 +8,7 @@ import {recommendRoutes} from './routes/recommendRoutes.js';
 import {userRoutes} from './routes/userRoutes.js';
 import {bookRoutes} from './routes/bookRoutes.js';
 
-//CRUD operations for books
+//CRUD operations for recommendations
 app.use("/recommendations", recommendRoutes);
 
 //CRUD operations for users

@@ -1,0 +1,36 @@
+POST http://localhost:3000/recommendations
+Content-Type: application/json
+
+{
+    "userPrompt": "I like sad cool books"
+}
+
+# EXAMPLE RESPONSE: 
+# {
+#   "books": [
+#     {
+#       "title": "Norwegian Wood",
+#       "author": "Haruki Murakami",
+#       "year": "1987",
+#       "reason_for_recommendation": "A melancholic tale of love and loss set against a backdrop of 1960s Japan."
+#     },
+#     {
+#       "title": "Never Let Me Go",
+#       "author": "Kazuo Ishiguro",
+#       "year": "2005",
+#       "reason_for_recommendation": "A haunting exploration of identity, fate, and the sadness of reality."
+#     },
+#     {
+#       "title": "The Bell Jar",
+#       "author": "Sylvia Plath",
+#       "year": "1963",
+#       "reason_for_recommendation": "A poignant and introspective look at depression and societal expectations."
+#     },
+#     {
+#       "title": "A Little Life",
+#       "author": "Hanya Yanagihara",
+#       "year": "2015",
+#       "reason_for_recommendation": "A deeply emotional narrative surrounding trauma and friendship in modern-day New York."
+#     }
+#   ]
+# }

@@ -4,9 +4,9 @@ const canvasWidth = canvas.width;
 const canvasHeight = canvas.height;
 
 const librarianImage = new Image();
-librarianImage.src = "/librarian-spritesheet.png";
+librarianImage.src = "/images/librarian-spritesheet.png";
 const deskImage = new Image();
-deskImage.src = "/table-new.png";
+deskImage.src = "/images/table-new.png";
 let frameX = 0;
 let frameY = 0;
 let gameFrame = 0;
@@ -119,9 +119,17 @@ const walkAway = () => {
 const comeBack = () => {
   if (behindDesk) {
     librarianIdle();
-    librarianDialogue.innerHTML = "<p>Here we are, take a look at these!</p>";
-    librarianDialogue.classList.remove("hidden");
-    bookContainer.classList.remove("hidden");
+
+    if (foundBooks) {
+      librarianDialogue.innerHTML = "<p>Here we are, take a look at these!</p>";
+      librarianDialogue.classList.remove("hidden");
+      bookContainer.classList.remove("hidden");
+    } else {
+      librarianDialogue.innerHTML =
+        "<p>Sorry, I'm afraid we don't have any books that match your requirements. Can I find you something else?</p>";
+      librarianDialogue.classList.remove("hidden");
+      bookPreferenceForm.classList.remove("hidden");
+    }
     return;
   }
 
@@ -187,7 +195,7 @@ const bookInfoContainer = document.querySelector(".book-info-container");
 let userPrompt = localStorage.getItem("userPrompt");
 
 bookPreferenceForm.onsubmit = (e) => {
-  e.preventDefault(); // Prevent default form submission
+  e.preventDefault();
   userPrompt = document.getElementById("book-preference-input").value;
   localStorage.setItem("userPrompt", userPrompt);
   console.log(userPrompt);
@@ -200,12 +208,14 @@ bookPreferenceForm.onsubmit = (e) => {
   bookPreferenceForm.classList.add("hidden");
 };
 
+let foundBooks;
+
 const checkLibrary = async () => {
   try {
     const response = await fetch("/recommendations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userPrompt }), //{ userInput } is syntactic sugar for { "userInput" : userInput  }
+      body: JSON.stringify({ userPrompt }),
     });
 
     const data = await response.json();
@@ -232,8 +242,21 @@ const checkLibrary = async () => {
         ).innerText = `Reason: ${data[i].recommendation.reason_for_recommendation}`;
       };
     }
+
+    foundBooks = true;
     comeBack();
   } catch (error) {
     console.error("Error:", error);
+    foundBooks = false;
+    comeBack();
   }
+};
+
+const goBack = () => {
+  document.getElementById("darkness").classList.opacity = 0;
+  document.getElementById("darkness").classList.remove("hidden");
+  document.getElementById("darkness").style.opacity = 1;
+  setTimeout(() => {
+    pageTransitionFunc("/index.html");
+  }, 2000);
 };

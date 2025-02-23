@@ -1,0 +1,136 @@
+:root {
+  --parchment: #fcf5e5;
+  --lightgreen: #0d594a;
+  --mediumgreen: #08382f;
+  --darkgreen: #05211c;
+  --lightbrown: #8a5f3a;
+  --mediumbrown: #61462f;
+  --darkbrown: #3b2c20;
+  --lightgold: #fff5bd;
+  --mediumgold: #bb9b49;
+  --gold: #eac25c;
+  --darkgold: #856d30;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  image-rendering: pixelated;
+  overflow: hidden;
+}
+
+#library-front {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url("/images/library-front.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 1;
+  transition: opacity 2s;
+}
+
+.library-sign {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--mediumbrown);
+  border: 10px ridge var(--darkbrown);
+  padding: 20px;
+  transition: opacity 2s;
+}
+
+.library-sign > p {
+  font-size: 60px;
+  line-height: 40px;
+  margin: 0;
+  background-color: var(--lightbrown);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: -1px -1px 1px rgba(31, 16, 3, 0.5);
+}
+
+.registration-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  width: 500px;
+  height: 300px;
+  background-color: var(--mediumbrown);
+  border: 10px outset var(--darkbrown);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  transition: opacity 2s;
+}
+
+#first-name-input-label {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 40px;
+  text-align: center;
+  background-color: var(--lightbrown);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: -1px -1px 1px rgba(31, 16, 3, 0.5);
+}
+
+#first-name-input {
+  width: 300px;
+  background-color: var(--parchment);
+  border: 5px inset var(--darkbrown);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 30px;
+  line-height: 50px;
+  text-align: center;
+}
+
+#submit-btn {
+  width: 150px;
+  background-color: var(--mediumgold);
+  border: 5px outset var(--gold);
+}
+
+#submit-btn > p {
+  margin: 0;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 35px;
+  line-height: 35px;
+  text-align: center;
+  background-color: var(--gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: -1px -1px 1px rgba(133, 109, 48, 0.65);
+}
+
+#submit-btn:focus {
+  border: 5px inset var(--gold);
+}
+
+#darkness {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: black;
+  width: 120%;
+  height: 120%;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Recommender</title>
+    <!-- Styles and fonts -->
+    <link rel="stylesheet" href="interiorstyles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@100..400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <h1>Welcome to the Interactive Book Recommendations Project</h1>
+    </header>
+    <div id="library-background">
+      <canvas id="librarian-canvas" width="70" height="70"></canvas>
+
+      <div class="dialogue-div">
+        <p>Tell me what books you like and I'll recommend some!</p>
+      </div>
+
+      <form class="book-preference-form" onsubmit="return false">
+        <label id="book-preference-input-label" for="book-preference-input"
+          >Enter your book preferences below:</label
+        >
+        <textarea
+          id="book-preference-input"
+          name="book-preference-input"
+          rows="3"
+          cols="44"
+          required
+        ></textarea>
+        <button id="submit-btn" type="submit">SUBMIT</button>
+      </form>
+
+      <div class="book-container hidden">
+        <div class="book" id="book-1">
+          <image id="book-1-image" src="" alt=""></image>
+        </div>
+        <div class="book" id="book-2">
+          <image id="book-2-image" src="" alt=""></image>
+        </div>
+        <div class="book" id="book-3">
+          <image id="book-3-image" src="" alt=""></image>
+        </div>
+        <div class="book" id="book-4">
+          <image id="book-4-image" src="" alt=""></image>
+        </div>
+      </div>
+
+      <div class="book-info-container hidden">
+        <p id="title">Title:</p>
+        <p id="author">Author:</p>
+        <p id="year">Year:</p>
+        <p id="reason">Reason:</p>
+      </div>
+
+      <button id="exit-btn" type="button" onclick="goBack()"></button>
+    </div>
+
+    <div id="darkness"></div>
+
+    <script src="universal-script.js"></script>
+    <script src="library-interior-script.js"></script>
+  </body>
+</html>

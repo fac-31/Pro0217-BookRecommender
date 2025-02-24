@@ -8,7 +8,7 @@ import {
 } from "../controllers/userController.js";
 
 router.get("/", getUsers);
-router.get("/add", createUser);
+router.post("/add", createUser);
 router.get("/update/:id", updateUser);
 router.get("/delete/:id", deleteUser);
 

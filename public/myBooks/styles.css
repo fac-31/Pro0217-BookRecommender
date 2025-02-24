@@ -1,0 +1,53 @@
+:root {
+  --parchment: #fcf5e5;
+  --darkgreen: #05211c;
+  --mediumgreen: #08382f;
+  --lightgreen: #0d594a;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Playwrite IT Moderna', serif;
+  font-weight: 300;
+  font-size: 25px;
+}
+
+body {
+  background-color: black;
+  min-width: 3000px;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.want-to-read {
+  color: white;
+}
+
+.my-books-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap */
+  justify-content: center; /* Centers books */
+  gap: 20px; /* Space between books */
+  padding: 20px;
+  background-color: var(--parchment);
+  border-radius: 15px;
+  border: 3px solid var(--mediumgreen);
+  max-width: 80vw;
+  margin: 20px auto;
+}
+
+.book {
+  width: 144px;
+  height: 216px;
+  border: 3px solid var(--mediumgreen);
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}

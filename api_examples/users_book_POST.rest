@@ -1,0 +1,9 @@
+POST http://localhost:3000/users/update-book
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "book_id": "69",
+    "key": "likes",
+    "add": true
+}

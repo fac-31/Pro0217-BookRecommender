@@ -15,15 +15,25 @@ export async function fetchBooks(titles) {
   }
 };
 
-export function getCovers(books)
+export function completeBookWithCoverAndISBN(booksInfoFromGoogleBooks, recommendations)
 {
-  if (books && books.length > 0) {
-    const coverURLs = books.map(book =>
-      book.items?.[0]?.volumeInfo?.imageLinks?.thumbnail || "No image available"
+  let coverURLSandISBN = [];
+  if (booksInfoFromGoogleBooks && booksInfoFromGoogleBooks.length > 0) {
+    coverURLSandISBN = booksInfoFromGoogleBooks.map(book =>
+      ({ 
+         cover: book.items?.[0]?.volumeInfo?.imageLinks?.thumbnail || "No image available",
+         //ISBN: book.items?.[0]?.volumeInfo?.industryIdentifiers.find(id => id.type === "ISBN_13").identifier || "No ISBN available"
+      })
     );
-    return coverURLs;
+    
   }
   else {
     console.log("No books found.");
+  }
+
+  for(let i =0;i<recommendations.books.length; i++)
+  {
+    recommendations.books[i].cover = coverURLSandISBN[i].cover;
+    recommendations.books[i].ISBN = "book";//coverURLSandISBN[i].ISBN
   }
 }

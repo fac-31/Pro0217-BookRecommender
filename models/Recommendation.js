@@ -1,5 +1,5 @@
 import { generateAIBookRecommendations } from '../services/openAiService.js';
-import { fetchBooks, getCovers } from '../services/googleBooksAPIWrapper.js';
+import { fetchBooks, completeBookWithCoverAndISBN } from '../services/googleBooksAPIWrapper.js';
 
 export async function createRecommendations(userPrompt) {
   try {
@@ -10,13 +10,10 @@ export async function createRecommendations(userPrompt) {
     // Fetch book covers from Google Books API
     const titles = recommendations.books.map((book) => book.title);
     const booksInfoFromGoogleBooks = await fetchBooks(titles);
-    const covers = getCovers(booksInfoFromGoogleBooks);
+    completeBookWithCoverAndISBN(booksInfoFromGoogleBooks, recommendations);
 
-    // Merge recommendations with cover images
-    return recommendations.books.map((book, index) => ({
-      recommendation: book,
-      cover: covers[index] || null,
-    }));
+    return recommendations;
+  
   } catch (error) {
     console.error('Error in Recommendation model: ', error);
     throw new Error('Failed to create recommendations');

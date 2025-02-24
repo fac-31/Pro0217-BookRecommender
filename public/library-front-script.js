@@ -21,12 +21,12 @@ registrationForm.onsubmit = (e) => {
 
 async function createUser() {
   let username = localStorage.getItem("username");
-  
+
   try {
     const response = await fetch("/users/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ "username": username }),
+      body: JSON.stringify({ username: username }),
     });
 
     let json = await response.json();

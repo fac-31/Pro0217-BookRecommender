@@ -1,3 +1,5 @@
+import { updateUser } from "../controllers/userController";
+
 const canvas = document.getElementById("librarian-canvas");
 const ctx = canvas.getContext("2d");
 const canvasWidth = canvas.width;
@@ -210,6 +212,8 @@ bookPreferenceForm.onsubmit = (e) => {
 
 let foundBooks;
 
+let bookData = localStorage.getItem("bookData");
+
 const checkLibrary = async () => {
   try {
     const response = await fetch("/recommendations", {
@@ -219,9 +223,8 @@ const checkLibrary = async () => {
     });
 
     const data = await response.json();
+    localStorage.setItem("bookData", data);
 
-    console.log(data);
-    console.log(data.books[0]);
     for (let i = 0; i < 4; i++) {
       document.getElementById(`book-${i + 1}-image`).src = data.books[i].cover;
       document.getElementById(`book-${i + 1}-image`).alt = data.books[i].title;
@@ -350,8 +353,17 @@ const goBack = () => {
   }, 2000);
 };
 
-const showOptions = () => {};
+// const wantToRead = (bookNum) => {
 
-const wantToRead = () => {};
+//   const dataToSend = {
+//     "username": username,
+//     "id": user-id,
+//     "likes": bookData.books[bookNum - 1].
+//   }
 
-const notInterested = () => {};
+//   updateUser();
+// };
+
+// const notInterested = () => {
+
+// };

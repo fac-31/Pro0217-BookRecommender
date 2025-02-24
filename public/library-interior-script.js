@@ -226,6 +226,8 @@ const checkLibrary = async () => {
       document.getElementById(`book-${i + 1}-image`).src = data[i].cover;
       document.getElementById(`book-${i + 1}-image`).alt =
         data[i].recommendation.title;
+
+      // Reveal info about book
       document.getElementById(`book-${i + 1}`).onclick = () => {
         bookInfoContainer.classList.remove("hidden");
         document.getElementById(
@@ -240,6 +242,51 @@ const checkLibrary = async () => {
         document.getElementById(
           "reason"
         ).innerText = `Reason: ${data[i].recommendation.reason_for_recommendation}`;
+      };
+
+      // Reveal "want to read" and "not interested" buttons
+      document.getElementById(`book-${i + 1}`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn`)
+          .classList.toggle("hidden");
+        document
+          .getElementById(`book-${i + 1}-reject-btn`)
+          .classList.toggle("hidden");
+      };
+
+      // Hide "want to read" and "not interested" buttons
+      document.getElementById(`book-${i + 1}`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn`)
+          .classList.toggle("hidden");
+        document
+          .getElementById(`book-${i + 1}-reject-btn`)
+          .classList.toggle("hidden");
+      };
+
+      // Show (and hide) button labels on hover
+      document.getElementById(`book-${i + 1}-accept-btn`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-accept-btn`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-reject-btn`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-reject-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-reject-btn`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-reject-btn-label`)
+          .classList.toggle("hidden");
       };
     }
 
@@ -260,3 +307,9 @@ const goBack = () => {
     pageTransitionFunc("/index.html");
   }, 2000);
 };
+
+const showOptions = () => {};
+
+const wantToRead = () => {};
+
+const notInterested = () => {};

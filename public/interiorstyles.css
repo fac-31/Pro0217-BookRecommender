@@ -115,6 +115,7 @@ body {
   border-radius: 10px;
   font-size: 20px;
   resize: none;
+  padding-left: 5px;
 }
 
 #submit-btn {
@@ -154,6 +155,7 @@ body {
   width: 144px;
   height: 216px;
   border: 3px solid var(--mediumgreen);
+  position: relative;
 }
 
 .book-info-container {
@@ -180,6 +182,54 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.book-btn {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 10px;
+  background-color: var(--mediumgreen);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.book-btn:hover {
+  box-shadow: 0 0 3px 3px var(--lightgreen);
+}
+
+.accept {
+  top: 10px;
+}
+
+.reject {
+  top: 50px;
+}
+
+.accept-btn-label {
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  background-color: white;
+  color: black;
+  font-size: 15px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.reject-btn-label {
+  height: 30px;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  background-color: white;
+  color: black;
+  font-size: 15px;
+  text-align: center;
+  line-height: 20px;
 }
 
 #exit-btn {

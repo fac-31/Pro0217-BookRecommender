@@ -353,17 +353,14 @@ const goBack = () => {
   }, 2000);
 };
 
-// const wantToRead = (bookNum) => {
+const wantToRead = (bookNum) => {
+  const dataToSend = {
+    username: username,
+    id: userID,
+    likes: [bookData.books[bookNum - 1].ISBN],
+  };
 
-//   const dataToSend = {
-//     "username": username,
-//     "id": user-id,
-//     "likes": bookData.books[bookNum - 1].
-//   }
+  updateUser(JSON.stringify(dataToSend));
+};
 
-//   updateUser();
-// };
-
-// const notInterested = () => {
-
-// };
+const notInterested = () => {};

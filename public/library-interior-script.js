@@ -355,9 +355,10 @@ const goBack = () => {
 
 const wantToRead = (bookNum) => {
   const dataToSend = {
-    username: username,
-    id: userID,
-    likes: [bookData.books[bookNum - 1].ID],
+    user_id: userID,
+    book_id: bookData.books[bookNum - 1].ID,
+    keys: "likes",
+    add: true,
   };
 
   updateUser(JSON.stringify(dataToSend));

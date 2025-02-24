@@ -36,6 +36,40 @@ export async function createUser(req, res) {
   }
 };
 
+// UPDATE book listings on user
+export async function updateBook (req, res) {
+  try {
+    let user_id = req.body.user_id; // TODO add a password to check that user isnt cheating
+    let book_id = req.body.book_id; // id of book
+    let key = req.body.key; // "likes" or "dislikes"
+    let add = req.body.add; // true to add, false to remove
+
+    let user = await fetchAPI(req, "users/" + user_id, "GET");
+    if (Object.keys(user).length == 0)
+      res.status(400).json({ error: "Invalid user id" });
+    
+    user = userSchema.parse(user);
+    if (user[key] === undefined)
+      res.status(400).json({ error: "Invalid key" });
+
+    if (add && !user[key].includes(book_id)) {
+      // Add book id into the arry
+      user[key].push(book_id);
+      
+      res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
+    
+    } else if (!add && user[key].includes(book_id)) {
+      // Remove book id from the array
+      let index = user[key].indexOf(book_id);
+      user[key].splice(index, 1);
+
+      res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
+    }
+
+  } catch (error) {
+    res.status(500).json({ message: "Error updating user book", error: error.message });
+  }
+};
 
 // UPDATE a user
 export async function updateUser (req, res) {

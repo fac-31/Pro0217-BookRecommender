@@ -4,7 +4,8 @@ export const bookSchema = z.object({
   title: z.string(),
   author: z.string(),
   year: z.string(),
-  // genre: z.array(z.string()),
+  ISBN: z.string().optional(),
+  cover: z.string().optional(),
   reason_for_recommendation: z.string(),
 });
 

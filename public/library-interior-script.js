@@ -221,25 +221,25 @@ const checkLibrary = async () => {
     const data = await response.json();
 
     console.log(data);
-    console.log(data[0]);
+    console.log(data.books[0]);
     for (let i = 0; i < 4; i++) {
-      document.getElementById(`book-${i + 1}-image`).src = data[i].cover;
+      document.getElementById(`book-${i + 1}-image`).src = data.books[i].cover;
       document.getElementById(`book-${i + 1}-image`).alt =
-        data[i].recommendation.title;
+        data.books[i].title;
       document.getElementById(`book-${i + 1}`).onclick = () => {
         bookInfoContainer.classList.remove("hidden");
         document.getElementById(
           "title"
-        ).innerText = `Title: ${data[i].recommendation.title}`;
+        ).innerText = `Title: ${data.books[i].title}`;
         document.getElementById(
           "author"
-        ).innerText = `Author: ${data[i].recommendation.author}`;
+        ).innerText = `Author: ${data.books[i].author}`;
         document.getElementById(
           "year"
-        ).innerText = `Year: ${data[i].recommendation.year}`;
+        ).innerText = `Year: ${data.books[i].year}`;
         document.getElementById(
           "reason"
-        ).innerText = `Reason: ${data[i].recommendation.reason_for_recommendation}`;
+        ).innerText = `Reason: ${data.books[i].reason_for_recommendation}`;
       };
     }
 

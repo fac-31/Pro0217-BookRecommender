@@ -221,27 +221,69 @@ const checkLibrary = async () => {
     const data = await response.json();
 
     console.log(data);
-    console.log(data[0]);
+    console.log(data.books[0]);
     for (let i = 0; i < 4; i++) {
-      document.getElementById(`book-${i + 1}-image`).src = data[i].cover;
-      document.getElementById(`book-${i + 1}-image`).alt =
-        data[i].recommendation.title;
-
-      // Reveal info about book
+      document.getElementById(`book-${i + 1}-image`).src = data.books[i].cover;
+      document.getElementById(`book-${i + 1}-image`).alt = data.books[i].title;
       document.getElementById(`book-${i + 1}`).onclick = () => {
         bookInfoContainer.classList.remove("hidden");
         document.getElementById(
           "title"
-        ).innerText = `Title: ${data[i].recommendation.title}`;
+        ).innerText = `Title: ${data.books[i].title}`;
         document.getElementById(
           "author"
-        ).innerText = `Author: ${data[i].recommendation.author}`;
+        ).innerText = `Author: ${data.books[i].author}`;
         document.getElementById(
           "year"
-        ).innerText = `Year: ${data[i].recommendation.year}`;
+        ).innerText = `Year: ${data.books[i].year}`;
         document.getElementById(
           "reason"
-        ).innerText = `Reason: ${data[i].recommendation.reason_for_recommendation}`;
+        ).innerText = `Reason: ${data.books[i].reason_for_recommendation}`;
+      };
+
+      // Reveal "want to read" and "not interested" buttons
+      document.getElementById(`book-${i + 1}`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn`)
+          .classList.toggle("hidden");
+        document
+          .getElementById(`book-${i + 1}-reject-btn`)
+          .classList.toggle("hidden");
+      };
+
+      // Hide "want to read" and "not interested" buttons
+      document.getElementById(`book-${i + 1}`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn`)
+          .classList.toggle("hidden");
+        document
+          .getElementById(`book-${i + 1}-reject-btn`)
+          .classList.toggle("hidden");
+      };
+
+      // Show (and hide) button labels on hover
+      document.getElementById(`book-${i + 1}-accept-btn`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-accept-btn`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-reject-btn`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-reject-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-reject-btn`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-reject-btn-label`)
+          .classList.toggle("hidden");
       };
 
       // Reveal "want to read" and "not interested" buttons

@@ -1,4 +1,4 @@
-//import { User } from '../models/User.js';
+import { userSchema, usersSchema } from '../models/schemas/userSchema.js';
 import { fetchAPI } from '../models/api.js';
 
 // GET all users (Read)
@@ -15,9 +15,22 @@ export async function getUsers (req, res) {
 // CREATE a new user
 export async function createUser(req, res) {
   try {
-    
-    res.send(await fetchAPI(req, "users", "POST", {name: "Example"}));
+    let username = req.body.username;
 
+    // Check if user already exist in db
+    let users = usersSchema.parse(await fetchAPI(req, "users", "GET"));
+
+    for (let i = 0; i < users.length; i++) {
+      let user = users[i];
+      if (user.username == username) {
+        res.send(user);
+        return;
+      }
+    }
+
+    // Otherwise create new user
+    let user = userSchema.parse({"username": username});
+    res.send(await fetchAPI(req, "users", "POST", user));
   } catch (error) {
     res.status(500).json({ message: "Error creating user", error: error.message });
   }

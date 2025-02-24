@@ -357,7 +357,7 @@ const wantToRead = (bookNum) => {
   const dataToSend = {
     username: username,
     id: userID,
-    likes: [bookData.books[bookNum - 1].ISBN],
+    likes: [bookData.books[bookNum - 1].ID],
   };
 
   updateUser(JSON.stringify(dataToSend));

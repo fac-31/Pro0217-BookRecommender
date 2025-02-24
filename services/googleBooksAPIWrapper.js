@@ -15,14 +15,14 @@ export async function fetchBooks(titles) {
   }
 };
 
-export function completeBookWithCoverAndISBN(booksInfoFromGoogleBooks, recommendations)
+export function completeBookWithCoverAndID(booksInfoFromGoogleBooks, recommendations)
 {
-  let coverURLSandISBN = [];
+  let coverURLSandGoogleBooksID = [];
   if (booksInfoFromGoogleBooks && booksInfoFromGoogleBooks.length > 0) {
-    coverURLSandISBN = booksInfoFromGoogleBooks.map(book =>
+    coverURLSandGoogleBooksID = booksInfoFromGoogleBooks.map(book =>
       ({ 
          cover: book.items?.[0]?.volumeInfo?.imageLinks?.thumbnail || "No image available",
-         //ISBN: book.items?.[0]?.volumeInfo?.industryIdentifiers.find(id => id.type === "ISBN_13").identifier || "No ISBN available"
+         ID: book.items?.[0]?.id
       })
     );
     
@@ -31,9 +31,10 @@ export function completeBookWithCoverAndISBN(booksInfoFromGoogleBooks, recommend
     console.log("No books found.");
   }
 
+  console.log(coverURLSandGoogleBooksID);
   for(let i =0;i<recommendations.books.length; i++)
   {
-    recommendations.books[i].cover = coverURLSandISBN[i].cover;
-    recommendations.books[i].ISBN = "book";//coverURLSandISBN[i].ISBN
+    recommendations.books[i].cover = coverURLSandGoogleBooksID[i].cover;
+    recommendations.books[i].ID = coverURLSandGoogleBooksID[i].ID;
   }
 }

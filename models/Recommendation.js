@@ -1,5 +1,5 @@
 import { generateAIBookRecommendations } from '../services/openAiService.js';
-import { fetchBooks, completeBookWithCoverAndISBN } from '../services/googleBooksAPIWrapper.js';
+import { fetchBooks, completeBookWithCoverAndID } from '../services/googleBooksAPIWrapper.js';
 
 export async function createRecommendations(userPrompt) {
   try {
@@ -10,7 +10,7 @@ export async function createRecommendations(userPrompt) {
     // Fetch book covers from Google Books API
     const titles = recommendations.books.map((book) => book.title);
     const booksInfoFromGoogleBooks = await fetchBooks(titles);
-    completeBookWithCoverAndISBN(booksInfoFromGoogleBooks, recommendations);
+    completeBookWithCoverAndID(booksInfoFromGoogleBooks, recommendations);
 
     return recommendations;
   

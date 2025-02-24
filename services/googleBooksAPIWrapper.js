@@ -15,6 +15,22 @@ export async function fetchBooks(titles) {
   }
 };
 
+export async function fetchBooksByIDs(IDs) {
+  const requests = IDs.map(id => 
+  {
+    return fetch(`https://www.googleapis.com/books/v1/volumes?${id}`)
+      .then(response => response.json())
+  }
+  );
+
+  try {
+    const books = await Promise.all(requests);
+    return books;
+  } catch (error) {
+    console.error("Error fetching books:", error);
+  }
+};
+
 export function completeBookWithCoverAndID(booksInfoFromGoogleBooks, recommendations)
 {
   let coverURLSandGoogleBooksID = [];

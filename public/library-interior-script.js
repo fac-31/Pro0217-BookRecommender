@@ -1,4 +1,5 @@
 import { updateUser } from "../controllers/userController";
+import { updateBook } from "../controllers/userController";
 
 const canvas = document.getElementById("librarian-canvas");
 const ctx = canvas.getContext("2d");
@@ -361,7 +362,36 @@ const wantToRead = (bookNum) => {
     add: true,
   };
 
-  updateUser(JSON.stringify(dataToSend));
+  fetch("http://localhost:3000/users/update-book", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dataToSend),
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 };
 
-const notInterested = () => {};
+const notInterested = (bookNum) => {
+  const dataToSend = {
+    user_id: userID,
+    book_id: bookData.books[bookNum - 1].ID,
+    keys: "dislikes",
+    add: true,
+  };
+
+  fetch("http://localhost:3000/users/update-book", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dataToSend),
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};

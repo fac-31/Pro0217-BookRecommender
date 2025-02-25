@@ -1,3 +1,6 @@
+import { updateUser } from "../controllers/userController";
+import { updateBook } from "../controllers/userController";
+
 const canvas = document.getElementById("librarian-canvas");
 const ctx = canvas.getContext("2d");
 const canvasWidth = canvas.width;
@@ -210,6 +213,8 @@ bookPreferenceForm.onsubmit = (e) => {
 
 let foundBooks;
 
+let bookData = localStorage.getItem("bookData");
+
 const checkLibrary = async () => {
   try {
     const response = await fetch("/recommendations", {
@@ -219,13 +224,11 @@ const checkLibrary = async () => {
     });
 
     const data = await response.json();
+    localStorage.setItem("bookData", data);
 
-    console.log(data);
-    console.log(data.books[0]);
     for (let i = 0; i < 4; i++) {
       document.getElementById(`book-${i + 1}-image`).src = data.books[i].cover;
-      document.getElementById(`book-${i + 1}-image`).alt =
-        data.books[i].title;
+      document.getElementById(`book-${i + 1}-image`).alt = data.books[i].title;
       document.getElementById(`book-${i + 1}`).onclick = () => {
         bookInfoContainer.classList.remove("hidden");
         document.getElementById(
@@ -240,6 +243,96 @@ const checkLibrary = async () => {
         document.getElementById(
           "reason"
         ).innerText = `Reason: ${data.books[i].reason_for_recommendation}`;
+      };
+
+      // Reveal "want to read" and "not interested" buttons
+      document.getElementById(`book-${i + 1}`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn`)
+          .classList.toggle("hidden");
+        document
+          .getElementById(`book-${i + 1}-reject-btn`)
+          .classList.toggle("hidden");
+      };
+
+      // Hide "want to read" and "not interested" buttons
+      document.getElementById(`book-${i + 1}`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn`)
+          .classList.toggle("hidden");
+        document
+          .getElementById(`book-${i + 1}-reject-btn`)
+          .classList.toggle("hidden");
+      };
+
+      // Show (and hide) button labels on hover
+      document.getElementById(`book-${i + 1}-accept-btn`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-accept-btn`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-reject-btn`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-reject-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-reject-btn`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-reject-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      // Reveal "want to read" and "not interested" buttons
+      document.getElementById(`book-${i + 1}`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn`)
+          .classList.toggle("hidden");
+        document
+          .getElementById(`book-${i + 1}-reject-btn`)
+          .classList.toggle("hidden");
+      };
+
+      // Hide "want to read" and "not interested" buttons
+      document.getElementById(`book-${i + 1}`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn`)
+          .classList.toggle("hidden");
+        document
+          .getElementById(`book-${i + 1}-reject-btn`)
+          .classList.toggle("hidden");
+      };
+
+      // Show (and hide) button labels on hover
+      document.getElementById(`book-${i + 1}-accept-btn`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-accept-btn`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-accept-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-reject-btn`).onmouseenter = () => {
+        document
+          .getElementById(`book-${i + 1}-reject-btn-label`)
+          .classList.toggle("hidden");
+      };
+
+      document.getElementById(`book-${i + 1}-reject-btn`).onmouseleave = () => {
+        document
+          .getElementById(`book-${i + 1}-reject-btn-label`)
+          .classList.toggle("hidden");
       };
     }
 
@@ -259,4 +352,25 @@ const goBack = () => {
   setTimeout(() => {
     pageTransitionFunc("/index.html");
   }, 2000);
+};
+
+const judgementPassed = (bookNum, key) => {
+  const dataToSend = {
+    user_id: userID,
+    book_id: bookData.books[bookNum - 1].ID,
+    key: key,
+    add: true,
+  };
+
+  fetch("/users/update-book", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(dataToSend),
+  })
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 };

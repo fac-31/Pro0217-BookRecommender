@@ -354,36 +354,15 @@ const goBack = () => {
   }, 2000);
 };
 
-const wantToRead = (bookNum) => {
+const judgementPassed = (bookNum, key) => {
   const dataToSend = {
     user_id: userID,
     book_id: bookData.books[bookNum - 1].ID,
-    keys: "likes",
+    key: key,
     add: true,
   };
 
-  fetch("http://localhost:3000/users/update-book", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(dataToSend),
-  })
-    .then((response) => response.json())
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-};
-
-const notInterested = (bookNum) => {
-  const dataToSend = {
-    user_id: userID,
-    book_id: bookData.books[bookNum - 1].ID,
-    keys: "dislikes",
-    add: true,
-  };
-
-  fetch("http://localhost:3000/users/update-book", {
+  fetch("/users/update-book", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

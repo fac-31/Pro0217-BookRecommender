@@ -22,20 +22,30 @@ export async function createRecommendations(userPrompt) {
 }
 
 
-export async function updateRecommendationsBasedOnUserLikesAndDislikes(username) {
+export async function createRecommendationsByUserPreferences(username) {
   try {
 
     //get the user from the model.
     const user = await getUser(username);
 
     //no history of likes.
-    if (user.likes.length == 0) return;
+    if (user.likes.length == 0 && user.dislikes.length == 0) return;
 
-    const booksInfoFromGoogleBooks = await fetchBooksByIDs(user.likes);
-    const titles = booksInfoFromGoogleBooks.map(book =>book.items?.[0]?.volumeInfo?.title);
-    titles.join(",");
+    let titles = "";
+    let userPrompt = "";
+    if (user.likes.length > 0)
+    {
+      titles = await getLikesOrDislikedBooks(user.likes, titles);
+      userPrompt += "I like the following books: " + titles + ". ";
+    }
 
-    const userPrompt = "I like the following books: " + titles;
+    if (user.dislikes.length > 0)
+      {
+        titles = await getLikesOrDislikedBooks(user.dislikes, titles);
+        userPrompt += "I dislike the following books: " + titles + ". ";
+      }
+
+    userPrompt += "Take care not to recommend any of the books mentioned above.";
 
     return await createRecommendations(userPrompt);
 
@@ -43,4 +53,11 @@ export async function updateRecommendationsBasedOnUserLikesAndDislikes(username)
     console.error('Error in Recommendation model: ', error);
     throw new Error('Failed to create recommendations');
   }
+}
+
+async function getLikesOrDislikedBooks(arr, titles) {
+  const booksInfoFromGoogleBooks = await fetchBooksByIDs(arr);
+  titles = booksInfoFromGoogleBooks.map(book => book.items?.[0]?.volumeInfo?.title);
+  titles.join(",");
+  return titles;
 }

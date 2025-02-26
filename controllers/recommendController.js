@@ -1,4 +1,5 @@
 import { createRecommendations as createRecommendationsModel } from '../models/Recommendation.js';
+import { createRecommendationsByUserPreferences as createRecommendationsByUserPreferencesModel } from '../models/Recommendation.js';
 
 export async function createRecommendations(req, res) {
   try {
@@ -9,6 +10,30 @@ export async function createRecommendations(req, res) {
 
     // Call the Recommendation model
     const recommendations = await createRecommendationsModel(userPrompt);
+    if (!recommendations) {
+      return res.status(406).json({ message: 'No recommendations found' });
+    }
+
+    res.status(200).json(recommendations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: 'Error fetching recommendations',
+      error: error.message,
+    });
+  }
+}
+
+export async function createRecommendationsByUserPreferences(req, res) {
+  try {
+    const username = req.body.username;
+
+    if (!username) {
+      return res.status(400).json({ error: 'Missing username in request body.' });
+    }
+
+    // Call the Recommendation model
+    const recommendations = await createRecommendationsByUserPreferencesModel(username);
     if (!recommendations) {
       return res.status(406).json({ message: 'No recommendations found' });
     }

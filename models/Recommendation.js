@@ -1,6 +1,5 @@
 import { generateAIBookRecommendations } from '../services/openAiService.js';
 import { fetchBooks, fetchBooksByIDs, completeBookWithCoverAndID } from '../services/googleBooksAPIWrapper.js';
-import { getUser } from './User.js';
 
 export async function createRecommendations(userPrompt) {
   try {
@@ -22,11 +21,8 @@ export async function createRecommendations(userPrompt) {
 }
 
 
-export async function createRecommendationsByUserPreferences(username) {
+export async function createRecommendationsByUserPreferences(user) {
   try {
-
-    //get the user from the model.
-    const user = await getUser(username);
 
     //no history of likes.
     if (user.likes.length == 0 && user.dislikes.length == 0) return;
@@ -47,11 +43,12 @@ export async function createRecommendationsByUserPreferences(username) {
 
     userPrompt += "Take care not to recommend any of the books mentioned above.";
 
+    console.log(userPrompt);
     return await createRecommendations(userPrompt);
 
   } catch (error) {
     console.error('Error in Recommendation model: ', error);
-    throw new Error('Failed to create recommendations');
+    throw new Error('Failed to create recommendations by preferences');
   }
 }
 

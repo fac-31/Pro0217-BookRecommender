@@ -1,5 +1,7 @@
 import { createRecommendations as createRecommendationsModel } from '../models/Recommendation.js';
 import { createRecommendationsByUserPreferences as createRecommendationsByUserPreferencesModel } from '../models/Recommendation.js';
+import { fetchAPI } from '../models/api.js';
+import { userSchema, usersSchema } from '../models/schemas/userSchema.js';
 
 export async function createRecommendations(req, res) {
   try {
@@ -26,16 +28,23 @@ export async function createRecommendations(req, res) {
 
 export async function createRecommendationsByUserPreferences(req, res) {
   try {
-    const username = req.body.username;
+    const user_id = req.body.user_id;
 
-    if (!username) {
-      return res.status(400).json({ error: 'Missing username in request body.' });
+    if (!user_id) {
+      return res.status(400).json({ error: 'Missing user_id in request body.' });
     }
 
+    //get the user
+    let user = await fetchAPI(req, "users/" + user_id, "GET");
+    if (Object.keys(user).length == 0)
+      res.status(400).json({ error: "Invalid user id" });
+    
+    user = userSchema.parse(user)
+
     // Call the Recommendation model
-    const recommendations = await createRecommendationsByUserPreferencesModel(username);
+    const recommendations = await createRecommendationsByUserPreferencesModel(user);
     if (!recommendations) {
-      return res.status(406).json({ message: 'No recommendations found' });
+      return res.status(406).json({ message: 'No recommendations found for the preferences of the user' });
     }
 
     res.status(200).json(recommendations);

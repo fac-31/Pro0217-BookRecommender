@@ -29,6 +29,8 @@ export async function createRecommendationsByUserPreferences(user) {
 
     let titles = "";
     let userPrompt = "";
+
+
     if (user.likes.length > 0)
     {
       titles = await getLikesOrDislikedBooks(user.likes, titles);
@@ -43,7 +45,6 @@ export async function createRecommendationsByUserPreferences(user) {
 
     userPrompt += "Take care not to recommend any of the books mentioned above.";
 
-    console.log(userPrompt);
     return await createRecommendations(userPrompt);
 
   } catch (error) {
@@ -54,7 +55,7 @@ export async function createRecommendationsByUserPreferences(user) {
 
 async function getLikesOrDislikedBooks(arr, titles) {
   const booksInfoFromGoogleBooks = await fetchBooksByIDs(arr);
-  titles = booksInfoFromGoogleBooks.map(book => book.items?.[0]?.volumeInfo?.title);
+  titles = booksInfoFromGoogleBooks.map(book => book.volumeInfo?.title);
   titles.join(",");
   return titles;
 }

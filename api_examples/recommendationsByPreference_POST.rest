@@ -1,0 +1,55 @@
+POST http://localhost:3000/recommendations/byUserPreferences
+Content-Type: application/json
+
+{
+    "user_id": 1
+}
+
+# example response
+#  (assuming that the user id has the following:
+#  {
+#       "username": "sefi",
+#       "id": 1,
+#       "likes": [
+#         "JAzxznMKiq4C",  --> this is the google books ID of 'Never Let Me Go' by Kazuo Ishiguru
+#         "591yCwAAQBAJ"   --> this is the google books ID of 'A little life' by Hanya Yanagihara
+#       ],
+#       "dislikes": []
+#     }
+
+# # {
+#   "books": [
+#     {
+#       "title": "The Road",
+#       "author": "Cormac McCarthy",
+#       "year": "2006",
+#       "ID": "egNSXhlCIHMC",
+#       "cover": "http://books.google.com/books/content?id=egNSXhlCIHMC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+#       "reason_for_recommendation": "This novel shares a similar emotional depth and exploration of human resilience in a dystopian setting as 'Never Let Me Go'."
+#     },
+#     {
+#       "title": "The Light We Lost",
+#       "author": "Jill Santopolo",
+#       "year": "2017",
+#       "ID": "B54RDQAAQBAJ",
+#       "cover": "http://books.google.com/books/content?id=B54RDQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+#       "reason_for_recommendation": "Like 'A Little Life', this book dives deep into the complexities of love and life's unforeseen events."
+#     },
+#     {
+#       "title": "Room",
+#       "author": "Emma Donoghue",
+#       "year": "2010",
+#       "ID": "A62XDAAAQBAJ",
+#       "cover": "http://books.google.com/books/content?id=A62XDAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+#       "reason_for_recommendation": "Its intense emotional narrative revolving around human connections may appeal to fans of 'Never Let Me Go'."
+#     },
+#     {
+#       "title": "The Goldfinch",
+#       "author": "Donna Tartt",
+#       "year": "2013",
+#       "ID": "AUWbBwAAQBAJ",
+#       "cover": "http://books.google.com/books/content?id=AUWbBwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+#       "reason_for_recommendation": "This novel similarly combines a gripping storyline with deep character development, akin to 'A Little Life.'"
+#     }
+#   ]
+# }

@@ -16,10 +16,10 @@ export async function fetchBooks(titles) {
 };
 
 export async function fetchBooksByIDs(IDs) {
-  const requests = IDs.map(id => 
+  const requests = IDs.map(async id => 
   {
-    return fetch(`https://www.googleapis.com/books/v1/volumes?${id}`)
-      .then(response => response.json())
+    const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${id}`);
+    return await response.json();
   }
   );
 
@@ -47,7 +47,6 @@ export function completeBookWithCoverAndID(booksInfoFromGoogleBooks, recommendat
     console.log("No books found.");
   }
 
-  console.log(coverURLSandGoogleBooksID);
   for(let i =0;i<recommendations.books.length; i++)
   {
     recommendations.books[i].cover = coverURLSandGoogleBooksID[i].cover;

@@ -1,6 +1,5 @@
 import { generateAIBookRecommendations } from '../services/openAiService.js';
 import { fetchBooks, fetchBooksByIDs, completeBookWithCoverAndID } from '../services/googleBooksAPIWrapper.js';
-import { getUser } from './User.js';
 
 export async function createRecommendations(userPrompt) {
   try {
@@ -22,25 +21,41 @@ export async function createRecommendations(userPrompt) {
 }
 
 
-export async function updateRecommendationsBasedOnUserLikesAndDislikes(username) {
+export async function createRecommendationsByUserPreferences(user) {
   try {
 
-    //get the user from the model.
-    const user = await getUser(username);
-
     //no history of likes.
-    if (user.likes.length == 0) return;
+    if (user.likes.length == 0 && user.dislikes.length == 0) return;
 
-    const booksInfoFromGoogleBooks = await fetchBooksByIDs(user.likes);
-    const titles = booksInfoFromGoogleBooks.map(book =>book.items?.[0]?.volumeInfo?.title);
-    titles.join(",");
+    let titles = "";
+    let userPrompt = "";
 
-    const userPrompt = "I like the following books: " + titles;
+
+    if (user.likes.length > 0)
+    {
+      titles = await getLikesOrDislikedBooks(user.likes, titles);
+      userPrompt += "I like the following books: " + titles + ". ";
+    }
+
+    if (user.dislikes.length > 0)
+      {
+        titles = await getLikesOrDislikedBooks(user.dislikes, titles);
+        userPrompt += "I dislike the following books: " + titles + ". ";
+      }
+
+    userPrompt += "Take care not to recommend any of the books mentioned above.";
 
     return await createRecommendations(userPrompt);
 
   } catch (error) {
     console.error('Error in Recommendation model: ', error);
-    throw new Error('Failed to create recommendations');
+    throw new Error('Failed to create recommendations by preferences');
   }
+}
+
+async function getLikesOrDislikedBooks(arr, titles) {
+  const booksInfoFromGoogleBooks = await fetchBooksByIDs(arr);
+  titles = booksInfoFromGoogleBooks.map(book => book.volumeInfo?.title);
+  titles.join(",");
+  return titles;
 }

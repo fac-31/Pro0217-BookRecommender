@@ -1,0 +1,14 @@
+GET http://localhost:3000/users/2
+
+// For getting an individulal user
+// EXAMPLE RESPONSE: 
+# {
+#   "username": "rich",
+#   "id": 2,
+#   "likes": [
+#     "591yCwAAQBAJ",
+#     "FNn5DQAAQBAJ",
+#     "JAzxznMKiq4C"
+#   ],
+#   "dislikes": []
+# }

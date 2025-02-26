@@ -355,7 +355,7 @@ const goBack = () => {
 const judgementPassed = (bookNum, key) => {
   const dataToSend = {
     user_id: localStorage.getItem("userID"),
-    book_id: bookData.books[parseInt(bookNum) - 1].ID,
+    book_id: bookData.books[bookNum - 1].ID,
     key: key,
     add: true,
   };

@@ -1,6 +1,3 @@
-import { updateUser } from "../controllers/userController";
-import { updateBook } from "../controllers/userController";
-
 const canvas = document.getElementById("librarian-canvas");
 const ctx = canvas.getContext("2d");
 const canvasWidth = canvas.width;
@@ -212,8 +209,7 @@ bookPreferenceForm.onsubmit = (e) => {
 };
 
 let foundBooks;
-
-let bookData = localStorage.getItem("bookData");
+let bookData;
 
 const checkLibrary = async () => {
   try {
@@ -224,7 +220,9 @@ const checkLibrary = async () => {
     });
 
     const data = await response.json();
-    localStorage.setItem("bookData", data);
+    localStorage.setItem("bookData", JSON.stringify(data));
+    bookData = JSON.parse(localStorage.getItem("bookData"));
+    console.log(data);
 
     for (let i = 0; i < 4; i++) {
       document.getElementById(`book-${i + 1}-image`).src = data.books[i].cover;
@@ -356,8 +354,8 @@ const goBack = () => {
 
 const judgementPassed = (bookNum, key) => {
   const dataToSend = {
-    user_id: userID,
-    book_id: bookData.books[bookNum - 1].ID,
+    user_id: localStorage.getItem("userID"),
+    book_id: bookData.books[parseInt(bookNum) - 1].ID,
     key: key,
     add: true,
   };
@@ -370,6 +368,9 @@ const judgementPassed = (bookNum, key) => {
     body: JSON.stringify(dataToSend),
   })
     .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
     .catch((error) => {
       console.error("Error:", error);
     });

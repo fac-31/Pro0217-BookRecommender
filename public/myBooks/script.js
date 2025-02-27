@@ -1,63 +1,49 @@
-const dummyBooks = [
-  {
-    id: 1,
-    image:
-      'http://books.google.com/books/content?id=tyfmEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    title: 'Book One',
-  },
-  {
-    id: 2,
-    image:
-      'http://books.google.com/books/content?id=tyfmEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    title: 'Book Two',
-  },
-  {
-    id: 3,
-    image:
-      'http://books.google.com/books/content?id=tyfmEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    title: 'Book Three',
-  },
-  {
-    id: 4,
-    image:
-      'http://books.google.com/books/content?id=tyfmEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    title: 'Book Four',
-  },
-  {
-    id: 5,
-    image:
-      'http://books.google.com/books/content?id=tyfmEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    title: 'Book Five',
-  },
-  {
-    id: 6,
-    image:
-      'http://books.google.com/books/content?id=tyfmEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-    title: 'Book Six',
-  },
-];
-
-const user = localStorage.getItem('username');
-if (user) {
-  console.log('THE USER: ', user);
+const username = localStorage.getItem('username');
+const userId = localStorage.getItem('userID');
+if (username) {
   document.getElementById(
     'readingListTitle'
-  ).textContent = `${user}'s Reading List`;
+  ).textContent = `${username}'s Reading List`;
 }
 
-const bookContainer = document.getElementById('my-books-container');
+(async () => {
+  const userInfo = await fetch(`/users/${userId}`);
+  if (!userInfo.ok) {
+    console.error('Failed to fetch user info');
+    return;
+  }
+  const userData = await userInfo.json();
+  const bookIds = userData.likes;
 
-dummyBooks.forEach((book) => {
-  const bookDiv = document.createElement('div');
-  bookDiv.classList.add('book');
-  bookDiv.id = book.id;
-  const img = document.createElement('img');
-  img.src = book.image;
-  img.alt = book.title;
+  // Fetch book details using the likes array
+  const response = await fetch('/books/fetchBooksByIDs', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ids: bookIds }),
+  });
 
-  bookDiv.appendChild(img);
-  bookContainer.appendChild(bookDiv);
-});
+  if (!response.ok) {
+    console.error('Failed to fetch book details');
+    return;
+  }
+
+  const books = await response.json();
+
+  const bookContainer = document.getElementById('my-books-container');
+
+  books.forEach((book) => {
+    const bookDiv = document.createElement('div');
+    bookDiv.classList.add('book');
+    bookDiv.id = book.id;
+    const img = document.createElement('img');
+    img.src = book.volumeInfo.imageLinks.thumbnail;
+    img.alt = book.volumeInfo.title;
+
+    bookDiv.appendChild(img);
+    bookContainer.appendChild(bookDiv);
+  });
+})();
+
 
 const canvas = document.getElementById('librarian-canvas');
 const ctx = canvas.getContext('2d');

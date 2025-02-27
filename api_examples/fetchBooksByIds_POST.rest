@@ -1,0 +1,12 @@
+POST http://localhost:3000/books/fetchBooksByIDs
+Content-Type: application/json
+
+{
+  "ids": [
+    "591yCwAAQBAJ",
+    "FNn5DQAAQBAJ",
+    "JAzxznMKiq4C"
+  ]
+}
+
+// Gets book info from google of these ids

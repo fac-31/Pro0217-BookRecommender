@@ -1,4 +1,5 @@
-import { getBooksByIds } from '../models/Book.js';
+import { bookSchema } from '../models/schemas/bookSchema.js';
+import { fetchAPI } from '../models/api.js';
 
 export async function getBooks(req, res) {
   const { ids } = req.body;
@@ -7,7 +8,15 @@ export async function getBooks(req, res) {
   }
 
   try {
-    const books = await getBooksByIds(ids);
+    const all = await fetchAPI(req, 'books', 'GET');
+
+    let books = [];
+    for (let i = 0; i < all.length; i++) {
+      let book = bookSchema.parse(all[i]);
+      if (ids.includes(book.id))
+        books.push(book);
+    }
+
     res.json(books);
   } catch (error) {
     res

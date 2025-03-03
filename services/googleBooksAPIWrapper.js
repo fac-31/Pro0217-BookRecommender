@@ -38,7 +38,7 @@ export function completeBookWithCoverAndID(booksInfoFromGoogleBooks, recommendat
     coverURLSandGoogleBooksID = booksInfoFromGoogleBooks.map(book =>
       ({ 
          cover: book.items?.[0]?.volumeInfo?.imageLinks?.thumbnail || "No image available",
-         ID: book.items?.[0]?.id
+         id: book.items?.[0]?.id
       })
     );
     
@@ -50,6 +50,6 @@ export function completeBookWithCoverAndID(booksInfoFromGoogleBooks, recommendat
   for(let i =0;i<recommendations.books.length; i++)
   {
     recommendations.books[i].cover = coverURLSandGoogleBooksID[i].cover;
-    recommendations.books[i].ID = coverURLSandGoogleBooksID[i].ID;
+    recommendations.books[i].id = coverURLSandGoogleBooksID[i].id;
   }
 }

@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
 export const bookSchema = z.object({
+  id: z.string(),
   title: z.string(),
   author: z.string(),
   year: z.string(),
-  ID: z.string().optional(),
-  cover: z.string().optional(),
+  cover: z.string(),
   reason_for_recommendation: z.string(),
 });
 

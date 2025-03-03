@@ -74,38 +74,34 @@ async function fetchUserRecommendation()
     },
   });
   
-  const books = await response.json();
-
+  const booksJsonObject = await response.json();
+ const books = booksJsonObject.books;
   console.log("retrieved by preference");
   console.log(books);
-  // const bookContainer = document.getElementById('my-books-container');
-  // const bookInfoContainer = document.querySelector('.book-info-container');
+  const bookRecommendationContainer = document.getElementById('my-recommendations-container');
+  //const bookInfoContainer = document.querySelector('.book-info-container');
 
-  // books.forEach((book) => {
-  //   const bookDiv = document.createElement('div');
-  //   bookDiv.addEventListener('click', () => {
-  //     bookInfoContainer.classList.add('active');
-  //     // This info is wrong at the moment 
-  //     document.getElementById('title').innerText = `Title: ${book.volumeInfo.title}`;
-  //     document.getElementById('author').innerText = `Author: ${book.volumeInfo.authors.join(', ')}`;
-  //     document.getElementById('year').innerText = `Year: ${book.volumeInfo.publishedDate}`;
-  //   });
-  //   bookDiv.classList.add('book');
-  //   bookDiv.id = book.id;
-  //   const img = document.createElement('img');
-  //   img.src = book.volumeInfo.imageLinks.thumbnail;
-  //   img.alt = book.volumeInfo.title;
+  books.forEach((book) => {
+    const bookDiv = document.createElement('div');
 
-  //   bookDiv.appendChild(img);
-  //   bookContainer.appendChild(bookDiv);
-  // });
+    // bookDiv.addEventListener('click', () => {
+    //   bookInfoContainer.classList.add('active');
+    //   // This info is wrong at the moment 
+    //   document.getElementById('title').innerText = `Title: ${book.volumeInfo.title}`;
+    //   document.getElementById('author').innerText = `Author: ${book.volumeInfo.authors.join(', ')}`;
+    //   document.getElementById('year').innerText = `Year: ${book.volumeInfo.publishedDate}`;
+    // });
 
-  // // Close the book-info-container when clicking outside of it
-  // document.addEventListener('click', (event) => {
-  //   if (!bookInfoContainer.contains(event.target) && !event.target.closest('.book')) {
-  //     bookInfoContainer.classList.remove('active');
-  //   }
-  // });
+    bookDiv.classList.add('book');
+    bookDiv.id = book.ID;
+    const img = document.createElement('img');
+    img.src = book.cover;
+    img.alt = book.title;
+
+    bookDiv.appendChild(img);
+    bookRecommendationContainer.appendChild(bookDiv);
+  });
+
 }
 
 fetchUsersBooks();

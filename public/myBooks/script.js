@@ -56,17 +56,17 @@ async function fetchUsersBooks()
     bookDiv.addEventListener('click', () => {
       bookInfoContainer.classList.add('active');
       // This info is wrong at the moment 
-      document.getElementById('title').innerText = `Title: ${book.volumeInfo.title}`;
-      document.getElementById('author').innerText = `Author: ${book.volumeInfo.authors.join(', ')}`;
-      document.getElementById('year').innerText = `Year: ${book.volumeInfo.publishedDate}`;
+      document.getElementById('title').innerText = `Title: ${book.title}`;
+      document.getElementById('author').innerText = `Author: ${book.author}`;
+      document.getElementById('year').innerText = `Year: ${book.year}`;
     });
     */
 
     bookDiv.classList.add('book');
     bookDiv.id = book.id;
     const img = document.createElement('img');
-    img.src = book.volumeInfo.imageLinks.thumbnail;
-    img.alt = book.volumeInfo.title;
+    img.src = book.cover;
+    img.alt = book.title;
 
     bookDiv.appendChild(img);
     bookContainer.appendChild(bookDiv);

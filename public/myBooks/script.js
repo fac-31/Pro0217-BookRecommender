@@ -17,15 +17,20 @@ async function fetchUsersBooks()
     return;
   }
   const userData = await userInfo.json();
-  const bookIds = userData.likes;
 
   // Fetch book details using the likes array
   const response = await fetch('/books/fetchBooksByIDs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ids: bookIds }),
+    body: JSON.stringify({ ids: userData.likes }),
   });
-
+/*
+  const response = await fetch('/books/fetchBooksByKey', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key: 'likes' }),
+  });
+*/
   if (!response.ok) {
     console.error('Failed to fetch book details');
     return;
@@ -59,6 +64,7 @@ async function fetchUsersBooks()
       document.getElementById('title').innerText = `Title: ${book.title}`;
       document.getElementById('author').innerText = `Author: ${book.author}`;
       document.getElementById('year').innerText = `Year: ${book.year}`;
+      // document.getElementById('likes').innerText = `Likes: ${book.count}`;
     });
     */
 

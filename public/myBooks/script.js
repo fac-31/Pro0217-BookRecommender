@@ -24,13 +24,7 @@ async function fetchUsersBooks()
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ ids: userData.likes }),
   });
-/*
-  const response = await fetch('/books/fetchBooksByKey', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ key: 'likes' }),
-  });
-*/
+
   if (!response.ok) {
     console.error('Failed to fetch book details');
     return;
@@ -47,9 +41,9 @@ async function fetchUsersBooks()
 
     bookDiv.addEventListener('mouseenter', () => {
       bookInfoContainer.classList.remove("hidden");
-      document.getElementById('title').innerText = `Title: ${book.volumeInfo.title}`;
-      document.getElementById('author').innerText = `Author: ${book.volumeInfo.authors.join(', ')}`;
-      document.getElementById('year').innerText = `Year: ${book.volumeInfo.publishedDate}`;
+      document.getElementById('title').innerText = `Title: ${book.title}`;
+      document.getElementById('author').innerText = `Author: ${book.author}}`;
+      document.getElementById('year').innerText = `Year: ${book.year}`;
     });
 
     bookDiv.addEventListener('mouseleave', () => {

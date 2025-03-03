@@ -1,5 +1,6 @@
-import { userSchema, usersSchema } from '../models/schemas/userSchema.js';
-import { fetchAPI } from '../models/api.js';
+import { userSchema } from '../models/schemas/userSchema.js';
+import { bookSchema } from '../models/schemas/bookSchema.js';
+import { fetchAPI, getOrCreateFromAPI } from '../models/api.js';
 
 // GET all users (Read)
 export async function getUsers(req, res) {
@@ -28,22 +29,13 @@ export async function getUser(req, res) {
 // CREATE a new user
 export async function createUser(req, res) {
   try {
-    let username = req.body.username;
+    const user_default = {
+      username: req.body.username
+    };
 
-    // Check if user already exist in db
-    let users = usersSchema.parse(await fetchAPI(req, 'users', 'GET'));
-
-    for (let i = 0; i < users.length; i++) {
-      let user = users[i];
-      if (user.username == username) {
-        res.send(user);
-        return;
-      }
-    }
-
-    // Otherwise create new user
-    let user = userSchema.parse({ username: username });
-    res.send(await fetchAPI(req, 'users', 'POST', user));
+    // Get an existing user, if doesn't exist then create a new one
+    let user = await getOrCreateFromAPI(req, 'users', userSchema, user_default, 'username');
+    res.send(user);
   } catch (error) {
     res
       .status(500)
@@ -55,7 +47,7 @@ export async function createUser(req, res) {
 export async function updateBook(req, res) {
   try {
     let user_id = req.body.user_id; // TODO add a password to check that user isnt cheating
-    let book_id = req.body.book_id; // id of book
+    let book = bookSchema.parse(req.body.book); // Info object of a book
     let key = req.body.key; // "likes" or "dislikes"
     let add = req.body.add; // true to add, false to remove
 
@@ -64,17 +56,23 @@ export async function updateBook(req, res) {
       res.status(400).json({ error: 'Invalid user id' });
 
     user = userSchema.parse(user);
-    if (user[key] === undefined) res.status(400).json({ error: 'Invalid key' });
+    if (user[key] === undefined)
+      res.status(400).json({ error: 'Invalid key' });
 
-    if (add && !user[key].includes(book_id)) {
-      // Add book id into the arry
-      user[key].push(book_id);
+    if (add && !user[key].includes(book.id)) {
+      // Add book id into user array
+      user[key].push(book.id);
+
+      // Add book infos to the list, if does not exist
+      await getOrCreateFromAPI(req, 'books', bookSchema, book, 'id');
 
       res.send(await fetchAPI(req, 'users/' + user_id, 'PATCH', user));
-    } else if (!add && user[key].includes(book_id)) {
+    } else if (!add && user[key].includes(book.id)) {
       // Remove book id from the array
-      let index = user[key].indexOf(book_id);
+      let index = user[key].indexOf(book.id);
       user[key].splice(index, 1);
+
+      // TODO, remove book from the list?
 
       res.send(await fetchAPI(req, 'users/' + user_id, 'PATCH', user));
     }

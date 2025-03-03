@@ -25,8 +25,13 @@ app.use("/books", bookRoutes);
 const json_file = "db.json";
 fs.open(json_file, "r", function (error) {
   if (error) {
-    //File dont exists, create one with empty users list
-    fs.writeFile(json_file, JSON.stringify({users: []}), { flag: 'wx' }, function(error) {
+    //File dont exists, create one with empty json list
+    const json = {
+      "users": [],
+      "books": [],
+    }
+    
+    fs.writeFile(json_file, JSON.stringify(json), { flag: 'wx' }, function(error) {
       if (error)
         throw error;
 

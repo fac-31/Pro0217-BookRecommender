@@ -44,8 +44,8 @@ if (username) {
     bookDiv.classList.add('book');
     bookDiv.id = book.id;
     const img = document.createElement('img');
-    img.src = book.volumeInfo.imageLinks.thumbnail;
-    img.alt = book.volumeInfo.title;
+    img.src = book.cover;
+    img.alt = book.title;
 
     bookDiv.appendChild(img);
     bookContainer.appendChild(bookDiv);

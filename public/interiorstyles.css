@@ -1,5 +1,6 @@
 :root {
   --parchment: #fcf5e5;
+  --beige: #f2e6c9;
   --darkgreen: #05211c;
   --mediumgreen: #08382f;
   --lightgreen: #0d594a;
@@ -10,7 +11,6 @@
 }
 
 body {
-  background-color: black;
   overflow: hidden;
   min-width: 3000px;
 }
@@ -24,6 +24,69 @@ body {
   background-color: var(--lightgreen);
   opacity: 1;
   transition: opacity 2s;
+}
+
+#menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#menu > li {
+  float: left;
+  background-color: var(--mediumgreen);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+#menu > li > a,
+span {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 30px;
+  font-family: "Playwrite IT Moderna", serif;
+  font-weight: 400;
+  color: white;
+}
+
+.friends,
+.remaining-users {
+  display: none;
+  position: absolute;
+  background-color: var(--parchment);
+  width: 100%;
+  z-index: 1;
+}
+
+.remaining-users {
+  left: 100%;
+  display: block;
+}
+
+.friends a,
+.remaining-users a {
+  color: black;
+  padding: 10px;
+  font-family: "Playwrite IT Moderna", serif;
+  text-decoration: none;
+  display: block;
+}
+
+#menu > li:hover {
+  background-color: var(--darkgreen);
+}
+
+.dropdown:hover .friends {
+  display: block;
+}
+
+.friends a:hover,
+.remaining-users a:hover {
+  background-color: var(--beige);
 }
 
 #librarian-canvas {
@@ -47,7 +110,7 @@ body {
 }
 
 .dialogue-div:before {
-  content: '';
+  content: "";
   position: absolute;
   right: 0;
   top: 50%;
@@ -61,7 +124,7 @@ body {
 }
 
 .dialogue-div:after {
-  content: '';
+  content: "";
   position: absolute;
   right: 0;
   top: 50%;
@@ -82,7 +145,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: 'Playwrite IT Moderna', serif;
+  font-family: "Playwrite IT Moderna", serif;
   font-weight: 300;
   font-size: 25px;
 }
@@ -101,7 +164,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 17px;
-  font-family: 'Playwrite IT Moderna', serif;
+  font-family: "Playwrite IT Moderna", serif;
   font-weight: 300;
 }
 
@@ -124,7 +187,7 @@ body {
   border: none;
   width: 110px;
   height: 40px;
-  font-family: 'Playwrite IT Moderna', serif;
+  font-family: "Playwrite IT Moderna", serif;
   font-size: 20px;
   color: white;
 }
@@ -147,7 +210,7 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   padding: 20px;
-  font-family: 'Playwrite IT Moderna', serif;
+  font-family: "Playwrite IT Moderna", serif;
   font-weight: 300;
 }
 
@@ -171,7 +234,7 @@ body {
 }
 
 .book-info-container > p {
-  font-family: 'Playwrite IT Moderna', serif;
+  font-family: "Playwrite IT Moderna", serif;
   font-weight: 300;
   font-size: 16px;
   line-height: 16px;
@@ -257,9 +320,9 @@ img {
   display: none;
 }
 
-a {
+/* a {
   color: white;
-  font-family: 'Playwrite IT Moderna', serif;
+  font-family: "Playwrite IT Moderna", serif;
   font-weight: 300;
   font-size: 25px;
-}
+} */

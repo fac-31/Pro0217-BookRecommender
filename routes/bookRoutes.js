@@ -1,13 +1,15 @@
 import express from 'express';
 const router = express.Router();
 import {
-  getBooks,
+  fetchBooksByIDs,
+  fetchBooksByKey,
   createBook,
   updateBook,
   deleteBook,
 } from '../controllers/bookController.js';
 
-router.post('/fetchBooksByIDs', getBooks);
+router.post('/fetchBooksByIDs', fetchBooksByIDs);
+router.post('/fetchBooksByKey', fetchBooksByKey);
 
 router.post('/add', createBook);
 router.post('/update/:id', updateBook);

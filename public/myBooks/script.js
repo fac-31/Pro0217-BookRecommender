@@ -38,6 +38,21 @@ async function fetchUsersBooks()
 
   books.forEach((book) => {
     const bookDiv = document.createElement('div');
+
+
+    bookDiv.addEventListener('mouseenter', () => {
+      bookInfoContainer.classList.remove("hidden");
+      document.getElementById('title').innerText = `Title: ${book.volumeInfo.title}`;
+      document.getElementById('author').innerText = `Author: ${book.volumeInfo.authors.join(', ')}`;
+      document.getElementById('year').innerText = `Year: ${book.volumeInfo.publishedDate}`;
+    });
+
+    bookDiv.addEventListener('mouseleave', () => {
+      bookInfoContainer.classList.add("hidden");
+    
+    });
+
+    /*
     bookDiv.addEventListener('click', () => {
       bookInfoContainer.classList.add('active');
       // This info is wrong at the moment 
@@ -45,6 +60,8 @@ async function fetchUsersBooks()
       document.getElementById('author').innerText = `Author: ${book.volumeInfo.authors.join(', ')}`;
       document.getElementById('year').innerText = `Year: ${book.volumeInfo.publishedDate}`;
     });
+    */
+
     bookDiv.classList.add('book');
     bookDiv.id = book.id;
     const img = document.createElement('img');
@@ -79,18 +96,22 @@ async function fetchUserRecommendation()
   console.log("retrieved by preference");
   console.log(books);
   const bookRecommendationContainer = document.getElementById('my-recommendations-container');
-  //const bookInfoContainer = document.querySelector('.book-info-container');
+  const bookInfoContainer = document.querySelector('.book-info-container');
 
   books.forEach((book) => {
     const bookDiv = document.createElement('div');
 
-    // bookDiv.addEventListener('click', () => {
-    //   bookInfoContainer.classList.add('active');
-    //   // This info is wrong at the moment 
-    //   document.getElementById('title').innerText = `Title: ${book.volumeInfo.title}`;
-    //   document.getElementById('author').innerText = `Author: ${book.volumeInfo.authors.join(', ')}`;
-    //   document.getElementById('year').innerText = `Year: ${book.volumeInfo.publishedDate}`;
-    // });
+    bookDiv.addEventListener('mouseenter', () => {
+      bookInfoContainer.classList.remove("hidden");
+      document.getElementById('title').innerText = `Title: ${book.title}`;
+      document.getElementById('author').innerText = `Author: ${book.author}`;
+      document.getElementById('year').innerText = `Year: ${book.year}`;
+    });
+
+    bookDiv.addEventListener('mouseleave', () => {
+      bookInfoContainer.classList.add("hidden");
+    
+    });
 
     bookDiv.classList.add('book');
     bookDiv.id = book.ID;

@@ -4,9 +4,13 @@ if (username) {
   document.getElementById(
     'readingListTitle'
   ).textContent = `${username}'s Reading List`;
+  document.getElementById(
+    'recommendationsListTitle'
+  ).textContent = `${username}'s Recommendation List`;
 }
 
-(async () => {
+async function fetchUsersBooks()
+{
   const userInfo = await fetch(`/users/${userId}`);
   if (!userInfo.ok) {
     console.error('Failed to fetch user info');
@@ -20,13 +24,7 @@ if (username) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ ids: userData.likes }),
   });
-/*
-  const response = await fetch('/books/fetchBooksByKey', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ key: 'likes' }),
-  });
-*/
+
   if (!response.ok) {
     console.error('Failed to fetch book details');
     return;
@@ -39,6 +37,21 @@ if (username) {
 
   books.forEach((book) => {
     const bookDiv = document.createElement('div');
+
+
+    bookDiv.addEventListener('mouseenter', () => {
+      bookInfoContainer.classList.remove("hidden");
+      document.getElementById('title').innerText = `Title: ${book.title}`;
+      document.getElementById('author').innerText = `Author: ${book.author}}`;
+      document.getElementById('year').innerText = `Year: ${book.year}`;
+    });
+
+    bookDiv.addEventListener('mouseleave', () => {
+      bookInfoContainer.classList.add("hidden");
+    
+    });
+
+    /*
     bookDiv.addEventListener('click', () => {
       bookInfoContainer.classList.add('active');
       // This info is wrong at the moment 
@@ -47,6 +60,8 @@ if (username) {
       document.getElementById('year').innerText = `Year: ${book.year}`;
       // document.getElementById('likes').innerText = `Likes: ${book.count}`;
     });
+    */
+
     bookDiv.classList.add('book');
     bookDiv.id = book.id;
     const img = document.createElement('img');
@@ -63,7 +78,55 @@ if (username) {
       bookInfoContainer.classList.remove('active');
     }
   });
-})();
+}
+
+async function fetchUserRecommendation()
+{
+
+  console.log(`userID is ${userId}`);
+  const response = await fetch(`/recommendations/byUserPreferences/${userId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  
+  const booksJsonObject = await response.json();
+ const books = booksJsonObject.books;
+  console.log("retrieved by preference");
+  console.log(books);
+  const bookRecommendationContainer = document.getElementById('my-recommendations-container');
+  const bookInfoContainer = document.querySelector('.book-info-container');
+
+  books.forEach((book) => {
+    const bookDiv = document.createElement('div');
+
+    bookDiv.addEventListener('mouseenter', () => {
+      bookInfoContainer.classList.remove("hidden");
+      document.getElementById('title').innerText = `Title: ${book.title}`;
+      document.getElementById('author').innerText = `Author: ${book.author}`;
+      document.getElementById('year').innerText = `Year: ${book.year}`;
+    });
+
+    bookDiv.addEventListener('mouseleave', () => {
+      bookInfoContainer.classList.add("hidden");
+    
+    });
+
+    bookDiv.classList.add('book');
+    bookDiv.id = book.ID;
+    const img = document.createElement('img');
+    img.src = book.cover;
+    img.alt = book.title;
+
+    bookDiv.appendChild(img);
+    bookRecommendationContainer.appendChild(bookDiv);
+  });
+
+}
+
+fetchUsersBooks();
+fetchUserRecommendation();
 
 const canvas = document.getElementById('librarian-canvas');
 const ctx = canvas.getContext('2d');

@@ -40,10 +40,9 @@ a {
   flex-wrap: wrap;
 }
 
-.my-books-container {
+.my-books-container,
+.my-recommendations-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   gap: 20px;
   padding: 20px;
   background-color: var(--parchment);
@@ -51,6 +50,8 @@ a {
   border: 3px solid var(--mediumgreen);
   max-width: 75vw;
   margin: 0 auto; 
+  overflow-x: auto; /* Enables horizontal scrolling */
+  white-space: nowrap; /* Prevents wrapping */
 }
 
 .book {
@@ -59,7 +60,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  flex-shrink: 0; /* Prevents shrinking */
 }
 
 .book img {
@@ -91,12 +92,11 @@ a {
   border-radius: 15px;
   border: 3px solid var(--mediumgreen);
   padding: 20px;
-  display: none; 
   transform: translateX(-10%);
 }
 
-.book-info-container.active {
-  display: block; 
+.hidden {
+  display: none; 
 }
 
 .book-info-container p {

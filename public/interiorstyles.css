@@ -1,17 +1,6 @@
-:root {
-  --parchment: #fcf5e5;
-  --darkgreen: #05211c;
-  --mediumgreen: #08382f;
-  --lightgreen: #0d594a;
-}
-
-* {
-  box-sizing: border-box;
-}
 
 body {
   background-color: black;
-  overflow: hidden;
   min-width: 3000px;
 }
 
@@ -24,15 +13,6 @@ body {
   background-color: var(--lightgreen);
   opacity: 1;
   transition: opacity 2s;
-}
-
-#librarian-canvas {
-  width: 40%;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: transparent;
-  image-rendering: pixelated;
 }
 
 .dialogue-div {
@@ -82,7 +62,6 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-family: 'Playwrite IT Moderna', serif;
   font-weight: 300;
   font-size: 25px;
 }
@@ -101,13 +80,11 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 17px;
-  font-family: 'Playwrite IT Moderna', serif;
   font-weight: 300;
 }
 
 #book-preference-input-label {
   font-size: 29px;
-  text-align: center;
 }
 
 #book-preference-input {
@@ -124,7 +101,6 @@ body {
   border: none;
   width: 110px;
   height: 40px;
-  font-family: 'Playwrite IT Moderna', serif;
   font-size: 20px;
   color: white;
 }
@@ -139,65 +115,10 @@ body {
   top: 50%;
   transform: translateY(-50%);
   margin-left: 17px;
-  background-color: var(--parchment);
-  border-radius: 15px;
-  border: 3px solid var(--mediumgreen);
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding: 20px;
-  font-family: 'Playwrite IT Moderna', serif;
   font-weight: 300;
-}
-
-.book {
-  width: 144px;
-  height: 216px;
-  border: 3px solid var(--mediumgreen);
-  position: relative;
-}
-
-.book-info-container {
-  width: 600px;
-  height: 170px;
-  background-color: var(--parchment);
-  border-radius: 15px;
-  border: 3px solid var(--mediumgreen);
-  position: absolute;
-  bottom: 19px;
-  left: 50%;
-  transform: translateX(-40%);
-}
-
-.book-info-container > p {
-  font-family: 'Playwrite IT Moderna', serif;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 16px;
-  margin-left: 10px;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.book-btn {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  left: 10px;
-  background-color: var(--mediumgreen);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 20px;
-}
-
-.book-btn:hover {
-  box-shadow: 0 0 3px 3px var(--lightgreen);
 }
 
 .accept {
@@ -216,7 +137,6 @@ img {
   background-color: white;
   color: black;
   font-size: 15px;
-  text-align: center;
   line-height: 20px;
 }
 
@@ -228,7 +148,6 @@ img {
   background-color: white;
   color: black;
   font-size: 15px;
-  text-align: center;
   line-height: 20px;
 }
 
@@ -240,26 +159,4 @@ img {
   height: 10px;
   border-radius: 2px;
   background-color: red;
-}
-
-#darkness {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: black;
-  opacity: 1;
-  transition: opacity 2s;
-}
-
-.hidden {
-  display: none;
-}
-
-a {
-  color: white;
-  font-family: 'Playwrite IT Moderna', serif;
-  font-weight: 300;
-  font-size: 25px;
 }

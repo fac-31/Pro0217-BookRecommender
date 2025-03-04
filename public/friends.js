@@ -30,4 +30,6 @@ const newFriendUsername = "Bob";
 
 const newFriendLink = document.createElement("a");
 newFriendLink.innerText = `${newFriendUsername}`;
+localStorage.setItem("friendUsername", `${newFriendUsername}`);
+newFriendLink.href = "/theirbooks";
 friendsContainer.appendChild(newFriendLink);

@@ -1,9 +1,13 @@
 const doorCreak = new Audio("/door-creaking.mp3");
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("darkness").style.opacity = 0;
+  const darkness = document.getElementById("darkness");
+  if (!darkness)
+    return; // page don't have darkness
+
+  darkness.style.opacity = 0;
   setTimeout(() => {
-    document.getElementById("darkness").classList.add("hidden");
+    darkness.classList.add("hidden");
   }, 2000);
 });
 

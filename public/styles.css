@@ -100,6 +100,38 @@ a {
   margin: 10px 0;
 }
 
+
+.accept {
+  top: 10px;
+}
+
+.reject {
+  top: 50px;
+}
+
+.accept-btn-label {
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  background-color: white;
+  color: black;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.reject-btn-label {
+  height: 30px;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  background-color: white;
+  color: black;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+
 #librarian-canvas {
   width: 40%;
   position: absolute;

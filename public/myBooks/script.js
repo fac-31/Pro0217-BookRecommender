@@ -31,13 +31,11 @@ async function fetchUsersBooks()
   }
 
   const books = await response.json();
-
   const bookContainer = document.getElementById('my-books-container');
   const bookInfoContainer = document.querySelector('.book-info-container');
 
   books.forEach((book) => {
     const bookDiv = document.createElement('div');
-
 
     bookDiv.addEventListener('mouseenter', () => {
       bookInfoContainer.classList.remove("hidden");
@@ -72,12 +70,7 @@ async function fetchUsersBooks()
     bookContainer.appendChild(bookDiv);
   });
 
-  // Close the book-info-container when clicking outside of it
-  document.addEventListener('click', (event) => {
-    if (!bookInfoContainer.contains(event.target) && !event.target.closest('.book')) {
-      bookInfoContainer.classList.remove('active');
-    }
-  });
+  
 }
 
 async function fetchUserRecommendation()
@@ -91,37 +84,14 @@ async function fetchUserRecommendation()
     },
   });
   
-  const booksJsonObject = await response.json();
- const books = booksJsonObject.books;
+  const data = await response.json();
   console.log("retrieved by preference");
-  console.log(books);
+  console.log(data);
   const bookRecommendationContainer = document.getElementById('my-recommendations-container');
-  const bookInfoContainer = document.querySelector('.book-info-container');
+  const bookInfoContainer1 = document.querySelector('.book-info-container');
+  const length = 4;
+  createBookElements(data, length, bookRecommendationContainer, bookInfoContainer1);
 
-  books.forEach((book) => {
-    const bookDiv = document.createElement('div');
-
-    bookDiv.addEventListener('mouseenter', () => {
-      bookInfoContainer.classList.remove("hidden");
-      document.getElementById('title').innerText = `Title: ${book.title}`;
-      document.getElementById('author').innerText = `Author: ${book.author}`;
-      document.getElementById('year').innerText = `Year: ${book.year}`;
-    });
-
-    bookDiv.addEventListener('mouseleave', () => {
-      bookInfoContainer.classList.add("hidden");
-    
-    });
-
-    bookDiv.classList.add('book');
-    bookDiv.id = book.ID;
-    const img = document.createElement('img');
-    img.src = book.cover;
-    img.alt = book.title;
-
-    bookDiv.appendChild(img);
-    bookRecommendationContainer.appendChild(bookDiv);
-  });
 
 }
 

@@ -121,36 +121,6 @@ body {
   font-weight: 300;
 }
 
-.accept {
-  top: 10px;
-}
-
-.reject {
-  top: 50px;
-}
-
-.accept-btn-label {
-  height: 30px;
-  position: absolute;
-  top: 10px;
-  left: 50px;
-  background-color: white;
-  color: black;
-  font-size: 15px;
-  line-height: 20px;
-}
-
-.reject-btn-label {
-  height: 30px;
-  position: absolute;
-  top: 50px;
-  left: 50px;
-  background-color: white;
-  color: black;
-  font-size: 15px;
-  line-height: 20px;
-}
-
 #exit-btn {
   position: absolute;
   top: 10px;

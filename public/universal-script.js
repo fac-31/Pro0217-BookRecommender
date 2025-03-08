@@ -19,13 +19,13 @@ const pageTransitionFunc = (destination) => {
   }, 2000);
 };
 
-const judgementPassed = (key, book) => {
+const judgementPassed = (key, book, add=true) => {
   console.log(book);
   const dataToSend = {
     user_id: localStorage.getItem('userID'),
     book: book,
     key: key,
-    add: true,
+    add: add,
   };
 
   fetch('/users/update-book', {

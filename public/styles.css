@@ -57,7 +57,7 @@ body {
   background-color: var(--darkgreen);
 }
 
-#want-to-read {
+.nav-bar-link {
   text-decoration: none;
   color: white;
   font-family: 'Playwrite IT Moderna', serif;
@@ -65,7 +65,7 @@ body {
   font-size: 1.5rem;
 }
 
-#want-to-read:hover {
+.nav-bar-link:hover {
   text-decoration: underline;
 }
 

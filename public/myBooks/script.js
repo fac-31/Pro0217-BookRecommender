@@ -1,5 +1,54 @@
 const username = localStorage.getItem('username');
 const userId = localStorage.getItem('userID');
+
+const createMyBooksElements = (books, bookContainer) => {
+  const librarianDialogue = document.querySelector('.dialogue-div');
+
+  for (let i = 0; i < books.length; i++) {
+    const book = books[i];
+    const bookDiv = document.createElement('div');
+    bookDiv.classList.add('book');
+
+    //add image
+    const img = document.createElement('img');
+    img.src = book.cover;
+    img.alt = book.title;
+    bookDiv.appendChild(img);
+
+    // Add mouseover event for book info
+    bookDiv.addEventListener('mouseover', () => {
+      if (librarianDialogue) {
+        librarianDialogue.innerHTML = `<p>${book.title}, by ${book.author} was released in ${book.year}.</p>`;
+      }
+    });
+
+    // Create remove button
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.classList.add('book-buttons');
+
+    const removeBtn = document.createElement('button');
+    removeBtn.classList.add('reject');
+    removeBtn.innerHTML = '✕';
+    removeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      judgementPassed('likes', book, false);
+      bookDiv.remove();
+      if (librarianDialogue) {
+        librarianDialogue.innerHTML = `<p>I've removed "${book.title}" from your reading list.</p>`;
+      }
+    });
+    removeBtn.addEventListener('mouseenter', () => {
+      if (librarianDialogue) {
+        librarianDialogue.innerHTML = `<p>Would you like to remove "${book.title}" from your reading list?</p>`;
+      }
+    });
+
+    buttonsDiv.appendChild(removeBtn);
+    bookDiv.appendChild(buttonsDiv);
+    bookContainer.appendChild(bookDiv);
+  }
+};
+
 if (username) {
   document.getElementById(
     'readingListTitle'
@@ -31,9 +80,7 @@ async function fetchUsersBooks() {
 
   const books = await response.json();
   const bookContainer = document.getElementById('my-books-container');
-  console.log(books);
-  console.log(books.length);
-  createBookElements(books, books.length, bookContainer);
+  createMyBooksElements(books, bookContainer);
 }
 
 async function fetchUserRecommendation() {

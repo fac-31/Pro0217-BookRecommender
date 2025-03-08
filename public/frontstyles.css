@@ -1,6 +1,8 @@
 body {
   background-color: black;
   image-rendering: pixelated;
+  --mediumbrown: #61462f;
+  --darkbrown: #3b2c20;
 }
 
 #library-front {
@@ -9,7 +11,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-image: url("/images/library-front.png");
+  background-image: url('/images/library-front.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -32,10 +34,7 @@ body {
   font-size: 60px;
   line-height: 40px;
   margin: 0;
-  background-color: var(--lightbrown);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--parchment);
   text-shadow: -1px -1px 1px rgba(31, 16, 3, 0.5);
 }
 
@@ -57,12 +56,10 @@ body {
 }
 
 #first-name-input-label {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 40px;
-  background-color: var(--lightbrown);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  text-align: center;
+  color: var(--parchment); /* Set text color to parchment */
   text-shadow: -1px -1px 1px rgba(31, 16, 3, 0.5);
 }
 
@@ -70,7 +67,7 @@ body {
   width: 300px;
   background-color: var(--parchment);
   border: 5px inset var(--darkbrown);
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   font-size: 30px;
   line-height: 50px;
   text-align: center;
@@ -84,16 +81,41 @@ body {
 
 #submit-btn > p {
   margin: 0;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 35px;
   line-height: 35px;
-  background-color: var(--gold);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  text-align: center;
+  color: var(--parchment); /* Set text color to parchment */
   text-shadow: -1px -1px 1px rgba(133, 109, 48, 0.65);
 }
 
 #submit-btn:focus {
   border: 5px inset var(--gold);
+}
+
+@media (max-width: 480px) {
+  .registration-form {
+    width: 90vw;
+    height: auto;
+    padding: 5px;
+  }
+
+  #first-name-input-label {
+    font-size: 6vw;
+  }
+
+  #first-name-input {
+    width: 80vw;
+    font-size: 5vw;
+    line-height: 7vw;
+  }
+
+  #submit-btn {
+    width: 40vw;
+  }
+
+  #submit-btn > p {
+    font-size: 5vw;
+    line-height: 5vw;
+  }
 }

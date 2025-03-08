@@ -1,0 +1,153 @@
+:root {
+  --parchment: #fcf5e5;
+  --lightgreen: #0d594a;
+  --mediumgreen: #08382f;
+  --darkgreen: #05211c;
+  --lightbrown: #8a5f3a;
+  --mediumbrown: #61462f;
+  --darkbrown: #3b2c20;
+  --lightgold: #fff5bd;
+  --mediumgold: #bb9b49;
+  --gold: #eac25c;
+  --darkgold: #856d30;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--lightgreen);
+  font-family: 'Playwrite IT Moderna', serif;
+  text-align: center;
+  overflow: hidden;
+}
+
+a {
+  color: var(--parchment);
+  font-weight: 300;
+  font-size: 25px;
+}
+
+.hidden {
+  display: none !important; 
+}
+
+.book {
+  border: 3px solid var(--mediumgreen);
+  background-color: white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0; /* Prevents shrinking */
+}
+
+.book img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-btn {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 10px;
+  background-color: var(--mediumgreen);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.book-btn:hover {
+  box-shadow: 0 0 3px 3px var(--lightgreen);
+}
+
+.book-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--parchment);
+  border-radius: 15px;
+  border: 3px solid var(--mediumgreen);
+  max-width: 75vw;
+  margin: 0 auto; 
+  overflow-x: auto; /* Enables horizontal scrolling */
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+.book-info-container {
+  position: fixed;
+  bottom: 10vh; 
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 40vw; 
+  max-width: 90vw; 
+  min-height: 20vh; 
+  max-height: 50vh; 
+  background-color: var(--parchment);
+  border-radius: 15px;
+  border: 3px solid var(--mediumgreen);
+  padding: 20px;
+  transform: translateX(-10%);
+  text-align: left;
+}
+
+.book-info-container p {
+  margin: 10px 0;
+}
+
+
+.accept {
+  top: 10px;
+}
+
+.reject {
+  top: 50px;
+}
+
+.accept-btn-label {
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  left: 50px;
+  background-color: white;
+  color: black;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.reject-btn-label {
+  height: 30px;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  background-color: white;
+  color: black;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+
+#librarian-canvas {
+  width: 40%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: transparent;
+  image-rendering: pixelated;
+}
+
+#darkness {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  opacity: 1;
+  transition: opacity 2s;
+}

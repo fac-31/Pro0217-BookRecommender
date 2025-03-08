@@ -13,7 +13,7 @@ registrationForm.onsubmit = (e) => {
     librarySign.remove();
     registrationForm.remove();
     document.getElementById("library-front").style.opacity = 0;
-    pageTransitionFunc("/library-interior.html");
+    pageTransitionFunc("/library-interior");
   }, 2000);
 
   createUser();

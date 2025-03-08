@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="../styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,22 +14,26 @@
 
   <body>
     <div id="container">
-      <a href="/library-interior.html" id="want-to-read">recommendations</a>
-      <h1 id="readingListTitle">My Reading List</h1>
-      <div class="content-container">
-        <div class="my-books-container" id="my-books-container"></div>
-        <div class="book-info-container hidden">
-          <p id="title">Title:</p>
-          <p id="author">Author:</p>
-          <p id="year">Year:</p>
-          <!--<p id="likes">Likes:</p>-->
-        </div>
-        <canvas id="librarian-canvas" width="70" height="70"></canvas>
+      <a href="/library-interior">recommendations</a>
+      
+      <h3 id="readingListTitle">My Reading List</h3>
+      <div class="book-container" id="my-books-container"></div>
+
+      <h3 id="recommendationsListTitle">My Recommendations List</h3>
+      <div class="book-container" id="my-recommendations-container"></div>
+
+      <div class="book-info-container hidden">
+        <p id="title">Title:</p>
+        <p id="author">Author:</p>
+        <p id="year">Year:</p>
       </div>
+
     </div>
+    <canvas id="librarian-canvas" width="70" height="70" style="width: 25%;"></canvas>
+
     <!-- for the librarian animation -->
-    <script src="../universal-script.js"></script> 
-    
+    <script src="../universal-script.js"></script>
+    <script src="../librarian-script.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

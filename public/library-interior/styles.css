@@ -1,3 +1,4 @@
+<<<<<<< HEAD:public/interiorstyles.css
 :root {
   --parchment: #fcf5e5;
   --beige: #f2e6c9;
@@ -12,6 +13,11 @@
 
 body {
   overflow: hidden;
+=======
+
+body {
+  background-color: black;
+>>>>>>> main:public/library-interior/styles.css
   min-width: 3000px;
 }
 
@@ -26,6 +32,7 @@ body {
   transition: opacity 2s;
 }
 
+<<<<<<< HEAD:public/interiorstyles.css
 #menu {
   list-style-type: none;
   margin: 0;
@@ -98,6 +105,8 @@ span {
   image-rendering: pixelated;
 }
 
+=======
+>>>>>>> main:public/library-interior/styles.css
 .dialogue-div {
   width: 275px;
   height: 150px;
@@ -145,7 +154,10 @@ span {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+<<<<<<< HEAD:public/interiorstyles.css
   font-family: "Playwrite IT Moderna", serif;
+=======
+>>>>>>> main:public/library-interior/styles.css
   font-weight: 300;
   font-size: 25px;
 }
@@ -164,13 +176,15 @@ span {
   justify-content: space-between;
   align-items: center;
   padding: 17px;
+<<<<<<< HEAD:public/interiorstyles.css
   font-family: "Playwrite IT Moderna", serif;
+=======
+>>>>>>> main:public/library-interior/styles.css
   font-weight: 300;
 }
 
 #book-preference-input-label {
   font-size: 29px;
-  text-align: center;
 }
 
 #book-preference-input {
@@ -187,7 +201,10 @@ span {
   border: none;
   width: 110px;
   height: 40px;
+<<<<<<< HEAD:public/interiorstyles.css
   font-family: "Playwrite IT Moderna", serif;
+=======
+>>>>>>> main:public/library-interior/styles.css
   font-size: 20px;
   color: white;
 }
@@ -202,12 +219,10 @@ span {
   top: 50%;
   transform: translateY(-50%);
   margin-left: 17px;
-  background-color: var(--parchment);
-  border-radius: 15px;
-  border: 3px solid var(--mediumgreen);
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
+<<<<<<< HEAD:public/interiorstyles.css
   gap: 20px;
   padding: 20px;
   font-family: "Playwrite IT Moderna", serif;
@@ -295,6 +310,11 @@ img {
   line-height: 20px;
 }
 
+=======
+  font-weight: 300;
+}
+
+>>>>>>> main:public/library-interior/styles.css
 #exit-btn {
   position: absolute;
   top: 10px;
@@ -304,6 +324,7 @@ img {
   border-radius: 2px;
   background-color: red;
 }
+<<<<<<< HEAD:public/interiorstyles.css
 
 #darkness {
   position: fixed;
@@ -326,3 +347,5 @@ img {
   font-weight: 300;
   font-size: 25px;
 } */
+=======
+>>>>>>> main:public/library-interior/styles.css

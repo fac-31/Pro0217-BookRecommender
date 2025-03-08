@@ -1,12 +1,7 @@
-POST http://localhost:3000/recommendations/byUserPreferences
-Content-Type: application/json
-
-{
-    "user_id": 1
-}
+POST http://localhost:3000/recommendations/byUserPreferences/1
 
 # example response
-#  (assuming that the user id has the following:
+#  assuming that the user id 1 has the following:
 #  {
 #       "username": "sefi",
 #       "id": 1,

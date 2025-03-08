@@ -1,5 +1,6 @@
 :root {
   --parchment: #fcf5e5;
+  --beige: #e0c586;
   --lightgreen: #0d594a;
   --mediumgreen: #08382f;
   --darkgreen: #05211c;
@@ -18,7 +19,7 @@
 
 body {
   background-color: var(--lightgreen);
-  font-family: 'Playwrite IT Moderna', serif;
+  font-family: "Playwrite IT Moderna", serif;
   text-align: center;
   overflow: hidden;
 }
@@ -30,7 +31,7 @@ a {
 }
 
 .hidden {
-  display: none !important; 
+  display: none !important;
 }
 
 .book {
@@ -74,20 +75,20 @@ a {
   border-radius: 15px;
   border: 3px solid var(--mediumgreen);
   max-width: 75vw;
-  margin: 0 auto; 
+  margin: 0 auto;
   overflow-x: auto; /* Enables horizontal scrolling */
   white-space: nowrap; /* Prevents wrapping */
 }
 
 .book-info-container {
   position: fixed;
-  bottom: 10vh; 
+  bottom: 10vh;
   left: 50%;
   transform: translateX(-50%);
-  min-width: 40vw; 
-  max-width: 90vw; 
-  min-height: 20vh; 
-  max-height: 50vh; 
+  min-width: 40vw;
+  max-width: 90vw;
+  min-height: 20vh;
+  max-height: 50vh;
   background-color: var(--parchment);
   border-radius: 15px;
   border: 3px solid var(--mediumgreen);
@@ -99,7 +100,6 @@ a {
 .book-info-container p {
   margin: 10px 0;
 }
-
 
 .accept {
   top: 10px;
@@ -130,7 +130,6 @@ a {
   font-size: 15px;
   line-height: 20px;
 }
-
 
 #librarian-canvas {
   width: 40%;

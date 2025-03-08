@@ -21,7 +21,16 @@
       <h1>Welcome to the Interactive Book Recommendations Project</h1>
     </header>
     <div id="library-background">
-      <a href="/mybooks">My Books</a>
+      <ul id="menu">
+        <li><a href="../mybooks" id="want-to-read">My Books</a></li>
+        <li class="dropdown">
+          <span class="dropdown-btn">My Friends</span>
+          <div class="friends">
+            <a class="add-friend" href="#">Add friend</a>
+          </div>
+          <div class="remaining-users hidden"></div>
+        </li>
+      </ul>
       <canvas id="librarian-canvas" width="70" height="70"></canvas>
 
       <div class="dialogue-div">
@@ -42,8 +51,10 @@
         <button id="submit-btn" type="submit">SUBMIT</button>
       </form>
 
-      <div id="user-prompt-recommendations-container" class="book-container hidden">
-      </div>
+      <div
+        id="user-prompt-recommendations-container"
+        class="book-container hidden"
+      ></div>
 
       <div class="book-info-container hidden">
         <p id="title">Title:</p>
@@ -59,6 +70,7 @@
 
     <script src="../universal-script.js"></script>
     <script src="../librarian-script.js"></script>
+    <script src="friends.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

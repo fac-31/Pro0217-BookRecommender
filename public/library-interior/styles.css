@@ -1,4 +1,3 @@
-
 body {
   background-color: black;
   min-width: 3000px;
@@ -15,6 +14,78 @@ body {
   transition: opacity 2s;
 }
 
+#menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#menu > li {
+  float: left;
+  background-color: var(--mediumgreen);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+#menu > li > a,
+span {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  font-size: 30px;
+  font-family: "Playwrite IT Moderna", serif;
+  font-weight: 400;
+  color: white;
+}
+
+.friends,
+.remaining-users {
+  display: none;
+  position: absolute;
+  background-color: var(--parchment);
+  width: 100%;
+  z-index: 1;
+}
+
+.remaining-users {
+  left: 100%;
+  display: block;
+}
+
+.friends a,
+.remaining-users a {
+  color: black;
+  padding: 10px;
+  font-family: "Playwrite IT Moderna", serif;
+  text-decoration: none;
+  display: block;
+}
+
+#menu > li:hover {
+  background-color: var(--darkgreen);
+}
+
+.dropdown:hover .friends {
+  display: block;
+}
+
+.friends a:hover,
+.remaining-users a:hover {
+  background-color: var(--beige);
+}
+
+#librarian-canvas {
+  width: 40%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: transparent;
+  image-rendering: pixelated;
+}
+
 .dialogue-div {
   width: 275px;
   height: 150px;
@@ -27,7 +98,7 @@ body {
 }
 
 .dialogue-div:before {
-  content: '';
+  content: "";
   position: absolute;
   right: 0;
   top: 50%;
@@ -41,7 +112,7 @@ body {
 }
 
 .dialogue-div:after {
-  content: '';
+  content: "";
   position: absolute;
   right: 0;
   top: 50%;

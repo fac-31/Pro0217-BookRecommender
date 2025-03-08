@@ -1,15 +1,15 @@
-import { userSchema } from '../models/schemas/userSchema.js';
-import { bookSchema } from '../models/schemas/bookSchema.js';
-import { fetchAPI, getOrCreateFromAPI } from '../models/api.js';
+import { userSchema } from "../models/schemas/userSchema.js";
+import { bookSchema } from "../models/schemas/bookSchema.js";
+import { fetchAPI, getOrCreateFromAPI } from "../models/api.js";
 
 // GET all users (Read)
 export async function getUsers(req, res) {
   try {
-    res.send(await fetchAPI(req, 'users', 'GET'));
+    res.send(await fetchAPI(req, "users", "GET"));
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Error fetching users', error: error.message });
+      .json({ message: "Error fetching users", error: error.message });
   }
 }
 
@@ -22,7 +22,7 @@ export async function getUser(req, res) {
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Error fetching user', error: error.message });
+      .json({ message: "Error fetching user", error: error.message });
   }
 }
 
@@ -30,16 +30,22 @@ export async function getUser(req, res) {
 export async function createUser(req, res) {
   try {
     const user_default = {
-      username: req.body.username
+      username: req.body.username,
     };
 
     // Get an existing user, if doesn't exist then create a new one
-    let user = await getOrCreateFromAPI(req, 'users', userSchema, user_default, 'username');
+    let user = await getOrCreateFromAPI(
+      req,
+      "users",
+      userSchema,
+      user_default,
+      "username"
+    );
     res.send(user);
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Error creating user', error: error.message });
+      .json({ message: "Error creating user", error: error.message });
   }
 }
 
@@ -51,22 +57,21 @@ export async function updateBook(req, res) {
     let key = req.body.key; // "likes" or "dislikes"
     let add = req.body.add; // true to add, false to remove
 
-    let user = await fetchAPI(req, 'users/' + user_id, 'GET');
+    let user = await fetchAPI(req, "users/" + user_id, "GET");
     if (Object.keys(user).length == 0)
-      res.status(400).json({ error: 'Invalid user id' });
+      res.status(400).json({ error: "Invalid user id" });
 
     user = userSchema.parse(user);
-    if (user[key] === undefined)
-      res.status(400).json({ error: 'Invalid key' });
+    if (user[key] === undefined) res.status(400).json({ error: "Invalid key" });
 
     if (add && !user[key].includes(book.id)) {
       // Add book id into user array
       user[key].push(book.id);
 
       // Add book infos to the list, if does not exist
-      await getOrCreateFromAPI(req, 'books', bookSchema, book, 'id');
+      await getOrCreateFromAPI(req, "books", bookSchema, book, "id");
 
-      res.send(await fetchAPI(req, 'users/' + user_id, 'PATCH', user));
+      res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
     } else if (!add && user[key].includes(book.id)) {
       // Remove book id from the array
       let index = user[key].indexOf(book.id);
@@ -74,12 +79,49 @@ export async function updateBook(req, res) {
 
       // TODO, remove book from the list?
 
-      res.send(await fetchAPI(req, 'users/' + user_id, 'PATCH', user));
+      res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
     }
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Error updating user book', error: error.message });
+      .json({ message: "Error updating user book", error: error.message });
+  }
+}
+
+// UPDATE user's friend list (i.e. add or remove friend)
+export async function updateFriend(req, res) {
+  try {
+    let user_id = req.body.user_id;
+    let friend_id = req.body.friend_id;
+    let key = req.body.key; // "friends"
+    let add = req.body.add; // true to add, false to remove
+
+    let user = await fetchAPI(req, "users/" + user_id, "GET");
+    if (Object.keys(user).length == 0)
+      res.status(400).json({ error: "Invalid user id" });
+
+    user = userSchema.parse(user);
+    if (user[key] === undefined) res.status(400).json({ error: "Invalid key" });
+
+    if (add && !user[key].includes(friend_id)) {
+      // Add new friend id to "friends" array
+      user[key].push(friend_id);
+
+      res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
+    } else if (!add && user[key].includes(friend_id)) {
+      // Remove friend id from "friends" array
+      let index = user[key].indexOf(friend_id);
+      user[key].splice(index, 1);
+
+      res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        message: "Error updating user friend list",
+        error: error.message,
+      });
   }
 }
 
@@ -87,24 +129,24 @@ export async function updateBook(req, res) {
 export async function updateUser(req, res) {
   try {
     res.send(
-      await fetchAPI(req, 'users/' + req.params.id, 'PATCH', {
-        name: 'Changed',
+      await fetchAPI(req, "users/" + req.params.id, "PATCH", {
+        name: "Changed",
       })
     );
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Error updating user', error: error.message });
+      .json({ message: "Error updating user", error: error.message });
   }
 }
 
 // DELETE a user
 export async function deleteUser(req, res) {
   try {
-    res.send(await fetchAPI(req, 'users/' + req.params.id, 'DELETE'));
+    res.send(await fetchAPI(req, "users/" + req.params.id, "DELETE"));
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Error deleting user', error: error.message });
+      .json({ message: "Error deleting user", error: error.message });
   }
 }

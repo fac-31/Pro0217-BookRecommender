@@ -1,23 +1,5 @@
-<<<<<<< HEAD:public/interiorstyles.css
-:root {
-  --parchment: #fcf5e5;
-  --beige: #f2e6c9;
-  --darkgreen: #05211c;
-  --mediumgreen: #08382f;
-  --lightgreen: #0d594a;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  overflow: hidden;
-=======
-
 body {
   background-color: black;
->>>>>>> main:public/library-interior/styles.css
   min-width: 3000px;
 }
 
@@ -32,7 +14,6 @@ body {
   transition: opacity 2s;
 }
 
-<<<<<<< HEAD:public/interiorstyles.css
 #menu {
   list-style-type: none;
   margin: 0;
@@ -105,8 +86,6 @@ span {
   image-rendering: pixelated;
 }
 
-=======
->>>>>>> main:public/library-interior/styles.css
 .dialogue-div {
   width: 275px;
   height: 150px;
@@ -154,10 +133,6 @@ span {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-<<<<<<< HEAD:public/interiorstyles.css
-  font-family: "Playwrite IT Moderna", serif;
-=======
->>>>>>> main:public/library-interior/styles.css
   font-weight: 300;
   font-size: 25px;
 }
@@ -176,10 +151,6 @@ span {
   justify-content: space-between;
   align-items: center;
   padding: 17px;
-<<<<<<< HEAD:public/interiorstyles.css
-  font-family: "Playwrite IT Moderna", serif;
-=======
->>>>>>> main:public/library-interior/styles.css
   font-weight: 300;
 }
 
@@ -201,10 +172,6 @@ span {
   border: none;
   width: 110px;
   height: 40px;
-<<<<<<< HEAD:public/interiorstyles.css
-  font-family: "Playwrite IT Moderna", serif;
-=======
->>>>>>> main:public/library-interior/styles.css
   font-size: 20px;
   color: white;
 }
@@ -222,99 +189,9 @@ span {
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-<<<<<<< HEAD:public/interiorstyles.css
-  gap: 20px;
-  padding: 20px;
-  font-family: "Playwrite IT Moderna", serif;
   font-weight: 300;
 }
 
-.book {
-  width: 144px;
-  height: 216px;
-  border: 3px solid var(--mediumgreen);
-  position: relative;
-}
-
-.book-info-container {
-  width: 600px;
-  height: 170px;
-  background-color: var(--parchment);
-  border-radius: 15px;
-  border: 3px solid var(--mediumgreen);
-  position: absolute;
-  bottom: 19px;
-  left: 50%;
-  transform: translateX(-40%);
-}
-
-.book-info-container > p {
-  font-family: "Playwrite IT Moderna", serif;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 16px;
-  margin-left: 10px;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.book-btn {
-  width: 30px;
-  height: 30px;
-  position: absolute;
-  left: 10px;
-  background-color: var(--mediumgreen);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 20px;
-}
-
-.book-btn:hover {
-  box-shadow: 0 0 3px 3px var(--lightgreen);
-}
-
-.accept {
-  top: 10px;
-}
-
-.reject {
-  top: 50px;
-}
-
-.accept-btn-label {
-  height: 30px;
-  position: absolute;
-  top: 10px;
-  left: 50px;
-  background-color: white;
-  color: black;
-  font-size: 15px;
-  text-align: center;
-  line-height: 20px;
-}
-
-.reject-btn-label {
-  height: 30px;
-  position: absolute;
-  top: 50px;
-  left: 50px;
-  background-color: white;
-  color: black;
-  font-size: 15px;
-  text-align: center;
-  line-height: 20px;
-}
-
-=======
-  font-weight: 300;
-}
-
->>>>>>> main:public/library-interior/styles.css
 #exit-btn {
   position: absolute;
   top: 10px;
@@ -324,28 +201,3 @@ img {
   border-radius: 2px;
   background-color: red;
 }
-<<<<<<< HEAD:public/interiorstyles.css
-
-#darkness {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: black;
-  opacity: 1;
-  transition: opacity 2s;
-}
-
-.hidden {
-  display: none;
-}
-
-/* a {
-  color: white;
-  font-family: "Playwrite IT Moderna", serif;
-  font-weight: 300;
-  font-size: 25px;
-} */
-=======
->>>>>>> main:public/library-interior/styles.css

@@ -30,11 +30,17 @@ export async function getUser(req, res) {
 export async function createUser(req, res) {
   try {
     const user_default = {
-      username: req.body.username
+      username: req.body.username,
     };
 
     // Get an existing user, if doesn't exist then create a new one
-    let user = await getOrCreateFromAPI(req, 'users', userSchema, user_default, 'username');
+    let user = await getOrCreateFromAPI(
+      req,
+      'users',
+      userSchema,
+      user_default,
+      'username'
+    );
     res.send(user);
   } catch (error) {
     res
@@ -46,18 +52,21 @@ export async function createUser(req, res) {
 // UPDATE book listings on user
 export async function updateBook(req, res) {
   try {
+    console.log('user_id, book, key, add, user: ', req.body);
     let user_id = req.body.user_id; // TODO add a password to check that user isnt cheating
     let book = bookSchema.parse(req.body.book); // Info object of a book
     let key = req.body.key; // "likes" or "dislikes"
     let add = req.body.add; // true to add, false to remove
 
+    console.log('key' ,req.body.key)
+
     let user = await fetchAPI(req, 'users/' + user_id, 'GET');
     if (Object.keys(user).length == 0)
-      res.status(400).json({ error: 'Invalid user id' });
+      return res.status(400).json({ error: 'Invalid user id' });
 
     user = userSchema.parse(user);
     if (user[key] === undefined)
-      res.status(400).json({ error: 'Invalid key' });
+      return res.status(400).json({ error: 'Invalid key' });
 
     if (add && !user[key].includes(book.id)) {
       // Add book id into user array
@@ -66,7 +75,7 @@ export async function updateBook(req, res) {
       // Add book infos to the list, if does not exist
       await getOrCreateFromAPI(req, 'books', bookSchema, book, 'id');
 
-      res.send(await fetchAPI(req, 'users/' + user_id, 'PATCH', user));
+      return res.send(await fetchAPI(req, 'users/' + user_id, 'PATCH', user));
     } else if (!add && user[key].includes(book.id)) {
       // Remove book id from the array
       let index = user[key].indexOf(book.id);
@@ -74,10 +83,10 @@ export async function updateBook(req, res) {
 
       // TODO, remove book from the list?
 
-      res.send(await fetchAPI(req, 'users/' + user_id, 'PATCH', user));
+      return res.send(await fetchAPI(req, 'users/' + user_id, 'PATCH', user));
     }
   } catch (error) {
-    res
+    return res
       .status(500)
       .json({ message: 'Error updating user book', error: error.message });
   }

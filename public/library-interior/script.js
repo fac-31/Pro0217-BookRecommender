@@ -15,7 +15,6 @@ bookPreferenceForm.onsubmit = (e) => {
   localStorage.setItem("userPrompt", userPrompt);
   console.log(userPrompt);
   setTimeout(() => {
-    librarianDialogue.classList.add("hidden");
     behindDesk = false;
     walkAway();
   }, 1000);

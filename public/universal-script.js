@@ -1,18 +1,17 @@
-const doorCreak = new Audio("/door-creaking.mp3");
+const doorCreak = new Audio('/door-creaking.mp3');
 
-document.addEventListener("DOMContentLoaded", () => {
-  const darkness = document.getElementById("darkness");
-  if (!darkness)
-    return; // page don't have darkness
+document.addEventListener('DOMContentLoaded', () => {
+  const darkness = document.getElementById('darkness');
+  if (!darkness) return; // page don't have darkness
 
   darkness.style.opacity = 0;
   setTimeout(() => {
-    darkness.classList.add("hidden");
+    darkness.classList.add('hidden');
   }, 2000);
 });
 
 const pageTransitionFunc = (destination) => {
-  doorCreak.addEventListener("ended", () => {
+  doorCreak.addEventListener('ended', () => {
     window.location.href = destination;
   });
   setTimeout(() => {
@@ -20,20 +19,19 @@ const pageTransitionFunc = (destination) => {
   }, 2000);
 };
 
-
-
 const judgementPassed = (key, book) => {
+  console.log(book);
   const dataToSend = {
-    user_id: localStorage.getItem("userID"),
+    user_id: localStorage.getItem('userID'),
     book: book,
     key: key,
     add: true,
   };
 
-  fetch("/users/update-book", {
-    method: "POST",
+  fetch('/users/update-book', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(dataToSend),
   })
@@ -42,73 +40,54 @@ const judgementPassed = (key, book) => {
       console.log(data);
     })
     .catch((error) => {
-      console.error("Error:", error);
+      console.error('Error:', error.message);
     });
 };
 
-
 const createButtonElements = (bookDiv, index, book) => {
-  
-  const acceptButton = document.createElement('button');
-  acceptButton.classList.add("book-btn", "accept", "hidden");
-  acceptButton.innerHTML = "&#10004;"; // Renders ✓
-  acceptButton.onclick = () => {
+  const librarianDialogue = document.querySelector('.dialogue-div');
+
+  // Create buttons container
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.classList.add('book-buttons');
+
+  // Create accept button
+  const acceptBtn = document.createElement('button');
+  acceptBtn.classList.add('accept');
+  acceptBtn.innerHTML = '✓';
+  acceptBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     judgementPassed('likes', book);
+    librarianDialogue.innerHTML = `<p>Good choice! I've added "${book.title}" to your reading list!<p>`;
+  });
+  acceptBtn.addEventListener('mouseenter', () => {
+    librarianDialogue.innerHTML = `<p>Interested, I can add it to your reading list?</p>`;
+  });
 
-  }
-
-  const acceptButtonLabel = document.createElement('div');
-  acceptButtonLabel.classList.add("accept-btn-label", "hidden");
-  acceptButtonLabel.innerHTML= "Add book to readlist";
-
-  acceptButton.onmouseenter = () => {
-    acceptButtonLabel.classList.toggle("hidden");
-  }
-  acceptButton.onmouseleave = () => {
-    acceptButtonLabel.classList.toggle("hidden");
-  }
- 
-  const rejectButton = document.createElement('button');
-  rejectButton.classList.add("book-btn", "reject", "hidden");
-  rejectButton.innerHTML = "&#10006;"; // Renders x
-
-  rejectButton.onclick = () => {
+  // Create reject button
+  const rejectBtn = document.createElement('button');
+  rejectBtn.classList.add('reject');
+  rejectBtn.innerHTML = '✕';
+  rejectBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
     judgementPassed('dislikes', book);
-  }
+    librarianDialogue.innerHTML = `<p>Got it! I won't recommend books like "${book.title}" going forward! <p>`;
+  });
+  rejectBtn.addEventListener('mouseenter', () => {
+    librarianDialogue.innerHTML = `<p>Not a fan of ${book.title}? I can remember to not recommend similar books in the future?</p>`;
+  });
 
-  const rejectButtonLabel = document.createElement('div');
-  rejectButtonLabel.classList.add("reject-btn-label", "hidden");
-  rejectButtonLabel.innerHTML= "Not interested";
+  buttonsDiv.appendChild(acceptBtn);
+  buttonsDiv.appendChild(rejectBtn);
+  bookDiv.appendChild(buttonsDiv);
+};
+const createBookElements = (data, length, bookRecommendationContainer) => {
+  const librarianDialogue = document.querySelector('.dialogue-div');
 
-  rejectButton.onmouseenter = () => {
-    rejectButtonLabel.classList.toggle("hidden");
-  }
-  rejectButton.onmouseleave = () => {
-    rejectButtonLabel.classList.toggle("hidden");
-  }
- 
-  bookDiv.appendChild(acceptButton);
-  bookDiv.appendChild(acceptButtonLabel);
-  bookDiv.appendChild(rejectButton);
-  bookDiv.appendChild(rejectButtonLabel);
-
-    // Reveal "want to read" and "not interested" buttons
-    bookDiv.onmouseenter = () => {
-      console.log("toggle accept and reject buttons");
-        acceptButton.classList.toggle("hidden");
-        rejectButton.classList.toggle("hidden");
-    };
-    // Hide "want to read" and "not interested" buttons
-    bookDiv.onmouseleave = () => {
-      acceptButton.classList.toggle("hidden");
-      rejectButton.classList.toggle("hidden");
-  };
-
-}
-const createBookElements = (data, length, bookRecommendationContainer, bookInfoContainer) => {
+  // Convert array to data object if needed
+  data = Array.isArray(data) ? { books: data } : data;
 
   for (let i = 0; i < length; i++) {
-
     const book = data.books[i];
     const bookDiv = document.createElement('div');
     bookDiv.classList.add('book');
@@ -118,25 +97,12 @@ const createBookElements = (data, length, bookRecommendationContainer, bookInfoC
     img.src = book.cover;
     img.alt = book.title;
     bookDiv.appendChild(img);
-
-    bookDiv.onclick = () => {
-      bookInfoContainer.classList.remove("hidden");
-      document.getElementById(
-        "title"
-      ).innerText = `Title: ${book.title}`;
-      document.getElementById(
-        "author"
-      ).innerText = `Author: ${book.author}`;
-      document.getElementById(
-        "year"
-      ).innerText = `Year: ${book.year}`;
-      document.getElementById(
-        "reason"
-      ).innerText = `Reason: ${book.reason_for_recommendation}`;
-    };
+    // Add mouseover event for book info
+    bookDiv.addEventListener('mouseover', () => {
+      librarianDialogue.innerHTML = `<p>${book.title}, by ${book.author} was released in ${book.year}. ${book.reason_for_recommendation}</p>`;
+    });
 
     createButtonElements(bookDiv, i, book);
     bookRecommendationContainer.appendChild(bookDiv);
   }
-
-} 
+};

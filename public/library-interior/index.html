@@ -17,11 +17,17 @@
 
   <body>
     <div id="library-background">
-      <div class="nav-bar">
-        <a href="/library-interior" id="recommendations" class="nav-bar-link">Recommendations</a>
-        <a href="/mybooks" id="want-to-read" class="nav-bar-link">My Books</a>
-        <button id="exit-btn" type="button" onclick="goBack()">Exit</button>
-      </div>
+      <ul id="menu">
+        <li class="dropdown">
+          <span class="dropdown-btn">My Friends</span>
+          <div class="friends">
+            <a class="add-friend" href="#">Add friend</a>
+          </div>
+          <div class="remaining-users hidden"></div>
+        </li>
+        <li><a href="../mybooks" id="want-to-read">My Books</a></li>
+        <li><a href="/..">Log out</a></li>
+      </ul>
       <div class="mid-section">
         <form class="book-preference-form" onsubmit="return false">
           <label id="book-preference-input-label" for="book-preference-input"

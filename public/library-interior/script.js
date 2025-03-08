@@ -25,7 +25,6 @@ bookPreferenceForm.onsubmit = (e) => {
 let foundBooks;
 let bookData;
 
-
 const checkLibrary = async () => {
   try {
     const response = await fetch("/recommendations", {
@@ -40,8 +39,15 @@ const checkLibrary = async () => {
     console.log(data);
 
     const length = 4;
-    const bookRecommendationContainer = document.getElementById('user-prompt-recommendations-container');
-    createBookElements(data, length, bookRecommendationContainer, bookInfoContainer);
+    const bookRecommendationContainer = document.getElementById(
+      "user-prompt-recommendations-container"
+    );
+    createBookElements(
+      data,
+      length,
+      bookRecommendationContainer,
+      bookInfoContainer
+    );
 
     foundBooks = true;
     comeBack();

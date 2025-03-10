@@ -1,3 +1,3 @@
-# Pro0217-BookRecommender
+# Book Recommender
 
-An app that recommends new reads!
+An library simulation app that recommends new reads, allows you to save books of interest to a personal reading list, generates new recommendations based on the content of your reading list and lets you add other users as friends (and snoop(y) on their reading lists too!)

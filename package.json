@@ -16,7 +16,9 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "nodemon server.js"
+		"dev": "nodemon server.js",
+		"check": "prettier --check .",
+		"format": "prettier --write ."
 	},
 	"dependencies": {
 		"dotenv": "^16.4.7",
@@ -26,6 +28,7 @@
 		"zod": "^3.24.2"
 	},
 	"devDependencies": {
-		"nodemon": "^3.1.9"
+		"nodemon": "^3.1.9",
+		"prettier": "^3.5.3"
 	}
 }

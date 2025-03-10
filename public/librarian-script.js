@@ -18,156 +18,106 @@ let behindDesk = true;
 let progress = canvasWidth / 2 - 27;
 
 const drawLibrarian = (x, y) => {
-    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    ctx.drawImage(librarianImage, 53 * frameX, 53 * frameY, 53, 53, x, y, 53, 53);
-    ctx.drawImage(
-        deskImage,
-        0,
-        0,
-        100,
-        100,
-        canvasWidth / 2 - 50,
-        canvasHeight / 2 - 26,
-        100,
-        100
-    );
+	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+	ctx.drawImage(librarianImage, 53 * frameX, 53 * frameY, 53, 53, x, y, 53, 53);
+	ctx.drawImage(deskImage, 0, 0, 100, 100, canvasWidth / 2 - 50, canvasHeight / 2 - 26, 100, 100);
 };
 
 const animateLibrarian = () => {
-    if (gameFrame % staggerFrames === 0) {
-        frameX = frameX < 1 ? frameX + 1 : 0;
-    }
-    gameFrame++;
+	if (gameFrame % staggerFrames === 0) {
+		frameX = frameX < 1 ? frameX + 1 : 0;
+	}
+	gameFrame++;
 };
 
 const librarianIdle = () => {
-    if (!behindDesk) return;
+	if (!behindDesk) return;
 
-    frameY = 0;
-    staggerFrames = 20;
-    drawLibrarian(canvasWidth / 2 - 27, 0);
-    animateLibrarian();
+	frameY = 0;
+	staggerFrames = 20;
+	drawLibrarian(canvasWidth / 2 - 27, 0);
+	animateLibrarian();
 
-    requestAnimationFrame(librarianIdle);
+	requestAnimationFrame(librarianIdle);
 };
 
 const walkAway = () => {
-  if (outOfFrame) {
-    checkLibrary();
-    return;
-  }
+	if (outOfFrame) {
+		checkLibrary();
+		return;
+	}
 
-  staggerFrames = 5;
-  frameY = 1;
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-  ctx.drawImage(
-    librarianImage,
-    53 * frameX,
-    53 * frameY,
-    53,
-    53,
-    progress,
-    0,
-    53,
-    53
-  );
+	staggerFrames = 5;
+	frameY = 1;
+	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+	ctx.drawImage(librarianImage, 53 * frameX, 53 * frameY, 53, 53, progress, 0, 53, 53);
 
-  ctx.drawImage(
-    deskImage,
-    0,
-    0,
-    100,
-    100,
-    canvasWidth / 2 - 50,
-    canvasHeight / 2 - 26,
-    100,
-    100
-  );
+	ctx.drawImage(deskImage, 0, 0, 100, 100, canvasWidth / 2 - 50, canvasHeight / 2 - 26, 100, 100);
 
-  if (gameFrame % staggerFrames === 0) {
-    if (frameX < 1) {
-      frameX++;
-    } else {
-      frameX = 0;
-    }
-  }
+	if (gameFrame % staggerFrames === 0) {
+		if (frameX < 1) {
+			frameX++;
+		} else {
+			frameX = 0;
+		}
+	}
 
-  gameFrame++;
+	gameFrame++;
 
-  if (progress < canvasWidth - 10) {
-    progress++;
-  } else {
-    outOfFrame = true;
-  }
+	if (progress < canvasWidth - 10) {
+		progress++;
+	} else {
+		outOfFrame = true;
+	}
 
-  setTimeout(() => {
-    requestAnimationFrame(walkAway);
-  }, 1000 / framesPerSecond);
+	setTimeout(() => {
+		requestAnimationFrame(walkAway);
+	}, 1000 / framesPerSecond);
 };
 
 const comeBack = () => {
-  if (behindDesk) {
-    librarianIdle();
+	if (behindDesk) {
+		librarianIdle();
 
-    if (foundBooks) {
-      librarianDialogue.innerHTML = "<p>Here we are, take a look at these!</p>";
-      librarianDialogue.classList.remove("hidden");
-      bookContainer.classList.remove("hidden");
-    } else {
-      librarianDialogue.innerHTML =
-        "<p>Sorry, I'm afraid we don't have any books that match your requirements. Can I find you something else?</p>";
-      librarianDialogue.classList.remove("hidden");
-      bookPreferenceForm.classList.remove("hidden");
-    }
-    return;
-  }
+		if (foundBooks) {
+			librarianDialogue.innerHTML = "<p>Here we are, take a look at these!</p>";
+			librarianDialogue.classList.remove("hidden");
+			bookContainer.classList.remove("hidden");
+		} else {
+			librarianDialogue.innerHTML =
+				"<p>Sorry, I'm afraid we don't have any books that match your requirements. Can I find you something else?</p>";
+			librarianDialogue.classList.remove("hidden");
+			bookPreferenceForm.classList.remove("hidden");
+		}
+		return;
+	}
 
-  staggerFrames = 5;
-  frameY = 2;
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-  ctx.drawImage(
-    librarianImage,
-    53 * frameX,
-    53 * frameY,
-    53,
-    53,
-    progress,
-    0,
-    53,
-    53
-  );
+	staggerFrames = 5;
+	frameY = 2;
+	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+	ctx.drawImage(librarianImage, 53 * frameX, 53 * frameY, 53, 53, progress, 0, 53, 53);
 
-  ctx.drawImage(
-    deskImage,
-    0,
-    0,
-    100,
-    100,
-    canvasWidth / 2 - 50,
-    canvasHeight / 2 - 26,
-    100,
-    100
-  );
+	ctx.drawImage(deskImage, 0, 0, 100, 100, canvasWidth / 2 - 50, canvasHeight / 2 - 26, 100, 100);
 
-  if (gameFrame % staggerFrames === 0) {
-    if (frameX < 1) {
-      frameX++;
-    } else {
-      frameX = 0;
-    }
-  }
+	if (gameFrame % staggerFrames === 0) {
+		if (frameX < 1) {
+			frameX++;
+		} else {
+			frameX = 0;
+		}
+	}
 
-  gameFrame++;
+	gameFrame++;
 
-  if (progress > canvasWidth / 2 - 27) {
-    progress--;
-  } else {
-    behindDesk = true;
-  }
+	if (progress > canvasWidth / 2 - 27) {
+		progress--;
+	} else {
+		behindDesk = true;
+	}
 
-  setTimeout(() => {
-    requestAnimationFrame(comeBack);
-  }, 1000 / framesPerSecond);
+	setTimeout(() => {
+		requestAnimationFrame(comeBack);
+	}, 1000 / framesPerSecond);
 };
 
 librarianIdle();

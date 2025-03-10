@@ -1,9 +1,12 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
-import { createRecommendations , createRecommendationsByUserPreferences} from '../controllers/recommendController.js';
+import {
+	createRecommendations,
+	createRecommendationsByUserPreferences,
+} from "../controllers/recommendController.js";
 
-router.post('/', createRecommendations);
-router.post('/byUserPreferences/:userId', createRecommendationsByUserPreferences);
+router.post("/", createRecommendations);
+router.post("/byUserPreferences/:userId", createRecommendationsByUserPreferences);
 
 // For the future
 // router.post('/:userId', createRecommendation); adds to the users history?

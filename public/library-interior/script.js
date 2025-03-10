@@ -10,59 +10,54 @@ const bookInfoContainer = document.querySelector(".book-info-container");
 let userPrompt = localStorage.getItem("userPrompt");
 
 bookPreferenceForm.onsubmit = (e) => {
-  e.preventDefault();
-  userPrompt = document.getElementById("book-preference-input").value;
-  localStorage.setItem("userPrompt", userPrompt);
-  console.log(userPrompt);
-  setTimeout(() => {
-    behindDesk = false;
-    walkAway();
-  }, 1000);
-  librarianDialogue.innerHTML = "<p>I'll be right back!</p>";
-  bookPreferenceForm.classList.add("hidden");
+	e.preventDefault();
+	userPrompt = document.getElementById("book-preference-input").value;
+	localStorage.setItem("userPrompt", userPrompt);
+	console.log(userPrompt);
+	setTimeout(() => {
+		behindDesk = false;
+		walkAway();
+	}, 1000);
+	librarianDialogue.innerHTML = "<p>I'll be right back!</p>";
+	bookPreferenceForm.classList.add("hidden");
 };
 
 let foundBooks;
 let bookData;
 
 const checkLibrary = async () => {
-  try {
-    const response = await fetch("/recommendations", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userPrompt }),
-    });
+	try {
+		const response = await fetch("/recommendations", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ userPrompt }),
+		});
 
-    const data = await response.json();
-    localStorage.setItem("bookData", JSON.stringify(data));
-    bookData = JSON.parse(localStorage.getItem("bookData"));
-    console.log(data);
+		const data = await response.json();
+		localStorage.setItem("bookData", JSON.stringify(data));
+		bookData = JSON.parse(localStorage.getItem("bookData"));
+		console.log(data);
 
-    const length = 4;
-    const bookRecommendationContainer = document.getElementById(
-      "user-prompt-recommendations-container"
-    );
-    createBookElements(
-      data,
-      length,
-      bookRecommendationContainer,
-      bookInfoContainer
-    );
+		const length = 4;
+		const bookRecommendationContainer = document.getElementById(
+			"user-prompt-recommendations-container",
+		);
+		createBookElements(data, length, bookRecommendationContainer, bookInfoContainer);
 
-    foundBooks = true;
-    comeBack();
-  } catch (error) {
-    console.error("Error:", error);
-    foundBooks = false;
-    comeBack();
-  }
+		foundBooks = true;
+		comeBack();
+	} catch (error) {
+		console.error("Error:", error);
+		foundBooks = false;
+		comeBack();
+	}
 };
 
 const goBack = () => {
-  document.getElementById("darkness").classList.opacity = 0;
-  document.getElementById("darkness").classList.remove("hidden");
-  document.getElementById("darkness").style.opacity = 1;
-  setTimeout(() => {
-    pageTransitionFunc("/index.html");
-  }, 2000);
+	document.getElementById("darkness").classList.opacity = 0;
+	document.getElementById("darkness").classList.remove("hidden");
+	document.getElementById("darkness").style.opacity = 1;
+	setTimeout(() => {
+		pageTransitionFunc("/index.html");
+	}, 2000);
 };

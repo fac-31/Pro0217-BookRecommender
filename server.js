@@ -6,6 +6,8 @@ const PORT = process.env.PORT || 3000;
 
 import jsonServer from "json-server";
 import fs from "fs";
+import path from "path";
+import url from "url";
 
 import { recommendRoutes } from "./routes/recommendRoutes.js";
 import { userRoutes } from "./routes/userRoutes.js";
@@ -40,6 +42,17 @@ fs.open(json_file, "r", function (error) {
 	} else {
 		//File already exists, setup router
 		app.use("/api", jsonServer.router(json_file));
+	}
+});
+
+app.set("views", import.meta.dirname + "/public");
+
+app.use(function (req, res, next) {
+	if (req.url.includes(".") || req.url.includes("/api/")) {
+		next(); // ignore it, not to be rendered as a html file
+	} else {
+		// substring(1) is to remove "/" at start of path
+		res.render(path.join(req.url, "index.ejs").substring(1));
 	}
 });
 

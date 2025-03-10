@@ -31,7 +31,9 @@ export function completeBookWithCoverAndID(booksInfoFromGoogleBooks, recommendat
 	let coverURLSandGoogleBooksID = [];
 	if (booksInfoFromGoogleBooks && booksInfoFromGoogleBooks.length > 0) {
 		coverURLSandGoogleBooksID = booksInfoFromGoogleBooks.map((book) => ({
-			cover: book.items?.[0]?.volumeInfo?.imageLinks?.thumbnail || "No image available",
+			cover:
+				book.items?.[0]?.volumeInfo?.imageLinks?.thumbnail ||
+				`https://placehold.co/128x170?text=${encodeURIComponent(recommendations.books[coverURLSandGoogleBooksID.length].title)}`,
 			id: book.items?.[0]?.id,
 		}));
 	} else {

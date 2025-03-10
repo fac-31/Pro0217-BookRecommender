@@ -45,17 +45,15 @@ fs.open(json_file, "r", function (error) {
 	}
 });
 
-app.set('views', import.meta.dirname + "/public");
+app.set("views", import.meta.dirname + "/public");
 
-app.use(function(req, res, next) {
-
+app.use(function (req, res, next) {
 	if (req.url.includes(".") || req.url.includes("/api/")) {
-		next();	// ignore it, not to be rendered as a html file
+		next(); // ignore it, not to be rendered as a html file
 	} else {
 		// substring(1) is to remove "/" at start of path
 		res.render(path.join(req.url, "index.ejs").substring(1));
 	}
-
 });
 
 app.use(express.static("public")); // This auto-adds public/index.html to the "/" page

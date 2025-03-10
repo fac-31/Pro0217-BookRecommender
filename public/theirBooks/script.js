@@ -2,9 +2,8 @@ const username = localStorage.getItem("friendUsername");
 const userId = localStorage.getItem("friendUserID");
 if (username) {
 	document.getElementById("readingListTitle").textContent = `${username}'s Reading List`;
-	document.getElementById(
-		"recommendationsListTitle",
-	).textContent = `${username}'s Recommendation List`;
+	document.getElementById("recommendationsListTitle").textContent =
+		`${username}'s Recommendation List`;
 }
 
 async function fetchUsersBooks() {

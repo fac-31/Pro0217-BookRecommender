@@ -1,33 +1,16 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<%- include("../templates/head") %>
 		<title>My Books</title>
 		<!-- Styles and fonts -->
 		<link rel="stylesheet" href="../styles.css" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@100..400&display=swap"
-			rel="stylesheet"
-		/>
 		<link rel="icon" type="image/x-icon" href="/images/book-open.png" />
 	</head>
 
 	<body>
 		<div id="library-background">
-			<ul id="menu">
-				<li class="dropdown">
-					<span class="dropdown-btn">My Friends</span>
-					<div class="friends">
-						<a class="add-friend" href="#">Add friend</a>
-					</div>
-					<div class="remaining-users hidden"></div>
-				</li>
-				<li><a href="../library-interior">Recommendations</a></li>
-				<li><a href="/..">Log out</a></li>
-			</ul>
+			<%- include('../templates/navbar.ejs') %>
 			<div class="mid-section">
 				<h3 id="readingListTitle">My Reading List</h3>
 				<div class="book-container" id="my-books-container"></div>

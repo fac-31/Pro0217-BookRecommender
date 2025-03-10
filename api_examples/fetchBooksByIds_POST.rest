@@ -3,9 +3,7 @@ Content-Type: application/json
 
 {
   "ids": [
-    "591yCwAAQBAJ",
-    "FNn5DQAAQBAJ",
-    "JAzxznMKiq4C"
+    "eqxaKgAACAAJ"
   ]
 }
 

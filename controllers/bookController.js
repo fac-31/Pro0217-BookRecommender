@@ -9,13 +9,13 @@ export async function fetchBooksByIDs(req, res) {
 
 	try {
 		const all = await fetchAPI(req, "books", "GET");
-
 		let books = [];
 		for (let i = 0; i < all.length; i++) {
 			let book = bookSchema.parse(all[i]);
 			if (ids.includes(book.id)) books.push(book);
 		}
 
+		console.log(books);
 		res.json(books);
 	} catch (error) {
 		res.status(500).json({ message: "Error fetching books", error: error.message });

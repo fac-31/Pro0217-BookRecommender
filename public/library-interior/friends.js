@@ -66,17 +66,35 @@ const linksToFriendsLists = async () => {
 		}
 		const friendData = await friendInfo.json();
 
-		// Create link to friend's reading list
-		const friendLink = document.createElement("a");
-		friendLink.id = `link-for-user-${friendData.id}`;
-		friendLink.innerText = `${friendData.username}`;
-		friendLink.href = "#"; // I will change this to "../theirbooks" once I've added buttons to remove friends
-		friendsContainer.appendChild(friendLink);
-		friendLink.addEventListener("click", () => {
-			removeFriend(friendData.id);
-			// localStorage.setItem("friendUsername", `${friendData.username}`);
-			// localStorage.setItem("friendUserID", `${friendData.id}`);
+		// Add 'friend' element in displayed friends list (containing link to friend's reading list and unfriend button)
+		const friend = document.createElement("div");
+		friend.id = `${friendData.id}-element`;
+		friend.innerHTML = `<a id="link-for-user-${friendData.id}" href="../theirBooks">${friendData.username}<a>`;
+		friend.classList.add("friend");
+		friendsContainer.appendChild(friend);
+
+		document.getElementById(`link-for-user-${friendData.id}`).addEventListener("click", () => {
+			localStorage.setItem("friendUsername", `${friendData.username}`);
+			localStorage.setItem("friendUserID", `${friendData.id}`);
 		});
+
+		const unfriendBtn = document.createElement("button");
+		unfriendBtn.id = `unfriend-user-${friendData.id}`;
+		unfriendBtn.innerText = "✕";
+		unfriendBtn.classList.add("unfriend-btn");
+		unfriendBtn.classList.add("hidden");
+		unfriendBtn.addEventListener("click", () => {
+			removeFriend(friendData.id);
+		});
+		document.getElementById(`${friendData.id}-element`).appendChild(unfriendBtn);
+
+		document.getElementById(`${friendData.id}-element`).onmouseenter = () => {
+			document.getElementById(`unfriend-user-${friendData.id}`).classList.remove("hidden");
+		};
+
+		document.getElementById(`${friendData.id}-element`).onmouseleave = () => {
+			document.getElementById(`unfriend-user-${friendData.id}`).classList.add("hidden");
+		};
 	}
 };
 
@@ -135,17 +153,35 @@ const addNewFriend = async (selectedUserID) => {
 	}
 	const newFriendData = await newFriendInfo.json();
 
-	// Create link to new friend's reading list
-	const newFriendLink = document.createElement("a");
-	newFriendLink.id = `link-for-user-${newFriendData.id}`;
-	newFriendLink.innerText = `${newFriendData.username}`;
-	newFriendLink.href = "#"; // I will change this to "../theirbooks" once I've added buttons to remove friends
-	friendsContainer.appendChild(newFriendLink);
-	newFriendLink.addEventListener("click", () => {
-		removeFriend(newFriendData.id);
-		// localStorage.setItem("friendUsername", `${newFriendData.username}`);
-		// localStorage.setItem("friendUserID", `${newFriendData.id}`);
+	// Add new 'friend' element in displayed friends list (containing link to new friend's reading list and unfriend button)
+	const newFriend = document.createElement("div");
+	newFriend.id = `${newFriendData.id}-element`;
+	newFriend.innerHTML = `<a id="link-for-user-${newFriendData.id}" href="../theirBooks">${newFriendData.username}<a>`;
+	newFriend.classList.add("friend");
+	friendsContainer.appendChild(newFriend);
+
+	document.getElementById(`link-for-user-${newFriendData.id}`).addEventListener("click", () => {
+		localStorage.setItem("friendUsername", `${newFriendData.username}`);
+		localStorage.setItem("friendUserID", `${newFriendData.id}`);
 	});
+
+	const unfriendBtn = document.createElement("button");
+	unfriendBtn.id = `unfriend-user-${newFriendData.id}`;
+	unfriendBtn.innerText = "✕";
+	unfriendBtn.classList.add("unfriend-btn");
+	unfriendBtn.classList.add("hidden");
+	unfriendBtn.addEventListener("click", () => {
+		removeFriend(newFriendData.id);
+	});
+	document.getElementById(`${newFriendData.id}-element`).appendChild(unfriendBtn);
+
+	document.getElementById(`${newFriendData.id}-element`).onmouseenter = () => {
+		document.getElementById(`unfriend-user-${newFriendData.id}`).classList.remove("hidden");
+	};
+
+	document.getElementById(`${newFriendData.id}-element`).onmouseleave = () => {
+		document.getElementById(`unfriend-user-${newFriendData.id}`).classList.add("hidden");
+	};
 };
 
 // Remove friend
@@ -171,7 +207,7 @@ const removeFriend = async (selectedUserID) => {
 		});
 
 	// Remove link from user's friends list
-	document.getElementById(`link-for-user-${selectedUserID}`).remove();
+	document.getElementById(`${selectedUserID}-element`).remove();
 
 	// Get estranged friend's data from database
 	const estrangedFriendInfo = await fetch(`/users/${selectedUserID}`);

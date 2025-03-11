@@ -9,6 +9,8 @@ export async function fetchAPI(req, path, method, body = undefined) {
 	// General use API
 	const url = getUrlAPI(req, path);
 
+	console.log(url);
+	console.log(path);
 	const result = await fetch(url, {
 		method: method,
 		headers: { "Content-Type": "application/json" },

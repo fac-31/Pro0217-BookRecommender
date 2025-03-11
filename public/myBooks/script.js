@@ -56,6 +56,8 @@ if (username) {
 }
 
 async function fetchUsersBooks() {
+	console.log("fetch user books, user ID is:");
+	console.log(userId);
 	const userInfo = await fetch(`/users/${userId}`);
 	if (!userInfo.ok) {
 		console.error("Failed to fetch user info");

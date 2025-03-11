@@ -21,7 +21,8 @@ const createMyBooksElements = (books, bookContainer, id_reason_dict) => {
 				librarianDialogue.innerHTML = `
 				<p>${book.title}, by ${book.author} was released in ${book.year}.</p>
 				<p>Reason: ${id_reason_dict[book.id] || "No reason provided."}</p>
-			  `;			}
+			  `;
+			}
 		});
 
 		// Create remove button

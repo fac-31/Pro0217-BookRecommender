@@ -37,17 +37,14 @@ const judgementPassed = async (key, book, add = true) => {
 		});
 
 		if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
 
 		const data = await response.json();
+	} catch (error) {
+		console.error("Error:", error.message);
+		throw error; // Rethrow to let the caller handle it
 	}
-
-	catch (error) {
-			console.error("Error:", error.message);
-			throw error; // Rethrow to let the caller handle it
-	}
-
 };
 
 const createButtonElements = (bookDiv, index, book, fetchUsersBooks) => {
@@ -65,8 +62,7 @@ const createButtonElements = (bookDiv, index, book, fetchUsersBooks) => {
 		e.stopPropagation();
 		await judgementPassed("likes", book);
 
-		if (fetchUsersBooks != undefined)
-			fetchUsersBooks();
+		if (fetchUsersBooks != undefined) fetchUsersBooks();
 
 		librarianDialogue.innerHTML = `<p>Good choice! I've added "${book.title}" to your reading list!<p>`;
 	});

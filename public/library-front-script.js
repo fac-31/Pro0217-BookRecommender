@@ -13,7 +13,7 @@ registrationForm.onsubmit = (e) => {
 		librarySign.remove();
 		registrationForm.remove();
 		document.getElementById("library-front").style.opacity = 0;
-		pageTransitionFunc("/library-interior");
+		pageTransitionFunc("/library-interior/");
 	}, 2000);
 
 	createUser();
@@ -28,12 +28,7 @@ async function createUser() {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ username: username }),
 		});
-
-		console.log("reponse returned");
-		console.log(response.status);
 		let json = await response.json();
-		console.log("after await json");
-		console.log( json["id"]);
 		localStorage.setItem("userID", json["id"]);
 
 		

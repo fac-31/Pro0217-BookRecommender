@@ -63,8 +63,8 @@ export async function updateBook(req, res) {
 			// Add book id into user array
 			user[key].push(bookData);
 
-			//Add book to the list
-			await fetchAPI(req, "books", "POST", book);
+			// Add book infos to the list, if does not exist
+			await getOrCreateFromAPI(req, "books", bookSchema, book, "id");
 
 			//patch user information with new book.
 			return res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));

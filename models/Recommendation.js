@@ -55,8 +55,6 @@ export async function createRecommendationsByUserPreferences(user) {
 
 async function getLikedOrDislikedBooks(ids) 
 {
-	console.log("getting into liked/disliked Books");
-
 	//TODO: generalise the hardcoded fix here.
 	const req = {
 		protocol: "http", // Explicitly set the protocol
@@ -78,8 +76,6 @@ async function getLikedOrDislikedBooks(ids)
 		if (ids.includes(book.id)) titles.push(book.title);
 	}
 
-	console.log("titles are:")
 	titles.join(",");
-	console.log(titles);
 	return titles;
 }

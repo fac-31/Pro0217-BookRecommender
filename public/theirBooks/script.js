@@ -67,7 +67,6 @@ async function fetchUsersBooks() {
 }
 
 async function fetchUserRecommendation() {
-	console.log(`userID is ${userId}`);
 	const response = await fetch(`/recommendations/byUserPreferences/${userId}`, {
 		method: "POST",
 		headers: {

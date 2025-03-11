@@ -1,4 +1,4 @@
-import { userSchema } from "../models/schemas/userSchema.js";
+import { bookUserDataSchema, userSchema } from "../models/schemas/userSchema.js";
 import { bookSchema } from "../models/schemas/bookSchema.js";
 import { fetchAPI, getOrCreateFromAPI } from "../models/api.js";
 
@@ -40,13 +40,10 @@ export async function createUser(req, res) {
 // UPDATE book listings on user
 export async function updateBook(req, res) {
 	try {
-		console.log("user_id, book, key, add, user: ", req.body);
 		let user_id = req.body.user_id; // TODO add a password to check that user isnt cheating
 		let book = bookSchema.parse(req.body.book); // Info object of a book
 		let key = req.body.key; // "likes" or "dislikes"
 		let add = req.body.add; // true to add, false to remove
-
-		console.log("key", req.body.key);
 
 		let user = await fetchAPI(req, "users/" + user_id, "GET");
 		if (Object.keys(user).length == 0)
@@ -55,21 +52,29 @@ export async function updateBook(req, res) {
 		user = userSchema.parse(user);
 		if (user[key] === undefined) return res.status(400).json({ error: "Invalid key" });
 
-		if (add && !user[key].includes(book.id)) {
+		let index = user[key].findIndex(bookData => bookData.id === book.id);
+		if (add && index === -1) {
+
+			const bookData = bookUserDataSchema.parse({
+				id: book.id,
+				reason:book.reason_for_recommendation
+			});
+
 			// Add book id into user array
-			user[key].push(book.id);
+			user[key].push(bookData);
 
-			// Add book infos to the list, if does not exist
-			await getOrCreateFromAPI(req, "books", bookSchema, book, "id");
+			//Add book to the list
+			await fetchAPI(req, "books", "POST", book);
 
+			//patch user information with new book.
 			return res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
-		} else if (!add && user[key].includes(book.id)) {
+		} 
+		else if (!add && index >= 0) 
+		{
 			// Remove book id from the array
-			let index = user[key].indexOf(book.id);
 			user[key].splice(index, 1);
 
 			// TODO, remove book from the list?
-
 			return res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
 		}
 	} catch (error) {

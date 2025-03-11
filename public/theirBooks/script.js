@@ -76,8 +76,7 @@ async function fetchUserRecommendation() {
 	});
 
 	const data = await response.json();
-	console.log("retrieved by preference");
-	console.log(data);
+
 	const bookRecommendationContainer = document.getElementById("my-recommendations-container");
 	const bookInfoContainer1 = document.querySelector(".book-info-container");
 	const length = 4;

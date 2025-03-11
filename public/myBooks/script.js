@@ -1,7 +1,7 @@
 const username = localStorage.getItem("username");
 const userId = localStorage.getItem("userID");
 
-const createMyBooksElements = (books, bookContainer) => {
+const createMyBooksElements = (books, bookContainer, id_reason_dict) => {
 	const librarianDialogue = document.querySelector(".dialogue-div");
 
 	for (let i = 0; i < books.length; i++) {
@@ -18,7 +18,10 @@ const createMyBooksElements = (books, bookContainer) => {
 		// Add mouseover event for book info
 		bookDiv.addEventListener("mouseover", () => {
 			if (librarianDialogue) {
-				librarianDialogue.innerHTML = `<p>${book.title}, by ${book.author} was released in ${book.year}.</p>`;
+				librarianDialogue.innerHTML = `
+				<p>${book.title}, by ${book.author} was released in ${book.year}.</p>
+				<p>Reason: ${id_reason_dict[book.id] || "No reason provided."}</p>
+			  `;
 			}
 		});
 
@@ -74,10 +77,11 @@ async function fetchUsersBooks() {
 			console.error("Failed to fetch book details");
 			return;
 		}
-
+		const id_reason_dict = Object.fromEntries(userData.likes.map(({ id, reason }) => [id, reason]));
 		const books = await response.json();
 		const bookContainer = document.getElementById("my-books-container");
-		createMyBooksElements(books, bookContainer);
+		bookContainer.replaceChildren(); //delete all current children (in case this container is being refreshed)
+		createMyBooksElements(books, bookContainer, id_reason_dict);
 	} else {
 		// No books to display
 		const midSection = document.querySelector(".mid-section");
@@ -97,9 +101,9 @@ async function fetchUserRecommendation() {
 
 	const data = await response.json();
 	const bookRecommendationContainer = document.getElementById("my-recommendations-container");
-	const bookInfoContainer1 = document.querySelector(".book-info-container");
 	const length = 4;
-	createBookElements(data, length, bookRecommendationContainer, bookInfoContainer1);
+	createBookElements(data, length, bookRecommendationContainer, fetchUsersBooks);
+	
 	const recomendationsText = document.querySelector("#recomendations-text");
 	recomendationsText.innerHTML = `<p>Let me know if you like any!</p>`;
 }

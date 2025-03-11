@@ -13,7 +13,6 @@ bookPreferenceForm.onsubmit = (e) => {
 	e.preventDefault();
 	userPrompt = document.getElementById("book-preference-input").value;
 	localStorage.setItem("userPrompt", userPrompt);
-	console.log(userPrompt);
 	setTimeout(() => {
 		behindDesk = false;
 		walkAway();
@@ -36,7 +35,6 @@ const checkLibrary = async () => {
 		const data = await response.json();
 		localStorage.setItem("bookData", JSON.stringify(data));
 		bookData = JSON.parse(localStorage.getItem("bookData"));
-		console.log(data);
 
 		const length = 4;
 		const bookRecommendationContainer = document.getElementById(

@@ -64,10 +64,11 @@ async function fetchUsersBooks() {
 	const userData = await userInfo.json();
 
 	// Fetch book details using the likes array
+	const book_ids = userData.likes.map((bookData) => bookData.id);
 	const response = await fetch("/books/fetchBooksByIDs", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ ids: userData.likes }),
+		body: JSON.stringify({ ids: book_ids }),
 	});
 
 	if (!response.ok) {
@@ -90,8 +91,6 @@ async function fetchUserRecommendation() {
 	});
 
 	const data = await response.json();
-	console.log("retrieved by preference");
-	console.log(data);
 	const bookRecommendationContainer = document.getElementById("my-recommendations-container");
 	const bookInfoContainer1 = document.querySelector(".book-info-container");
 	const length = 4;

@@ -20,7 +20,6 @@ const pageTransitionFunc = (destination) => {
 };
 
 const judgementPassed = (key, book, add = true) => {
-	console.log(book);
 	const dataToSend = {
 		user_id: localStorage.getItem("userID"),
 		book: book,

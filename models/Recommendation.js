@@ -1,9 +1,8 @@
 import { generateAIBookRecommendations } from "../services/openAiService.js";
-import {
-	fetchBooks,
-	fetchBooksByIDs,
-	completeBookWithCoverAndID,
-} from "../services/googleBooksAPIWrapper.js";
+import { fetchAPI } from "../models/api.js";
+import { bookSchema } from "../models/schemas/bookSchema.js";
+
+import { fetchBooks, completeBookWithCoverAndID } from "../services/googleBooksAPIWrapper.js";
 
 export async function createRecommendations(userPrompt) {
 	try {
@@ -28,16 +27,17 @@ export async function createRecommendationsByUserPreferences(user) {
 		//no history of likes.
 		if (user.likes.length == 0 && user.dislikes.length == 0) return;
 
-		let titles = "";
 		let userPrompt = "";
 
 		if (user.likes.length > 0) {
-			titles = await getLikesOrDislikedBooks(user.likes, titles);
+			const book_ids = user.likes.map((bookData) => bookData.id);
+			const titles = await getLikedOrDislikedBooks(book_ids);
 			userPrompt += "I like the following books: " + titles + ". ";
 		}
 
 		if (user.dislikes.length > 0) {
-			titles = await getLikesOrDislikedBooks(user.dislikes, titles);
+			const book_ids = user.dislikes.map((bookData) => bookData.id);
+			const titles = await getLikedOrDislikedBooks(book_ids);
 			userPrompt += "I dislike the following books: " + titles + ". ";
 		}
 
@@ -50,9 +50,27 @@ export async function createRecommendationsByUserPreferences(user) {
 	}
 }
 
-async function getLikesOrDislikedBooks(arr, titles) {
-	const booksInfoFromGoogleBooks = await fetchBooksByIDs(arr);
-	titles = booksInfoFromGoogleBooks.map((book) => book.volumeInfo?.title);
+async function getLikedOrDislikedBooks(ids) {
+	//TODO: generalise the hardcoded fix here.
+	const req = {
+		protocol: "http", // Explicitly set the protocol
+		headers: {
+			host: "localhost:3000", // Define the host
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+		body: {}, // Empty because it's a GET request
+		params: {}, // Empty if no route params
+		query: {}, // Empty if no query params
+	};
+
+	let titles = [];
+	const all = await fetchAPI(req, "books", "GET");
+	for (let i = 0; i < all.length; i++) {
+		let book = bookSchema.parse(all[i]);
+		if (ids.includes(book.id)) titles.push(book.title);
+	}
+
 	titles.join(",");
 	return titles;
 }

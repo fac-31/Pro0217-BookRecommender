@@ -40,6 +40,7 @@ export async function createRecommendationsByUserPreferences(req, res) {
 
 		user = userSchema.parse(user);
 
+		console.log("enter recommendations controller");
 		// Call the Recommendation model
 		const recommendations = await createRecommendationsByUserPreferencesModel(user);
 		if (!recommendations) {
@@ -48,6 +49,8 @@ export async function createRecommendationsByUserPreferences(req, res) {
 				.json({ message: "No recommendations found for the preferences of the user" });
 		}
 
+		console.log("recommendations are:");
+		console.log(recommendations);
 		res.status(200).json(recommendations);
 	} catch (error) {
 		console.error(error);

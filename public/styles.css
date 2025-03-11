@@ -182,6 +182,11 @@ h3 {
 	cursor: pointer;
 }
 
+.book:hover {
+	transform: scale(1.05);
+	z-index: 1;
+}
+
 .book img {
 	width: 100%;
 	height: 100%;
@@ -380,4 +385,26 @@ span {
 
 .nav-bar-link:hover {
 	text-decoration: underline;
+}
+
+@keyframes wiggle {
+	0% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(-5deg);
+	}
+	50% {
+		transform: rotate(0deg);
+	}
+	75% {
+		transform: rotate(5deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+.wiggle-animation {
+	animation: wiggle 0.5s ease;
 }

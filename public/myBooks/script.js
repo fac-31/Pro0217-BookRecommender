@@ -63,22 +63,30 @@ async function fetchUsersBooks() {
 	}
 	const userData = await userInfo.json();
 
-	// Fetch book details using the likes array
-	const book_ids = userData.likes.map((bookData) => bookData.id);
-	const response = await fetch("/books/fetchBooksByIDs", {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ ids: book_ids }),
-	});
+	if (userData.likes.length > 0) {
+		// Fetch book details using the likes array
+		const book_ids = userData.likes.map((bookData) => bookData.id);
+		const response = await fetch("/books/fetchBooksByIDs", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ ids: book_ids }),
+		});
 
-	if (!response.ok) {
-		console.error("Failed to fetch book details");
-		return;
+		if (!response.ok) {
+			console.error("Failed to fetch book details");
+			return;
+		}
+
+		const books = await response.json();
+		const bookContainer = document.getElementById("my-books-container");
+		createMyBooksElements(books, bookContainer);
+	} else {
+		// No books to display
+		const midSection = document.querySelector(".mid-section");
+		midSection.innerHTML = "<h3>No books</h3>";
+		const librarianDialogue = document.querySelector(".dialogue-div");
+		librarianDialogue.innerHTML = `<p>Oh no! You haven't liked any books yet, when you do I'll be sure to keep track.</p>`;
 	}
-
-	const books = await response.json();
-	const bookContainer = document.getElementById("my-books-container");
-	createMyBooksElements(books, bookContainer);
 }
 
 async function fetchUserRecommendation() {

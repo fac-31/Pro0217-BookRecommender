@@ -23,6 +23,11 @@ body {
 	margin: 0;
 }
 
+h3 {
+	color: var(--parchment);
+	font-size: 2rem;
+}
+
 /* Layout Containers */
 #library-background {
 	display: flex;

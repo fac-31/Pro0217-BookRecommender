@@ -40,7 +40,7 @@ const checkLibrary = async () => {
 		const bookRecommendationContainer = document.getElementById(
 			"user-prompt-recommendations-container",
 		);
-		createBookElements(data, length, bookRecommendationContainer, bookInfoContainer);
+		createBookElements(data, length, bookRecommendationContainer);
 
 		foundBooks = true;
 		comeBack();

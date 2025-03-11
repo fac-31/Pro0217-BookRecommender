@@ -19,7 +19,7 @@ const pageTransitionFunc = (destination) => {
 	}, 2000);
 };
 
-const judgementPassed = (key, book, add = true) => {
+const judgementPassed = async (key, book, add = true) => {
 	const dataToSend = {
 		user_id: localStorage.getItem("userID"),
 		book: book,
@@ -27,23 +27,30 @@ const judgementPassed = (key, book, add = true) => {
 		add: add,
 	};
 
-	fetch("/users/update-book", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(dataToSend),
-	})
-		.then((response) => response.json())
-		.then((data) => {
-			console.log(data);
-		})
-		.catch((error) => {
-			console.error("Error:", error.message);
+	try {
+		const response = await fetch("/users/update-book", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(dataToSend),
 		});
+
+		if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+		const data = await response.json();
+	}
+
+	catch (error) {
+			console.error("Error:", error.message);
+			throw error; // Rethrow to let the caller handle it
+	}
+
 };
 
-const createButtonElements = (bookDiv, index, book) => {
+const createButtonElements = (bookDiv, index, book, fetchUsersBooks) => {
 	const librarianDialogue = document.querySelector(".dialogue-div");
 
 	// Create buttons container
@@ -54,9 +61,13 @@ const createButtonElements = (bookDiv, index, book) => {
 	const acceptBtn = document.createElement("button");
 	acceptBtn.classList.add("accept");
 	acceptBtn.innerHTML = "✓";
-	acceptBtn.addEventListener("click", (e) => {
+	acceptBtn.addEventListener("click", async (e) => {
 		e.stopPropagation();
-		judgementPassed("likes", book);
+		await judgementPassed("likes", book);
+
+		if (fetchUsersBooks != undefined)
+			fetchUsersBooks();
+
 		librarianDialogue.innerHTML = `<p>Good choice! I've added "${book.title}" to your reading list!<p>`;
 	});
 	acceptBtn.addEventListener("mouseenter", () => {
@@ -80,7 +91,7 @@ const createButtonElements = (bookDiv, index, book) => {
 	buttonsDiv.appendChild(rejectBtn);
 	bookDiv.appendChild(buttonsDiv);
 };
-const createBookElements = (data, length, bookRecommendationContainer) => {
+const createBookElements = (data, length, bookRecommendationContainer, fetchUsersBooks) => {
 	const librarianDialogue = document.querySelector(".dialogue-div");
 
 	// Convert array to data object if needed
@@ -101,7 +112,7 @@ const createBookElements = (data, length, bookRecommendationContainer) => {
 			librarianDialogue.innerHTML = `<p>${book.title}, by ${book.author} was released in ${book.year}. ${book.reason_for_recommendation}</p>`;
 		});
 
-		createButtonElements(bookDiv, i, book);
+		createButtonElements(bookDiv, i, book, fetchUsersBooks);
 		bookRecommendationContainer.appendChild(bookDiv);
 	}
 };

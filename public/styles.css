@@ -21,12 +21,12 @@ body {
 	justify-content: flex-start;
 	min-height: 100vh;
 	margin: 0;
-	margin-bottom: 20vh;
+	margin-bottom: 15vh;
 }
 
 h3 {
 	color: var(--parchment);
-	font-size: 2rem;
+	font-size: 1.5rem;
 }
 
 /* Layout Containers */
@@ -46,6 +46,14 @@ h3 {
 	width: 100%;
 	min-height: calc(100vh - 18vh);
 	padding: 2rem;
+}
+
+#recomendations-text {
+	text-align: center;
+	width: 100%;
+	font-family: "Playwrite IT Moderna", serif;
+	font-weight: 300;
+	font-size: 1.1rem;
 }
 
 /* Librarian Section */
@@ -68,17 +76,6 @@ h3 {
 	max-width: 35vh;
 	background-color: transparent;
 	image-rendering: pixelated;
-}
-
-#fetching {
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	width: 25vw;
-	max-width: 35vh;
-	border: 5px solid var(--parchment);
-	border-radius: 1rem;
-	animation-iteration-count: 1;
 }
 
 /* Dialogue */

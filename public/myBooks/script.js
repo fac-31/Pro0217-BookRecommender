@@ -51,8 +51,6 @@ const createMyBooksElements = (books, bookContainer) => {
 
 if (username) {
 	document.getElementById("readingListTitle").textContent = `${username}'s Reading List`;
-	document.getElementById("recommendationsListTitle").textContent =
-		`${username}'s Recommendation List`;
 }
 
 async function fetchUsersBooks() {
@@ -90,7 +88,6 @@ async function fetchUsersBooks() {
 }
 
 async function fetchUserRecommendation() {
-	console.log(`userID is ${userId}`);
 	const response = await fetch(`/recommendations/byUserPreferences/${userId}`, {
 		method: "POST",
 		headers: {
@@ -103,6 +100,8 @@ async function fetchUserRecommendation() {
 	const bookInfoContainer1 = document.querySelector(".book-info-container");
 	const length = 4;
 	createBookElements(data, length, bookRecommendationContainer, bookInfoContainer1);
+	const recomendationsText = document.querySelector("#recomendations-text");
+	recomendationsText.innerHTML = `<p>Let me know if you like any!</p>`;
 }
 
 fetchUsersBooks();

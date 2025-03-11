@@ -52,12 +52,11 @@ export async function updateBook(req, res) {
 		user = userSchema.parse(user);
 		if (user[key] === undefined) return res.status(400).json({ error: "Invalid key" });
 
-		let index = user[key].findIndex(bookData => bookData.id === book.id);
+		let index = user[key].findIndex((bookData) => bookData.id === book.id);
 		if (add && index === -1) {
-
 			const bookData = bookUserDataSchema.parse({
 				id: book.id,
-				reason:book.reason_for_recommendation
+				reason: book.reason_for_recommendation,
 			});
 
 			// Add book id into user array
@@ -68,9 +67,7 @@ export async function updateBook(req, res) {
 
 			//patch user information with new book.
 			return res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
-		} 
-		else if (!add && index >= 0) 
-		{
+		} else if (!add && index >= 0) {
 			// Remove book id from the array
 			user[key].splice(index, 1);
 

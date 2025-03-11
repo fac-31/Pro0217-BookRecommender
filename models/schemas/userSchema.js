@@ -4,9 +4,9 @@ const bookID = z.string();
 const friendID = z.number();
 
 export const bookUserDataSchema = z.object({
-	id:z.string(),
-	reason:z.string()
-})
+	id: z.string(),
+	reason: z.string(),
+});
 
 export const userSchema = z.object({
 	username: z.string(),

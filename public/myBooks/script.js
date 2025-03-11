@@ -56,7 +56,6 @@ if (username) {
 }
 
 async function fetchUsersBooks() {
-
 	const userInfo = await fetch(`/users/${userId}`);
 	if (!userInfo.ok) {
 		console.error("Failed to fetch user info");
@@ -65,7 +64,7 @@ async function fetchUsersBooks() {
 	const userData = await userInfo.json();
 
 	// Fetch book details using the likes array
-	const book_ids =  userData.likes.map(bookData => bookData.id);
+	const book_ids = userData.likes.map((bookData) => bookData.id);
 	const response = await fetch("/books/fetchBooksByIDs", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

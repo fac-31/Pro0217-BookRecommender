@@ -30,8 +30,6 @@ async function createUser() {
 		});
 		let json = await response.json();
 		localStorage.setItem("userID", json["id"]);
-
-		
 	} catch (error) {
 		console.error("Error:", error);
 	}

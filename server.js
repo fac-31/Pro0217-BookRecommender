@@ -51,6 +51,16 @@ app.use(function (req, res, next) {
 	if (req.url.includes(".") || req.url.includes("/api/")) {
 		next(); // ignore it, not to be rendered as a html file
 	} else {
+		// default values to pass through ejs templates
+
+		// head.ejs
+		res.locals.title = "Book Recommender";
+		res.locals.icon = "book-open";
+		res.locals.styles = [];
+
+		// navbar.ejs
+		res.locals.url = req.url;
+
 		// substring(1) is to remove "/" at start of path
 		res.render(path.join(req.url, "index.ejs").substring(1));
 	}

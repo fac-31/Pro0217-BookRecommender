@@ -1,13 +1,6 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<%- include("templates/head") %>
-		<title>Book Recommender</title>
-		<!-- Styles and fonts -->
-		<link rel="stylesheet" href="styles.css" />
-		<link rel="stylesheet" href="frontstyles.css" />
-		<link rel="icon" type="image/x-icon" href="/images/book-closed.png" />
-	</head>
+	<%- include("templates/head", {"icon": "book-closed", "styles": ["frontstyles.css"]}) %>
 
 	<body>
 		<div id="library-front">

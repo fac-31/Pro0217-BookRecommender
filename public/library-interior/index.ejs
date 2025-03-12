@@ -1,16 +1,10 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<%- include("../templates/head") %>
-		<title>Book Recommender</title>
-		<!-- Styles and fonts -->
-		<link rel="stylesheet" href="../styles.css" />
-		<link rel="icon" type="image/x-icon" href="/images/book-open.png" />
-	</head>
+	<%- include("../templates/head") %>
 
 	<body>
 		<div id="library-background">
-			<%- include("../templates/navbar-with-mybooks.ejs") %>
+			<%- include("../templates/navbar") %>
 			<div class="mid-section">
 				<form class="book-preference-form" onsubmit="return false">
 					<label id="book-preference-input-label" for="book-preference-input"

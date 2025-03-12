@@ -2,30 +2,31 @@
 <html lang="en">
 	<head>
 		<%- include("../templates/head") %>
+		<title>Their Books</title>
+		<!-- Styles and fonts -->
 		<link rel="stylesheet" href="../styles.css" />
+		<link rel="icon" type="image/x-icon" href="/images/book-open.png" />
 	</head>
 
 	<body>
-		<div id="container">
-			<a href="/library-interior">recommendations</a>
-
-			<h3 id="readingListTitle"></h3>
-			<div class="book-container" id="my-books-container"></div>
-
-			<h3 id="recommendationsListTitle"></h3>
-			<div class="book-container" id="my-recommendations-container"></div>
-
-			<div class="book-info-container hidden">
-				<p id="title">Title:</p>
-				<p id="author">Author:</p>
-				<p id="year">Year:</p>
+		<div id="library-background">
+			<%- include('../templates/navbar-general.ejs') %>
+			<div class="mid-section">
+				<h3 id="readingListTitle"></h3>
+				<div class="book-container" id="my-books-container"></div>
+				>
+			</div>
+			<div class="librarian-section">
+				<div class="dialogue-div"></div>
+				<canvas id="librarian-canvas" width="70" height="70"></canvas>
 			</div>
 		</div>
-		<canvas id="librarian-canvas" width="70" height="70" style="width: 25%"></canvas>
+		<div id="darkness"></div>
 
-		<!-- for the librarian animation -->
+		<!-- Scripts -->
 		<script src="../universal-script.js"></script>
 		<script src="../librarian-script.js"></script>
 		<script src="script.js"></script>
+		<script src="../library-interior/friends.js"></script>
 	</body>
 </html>

@@ -77,7 +77,9 @@ async function fetchUsersBooks() {
 			console.error("Failed to fetch book details");
 			return;
 		}
-		const id_reason_dict = Object.fromEntries(userData.likes.map(({ id, reason }) => [id, reason]));
+		const id_reason_dict = Object.fromEntries(
+			userData.likes.map(({ id, reason }) => [id, reason]),
+		);
 		const books = await response.json();
 		const bookContainer = document.getElementById("my-books-container");
 		bookContainer.replaceChildren(); //delete all current children (in case this container is being refreshed)
@@ -103,9 +105,9 @@ async function fetchUserRecommendation() {
 	const bookRecommendationContainer = document.getElementById("my-recommendations-container");
 	const length = 4;
 	createBookElements(data, length, bookRecommendationContainer, fetchUsersBooks);
-	
+
 	const recomendationsText = document.querySelector("#recomendations-text");
-	recomendationsText.innerHTML = `<p>Let me know if you like any!</p>`;
+	recomendationsText.innerHTML = `<p>Based on your reading list you might like these!</p>`;
 }
 
 fetchUsersBooks();

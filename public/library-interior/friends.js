@@ -69,7 +69,7 @@ const linksToFriendsLists = async () => {
 		// Add 'friend' element in displayed friends list (containing link to friend's reading list and unfriend button)
 		const friend = document.createElement("div");
 		friend.id = `${friendData.id}-element`;
-		friend.innerHTML = `<a id="link-for-user-${friendData.id}" href="../theirBooks">${friendData.username}<a>`;
+		friend.innerHTML = `<a id="link-for-user-${friendData.id}" href="../theirBooks/">${friendData.username}<a>`;
 		friend.classList.add("friend");
 		friendsContainer.appendChild(friend);
 
@@ -156,7 +156,7 @@ const addNewFriend = async (selectedUserID) => {
 	// Add new 'friend' element in displayed friends list (containing link to new friend's reading list and unfriend button)
 	const newFriend = document.createElement("div");
 	newFriend.id = `${newFriendData.id}-element`;
-	newFriend.innerHTML = `<a id="link-for-user-${newFriendData.id}" href="../theirBooks">${newFriendData.username}<a>`;
+	newFriend.innerHTML = `<a id="link-for-user-${newFriendData.id}" href="../theirBooks/">${newFriendData.username}<a>`;
 	newFriend.classList.add("friend");
 	friendsContainer.appendChild(newFriend);
 

@@ -304,7 +304,7 @@ span {
 }
 
 .friend,
-.remaining-users a {
+.remaining-user {
 	color: black;
 	padding: 10px;
 	font-family: "Playwrite IT Moderna", serif;
@@ -313,7 +313,8 @@ span {
 	position: relative;
 }
 
-.friend > a {
+.friend > a,
+.remaining-user > a {
 	color: black;
 	text-decoration: none;
 }
@@ -327,7 +328,7 @@ span {
 }
 
 .friend:hover,
-.remaining-users a:hover {
+.remaining-user:hover {
 	background-color: var(--beige);
 }
 
@@ -349,6 +350,16 @@ span {
 
 .unfriend-btn:hover {
 	background-color: black;
+}
+
+.hourglass-icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	image-rendering: pixelated;
+	position: absolute;
+	right: 6%;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 /* Navigation */
@@ -377,4 +388,81 @@ span {
 
 .nav-bar-link:hover {
 	text-decoration: underline;
+}
+
+/* Inbox */
+
+.lights-down-overlay {
+	background: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+}
+
+.inbox {
+	width: 50%;
+	min-height: 200px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--parchment);
+	border: 3px solid var(--mediumgreen);
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 5px 0 5px 5px;
+}
+
+.message {
+	width: 85%;
+	margin: 5px;
+	border: 2px solid var(--lightgreen);
+	border-radius: 10px;
+	background-color: var(--beige);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.message > p {
+	font-family: "Playwrite IT Moderna", serif;
+	font-weight: 300;
+	font-size: 1rem;
+	margin-left: 10px;
+}
+
+.options {
+	margin-right: 5px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.options > button {
+	margin-right: 5px;
+}
+
+.close-btn {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 1.5rem;
+	height: 1.5rem;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 0.8rem;
+	background-color: #8b0000;
+	color: white;
+	transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+	background-color: black;
 }

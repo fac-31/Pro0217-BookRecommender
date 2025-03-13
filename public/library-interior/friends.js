@@ -109,24 +109,31 @@ const referencesToRemainingUsers = async () => {
 		const remainingUserData = await remainingUserInfo.json();
 
 		// Add 'link' for remaining user
-		const remainingUserLink = document.createElement("a");
-		remainingUserLink.id = `link-for-user-${remainingUserData.id}`;
-		remainingUserLink.innerText = `${remainingUserData.username}`;
-		remainingUserLink.href = "#";
-		remainingUsersContainer.appendChild(remainingUserLink);
-		remainingUserLink.addEventListener("click", () => {
+		const remainingUser = document.createElement("div");
+		remainingUser.id = `${remainingUserData.id}-element`;
+		remainingUser.classList.add("remaining-user");
+		remainingUser.innerHTML = `<a href="#">${remainingUserData.username}</a>`;
+		remainingUsersContainer.appendChild(remainingUser);
+		remainingUser.addEventListener("click", () => {
 			addNewFriend(remainingUserData.id);
 		});
+
+		const hourglassIcon = document.createElement("img");
+		hourglassIcon.src = "../images/hourglass.png";
+		hourglassIcon.classList.add("hourglass-icon");
+		// hourglassIcon.classList.add("hidden");
+
+		document.getElementById(`${remainingUserData.id}-element`).appendChild(hourglassIcon);
 	}
 };
 
 // Add new friend
-const addNewFriend = async (selectedUserID) => {
-	// Add selected user ID to current user's friends list
+const sendFriendRequest = async (selectedUserID) => {
+	// Add selected user ID to current user's pending friends list
 	const dataToSend = {
 		user_id: currentUserID,
 		friend_id: selectedUserID,
-		key: "friends",
+		key: "pending",
 		add: true,
 	};
 
@@ -143,7 +150,7 @@ const addNewFriend = async (selectedUserID) => {
 		});
 
 	// Remove 'link' from remaining users list
-	document.getElementById(`link-for-user-${selectedUserID}`).remove();
+	document.getElementById(`${selectedUserID}-element`).remove();
 
 	// Get new friend's data from database
 	const newFriendInfo = await fetch(`/users/${selectedUserID}`);
@@ -218,14 +225,21 @@ const removeFriend = async (selectedUserID) => {
 	const estrangedFriendData = await estrangedFriendInfo.json();
 
 	// Create 'link' for user in list of remaining users
-	const estrangedFriendLink = document.createElement("a");
-	estrangedFriendLink.id = `link-for-user-${estrangedFriendData.id}`;
-	estrangedFriendLink.innerText = `${estrangedFriendData.username}`;
-	estrangedFriendLink.href = "#";
-	remainingUsersContainer.appendChild(estrangedFriendLink);
-	estrangedFriendLink.addEventListener("click", () => {
+	const estrangedFriend = document.createElement("div");
+	estrangedFriend.id = `${estrangedFriendData.id}-element`;
+	estrangedFriend.classList.add("remaining-user");
+	estrangedFriend.innerHTML = `<a href ="#">${estrangedFriendData.username}</a>`;
+	remainingUsersContainer.appendChild(estrangedFriend);
+	estrangedFriend.addEventListener("click", () => {
 		addNewFriend(estrangedFriendData.id);
 	});
+
+	const hourglassIcon = document.createElement("img");
+	hourglassIcon.src = "../images/hourglass.png";
+	hourglassIcon.classList.add("hourglass-icon");
+	// hourglassIcon.classList.add("hidden");
+
+	document.getElementById(`${estrangedFriendData.id}-element`).appendChild(hourglassIcon);
 };
 
 getFriendsAndRemainingUsers();

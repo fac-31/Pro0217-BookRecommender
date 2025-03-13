@@ -60,11 +60,9 @@ const createButtonElements = (bookDiv, index, book, fetchUsersBooks) => {
 	acceptBtn.innerHTML = "✓";
 	acceptBtn.addEventListener("click", async (e) => {
 		e.stopPropagation();
+		librarianDialogue.innerHTML = `<p>Good choice! I'll add "${book.title}" to your reading list!<p>`;
 		await judgementPassed("likes", book);
-
 		if (fetchUsersBooks != undefined) fetchUsersBooks();
-
-		librarianDialogue.innerHTML = `<p>Good choice! I've added "${book.title}" to your reading list!<p>`;
 	});
 	acceptBtn.addEventListener("mouseenter", () => {
 		librarianDialogue.innerHTML = `<p>Interested, I can add it to your reading list?</p>`;

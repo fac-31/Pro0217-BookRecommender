@@ -21,6 +21,13 @@ body {
 	justify-content: flex-start;
 	min-height: 100vh;
 	margin: 0;
+	margin-bottom: 15vh; /* for the librarian */
+	margin-top: 5vh; /* for the nav-bar */
+}
+
+h3 {
+	color: var(--parchment);
+	font-size: 1.5rem;
 }
 
 /* Layout Containers */
@@ -42,6 +49,14 @@ body {
 	padding: 2rem;
 }
 
+#recomendations-text {
+	text-align: center;
+	width: 100%;
+	font-family: "Playwrite IT Moderna", serif;
+	font-weight: 300;
+	font-size: 1.1rem;
+}
+
 /* Librarian Section */
 .librarian-section {
 	display: flex;
@@ -59,20 +74,8 @@ body {
 	bottom: 0;
 	right: 0;
 	width: 25vw;
-	max-width: 35vh;
 	background-color: transparent;
 	image-rendering: pixelated;
-}
-
-#fetching {
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	width: 25vw;
-	max-width: 35vh;
-	border: 5px solid var(--parchment);
-	border-radius: 1rem;
-	animation-iteration-count: 1;
 }
 
 /* Dialogue */
@@ -122,6 +125,7 @@ body {
 }
 
 #book-preference-input-label {
+	padding: 1rem;
 	font-size: 1.5rem;
 	text-align: center;
 }
@@ -177,6 +181,11 @@ body {
 	justify-content: center;
 	overflow: visible;
 	cursor: pointer;
+}
+
+.book:hover {
+	transform: scale(1.05);
+	z-index: 1;
 }
 
 .book img {
@@ -265,12 +274,19 @@ body {
 	margin: 0;
 	padding: 0;
 	display: flex;
-	align-items: flex-start; /* Align items at start */
+	align-items: center;
+	justify-content: space-between;
 	width: 100%;
+	position: fixed;
+	top: 0;
+	z-index: 1000;
+	background-color: var(--mediumgreen);
 }
 
 #menu > li {
 	background-color: var(--mediumgreen);
+	flex: 1;
+	text-align: center;
 }
 
 .dropdown {
@@ -282,11 +298,13 @@ body {
 span {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	padding: 1.5rem;
 	font-family: "Playwrite IT Moderna", serif;
 	color: white;
 	cursor: pointer;
 	text-decoration: none;
+	width: 100%;
 }
 
 .friends,
@@ -321,6 +339,7 @@ span {
 
 #menu > li:hover {
 	background-color: var(--darkgreen);
+	cursor: pointer;
 }
 
 .dropdown:hover .friends {
@@ -465,4 +484,30 @@ span {
 
 .close-btn:hover {
 	background-color: black;
+}
+
+@keyframes jumpAndHighlight {
+	0% {
+		transform: translateY(0);
+		border-color: var(--mediumgreen);
+	}
+	50% {
+		transform: translateY(-10px);
+		border-color: var(--highlight-color);
+		border-width: 4px;
+	}
+	100% {
+		transform: translateY(0);
+		border-color: var(--mediumgreen);
+	}
+}
+
+.jump-highlight-like {
+	--highlight-color: #2ecc71;
+	animation: jumpAndHighlight 0.5s ease;
+}
+
+.jump-highlight-dislike {
+	--highlight-color: #e74c3c;
+	animation: jumpAndHighlight 0.5s ease;
 }

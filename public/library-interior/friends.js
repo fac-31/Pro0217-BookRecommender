@@ -121,13 +121,14 @@ const referencesToRemainingUsers = async () => {
 		const hourglassIcon = document.createElement("img");
 		hourglassIcon.src = "../images/hourglass.png";
 		hourglassIcon.classList.add("hourglass-icon");
-		// hourglassIcon.classList.add("hidden");
+		hourglassIcon.id = `hourglass-for-${remainingUserData.id}`;
+		hourglassIcon.classList.add("hidden");
 
 		document.getElementById(`${remainingUserData.id}-element`).appendChild(hourglassIcon);
 	}
 };
 
-// Add new friend
+// Send new friend request
 const sendFriendRequest = async (selectedUserID) => {
 	// Add selected user ID to current user's pending friends list
 	const dataToSend = {
@@ -137,7 +138,7 @@ const sendFriendRequest = async (selectedUserID) => {
 		add: true,
 	};
 
-	fetch("/users/update-friend", {
+	fetch("/users/update-pending", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -149,9 +150,33 @@ const sendFriendRequest = async (selectedUserID) => {
 			console.error("Error:", error);
 		});
 
-	// Remove 'link' from remaining users list
-	document.getElementById(`${selectedUserID}-element`).remove();
+	// Show hourglass icon for selected user
+	document.getElementById(`hourglass-for${selectedUserID}`).classList.remove("hidden");
 
+	// Add new friend request message to selected user's inbox
+	const messageToSend = {
+		addressee_id: selectedUserID,
+		sender_id: currentUserID,
+		message_type: "friend_request",
+		key: "inbox",
+		add: true,
+	};
+
+	fetch("/users/update-inbox", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(messageToSend),
+	})
+		.then((response) => response.json())
+		.catch((error) => {
+			console.error("Error:", error);
+		});
+};
+
+// Add new friend
+const addNewFriend = async (selectedUserID) => {
 	// Get new friend's data from database
 	const newFriendInfo = await fetch(`/users/${selectedUserID}`);
 	if (!newFriendInfo.ok) {

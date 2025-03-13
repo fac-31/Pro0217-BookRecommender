@@ -79,6 +79,40 @@ export async function updateBook(req, res) {
 	}
 }
 
+// UPDATE user's pending friend list (i.e. add or remove user from pending friend list)
+export async function updatePending(req, res) {
+	try {
+		let user_id = req.body.user_id;
+		let friend_id = req.body.friend_id;
+		let key = req.body.key; // "pending"
+		let add = req.body.add; // true to add, false to remove
+
+		let user = await fetchAPI(req, "users/" + user_id, "GET");
+		if (Object.keys(user).length == 0) res.status(400).json({ error: "Invalid user id" });
+
+		user = userSchema.parse(user);
+		if (user[key] === undefined) res.status(400).json({ error: "Invalid key" });
+
+		if (add && !user[key].includes(friend_id)) {
+			// Add new friend id to "pending" array
+			user[key].push(friend_id);
+
+			res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
+		} else if (!add && user[key].includes(friend_id)) {
+			// Remove friend id from "pending" array
+			let index = user[key].indexOf(friend_id);
+			user[key].splice(index, 1);
+
+			res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
+		}
+	} catch (error) {
+		res.status(500).json({
+			message: "Error updating user pending friend list",
+			error: error.message,
+		});
+	}
+}
+
 // UPDATE user's friend list (i.e. add or remove friend)
 export async function updateFriend(req, res) {
 	try {
@@ -101,6 +135,43 @@ export async function updateFriend(req, res) {
 		} else if (!add && user[key].includes(friend_id)) {
 			// Remove friend id from "friends" array
 			let index = user[key].indexOf(friend_id);
+			user[key].splice(index, 1);
+
+			res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
+		}
+	} catch (error) {
+		res.status(500).json({
+			message: "Error updating user friend list",
+			error: error.message,
+		});
+	}
+}
+
+// UPDATE a user's inbox (i.e. add or remove message)
+export async function updateInbox(req, res) {
+	try {
+		let user_id = req.body.addressee_id;
+		let sender_id = req.body.sender_id;
+		let message_type = req.body.message_type;
+		let key = req.body.key; // "inbox"
+		let add = req.body.add; // true to add, false to remove
+
+		let user = await fetchAPI(req, "users/" + user_id, "GET");
+		if (Object.keys(user).length == 0) res.status(400).json({ error: "Invalid user id" });
+
+		user = userSchema.parse(user);
+		if (user[key] === undefined) res.status(400).json({ error: "Invalid key" });
+
+		if (add) {
+			// Add new message to "inbox" array
+			user[key].push({ id: `${sender_id}`, type: `${message_type}` });
+
+			res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
+		} else {
+			// Remove message from "inbox" array
+			let index = user[key].findIndex(
+				(message) => message.id === sender_id && message.type === message_type,
+			);
 			user[key].splice(index, 1);
 
 			res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));

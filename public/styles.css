@@ -367,10 +367,6 @@ span {
 	transform: translateY(-50%);
 }
 
-.unfriend-btn:hover {
-	background-color: black;
-}
-
 .hourglass-icon {
 	width: 1.5rem;
 	height: 1.5rem;
@@ -467,6 +463,18 @@ span {
 	margin-right: 5px;
 }
 
+.delete-message-btn {
+	width: 1.5rem;
+	height: 1.5rem;
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 0.8rem;
+	background-color: #8b0000;
+	color: white;
+	transition: background-color 0.2s ease;
+}
+
 .close-btn {
 	position: absolute;
 	top: 10px;
@@ -482,6 +490,8 @@ span {
 	transition: background-color 0.2s ease;
 }
 
+.unfriend-btn:hover,
+.delete-message-btn:hover,
 .close-btn:hover {
 	background-color: black;
 }

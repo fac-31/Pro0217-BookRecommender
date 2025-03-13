@@ -19,6 +19,25 @@ const pageTransitionFunc = (destination) => {
 	}, 2000);
 };
 
+const interactionAnimation = (likeOrDislike, bookDiv) => {
+	switch (likeOrDislike) {
+		case "like":
+			bookDiv.classList.add("jump-highlight-like");
+			setTimeout(() => {
+				bookDiv.classList.remove("jump-highlight-like");
+			}, 500);
+			break;
+		case "dislike":
+			bookDiv.classList.add("jump-highlight-dislike");
+			setTimeout(() => {
+				bookDiv.classList.remove("jump-highlight-dislike");
+			}, 500);
+			break;
+		default:
+			throw new Error("bad argument passed to interactionAnimation");
+	}
+};
+
 const judgementPassed = async (key, book, add = true) => {
 	const dataToSend = {
 		user_id: localStorage.getItem("userID"),
@@ -60,11 +79,10 @@ const createButtonElements = (bookDiv, index, book, fetchUsersBooks) => {
 	acceptBtn.innerHTML = "✓";
 	acceptBtn.addEventListener("click", async (e) => {
 		e.stopPropagation();
+		interactionAnimation("like", bookDiv);
+		librarianDialogue.innerHTML = `<p>Good choice! I'll add "${book.title}" to your reading list!<p>`;
 		await judgementPassed("likes", book);
-
 		if (fetchUsersBooks != undefined) fetchUsersBooks();
-
-		librarianDialogue.innerHTML = `<p>Good choice! I've added "${book.title}" to your reading list!<p>`;
 	});
 	acceptBtn.addEventListener("mouseenter", () => {
 		librarianDialogue.innerHTML = `<p>Interested, I can add it to your reading list?</p>`;
@@ -76,6 +94,7 @@ const createButtonElements = (bookDiv, index, book, fetchUsersBooks) => {
 	rejectBtn.innerHTML = "✕";
 	rejectBtn.addEventListener("click", (e) => {
 		e.stopPropagation();
+		interactionAnimation("dislike", bookDiv);
 		judgementPassed("dislikes", book);
 		librarianDialogue.innerHTML = `<p>Got it! I won't recommend books like "${book.title}" going forward! <p>`;
 	});

@@ -387,3 +387,28 @@ span {
 	text-decoration: underline;
 }
 
+@keyframes jumpAndHighlight {
+    0% {
+        transform: translateY(0);
+        border-color: var(--mediumgreen);
+    }
+    50% {
+        transform: translateY(-10px);
+        border-color: var(--highlight-color);
+        border-width: 4px;
+    }
+    100% {
+        transform: translateY(0);
+        border-color: var(--mediumgreen);
+    }
+}
+
+.jump-highlight-like {
+    --highlight-color: #2ecc71;
+    animation: jumpAndHighlight 0.5s ease;
+}
+
+.jump-highlight-dislike {
+    --highlight-color: #e74c3c;
+    animation: jumpAndHighlight 0.5s ease;
+}

@@ -82,6 +82,157 @@ paths:
                   message:
                     type: string
                     example: "Invalid user data"
+  /users/update-book:
+    post:
+      summary: Update a user's book data (likes/dislikes)
+      description: Add or remove a book from a user's `likes` or `dislikes` list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - user_id
+                - book_id
+                - key
+                - add
+              properties:
+                user_id:
+                  type: integer
+                  example: 1
+                book_id:
+                  type: string
+                  example: "69"
+                key:
+                  type: string
+                  enum: [likes, dislikes]
+                  example: "likes"
+                add:
+                  type: boolean
+                  example: true
+      responses:
+        200:
+          description: User's book list updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        400:
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid input"
+        404:
+          description: User or book not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User or book not found"
+
+#TODO:
+#router.post("/update-pending", updatePending);
+#router.post("/update-friend", updateFriend);
+#outer.post("/update-inbox", updateInbox);
+
+  /recommendations:
+    post:
+      summary: Get book recommendations based on a user's prompt
+      description: Provide book recommendations based on the user's interest prompt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userPrompt
+              properties:
+                userPrompt:
+                  type: string
+                  example: "I like sad cool books"
+      responses:
+        200:
+          description: A list of recommended books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: "The Fault in Our Stars"
+        400:
+          description: Invalid user prompt
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid user prompt"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Internal server error"
+
+  /recommendations/byUserPreferences/{id}:
+    post:
+      summary: Get book recommendations based on a user's preferences (using user ID)
+      description: Provide book recommendations based on the stored preferences of a user identified by the ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Numeric ID of the user whose preferences are used for recommendations
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: A list of recommended books based on user preferences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: "The Fault in Our Stars"
+        404:
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User not found"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Internal server error"
 
 components:
   schemas:

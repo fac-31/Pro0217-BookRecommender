@@ -19,10 +19,12 @@ jobs:
             - name: Install dependencies
               run: npm install
 
+            - name: Setup env
+              run: |
+                  echo "OPENAI_KEY=${{ secrets.OPENAI_KEY }}" > .env
+
             - name: Start server
               run: node server.js
-              env:
-                  OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
 
             - name: Start tests
               run: npx playwright test

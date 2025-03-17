@@ -24,7 +24,11 @@ app.use("/books", bookRoutes);
 
 //Setup json-server so fetchAPI() can make use of it
 //First, check if such file exists
-const json_file = "db.json";
+let json_file = "db.json";
+if (process.env.NODE_ENV === "test") {
+	json_file = "TESTdb.json";
+	console.log("Using test database...");
+}
 fs.open(json_file, "r", function (error) {
 	if (error) {
 		//File dont exists, create one with empty json list
@@ -45,7 +49,7 @@ fs.open(json_file, "r", function (error) {
 	}
 });
 
-app.set("views", import.meta.dirname + "/public");
+app.set("views", "public");
 
 app.use(function (req, res, next) {
 	if (req.url.includes(".") || req.url.includes("/api/")) {

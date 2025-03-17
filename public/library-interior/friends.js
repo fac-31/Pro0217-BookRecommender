@@ -30,6 +30,14 @@ let allUserIDs = [];
 let friendIDs;
 let remainingUserIDs;
 
+const clearFriendsAndRemainingUsersContainers = () => {
+	for (let i = 1; i < friendsContainer.children.length; i++) {
+		friendsContainer.children[i].remove();
+	}
+
+	remainingUsersContainer.replaceChildren();
+};
+
 const getFriendsAndRemainingUsers = async () => {
 	// Get all users' IDs
 	const response = await fetch(`/users/`);
@@ -100,6 +108,15 @@ const linksToFriendsLists = async () => {
 
 // Create options to add remaining users as friends
 const referencesToRemainingUsers = async () => {
+	// Get current user's pending IDs
+	const userInfo = await fetch(`/users/${currentUserID}`);
+	if (!userInfo.ok) {
+		console.error("Failed to fetch user info");
+		return;
+	}
+	const userData = await userInfo.json();
+	pendingIDs = userData.pending;
+
 	for (let i = 0; i < remainingUserIDs.length; i++) {
 		const remainingUserInfo = await fetch(`/users/${remainingUserIDs[i]}`);
 		if (!remainingUserInfo.ok) {
@@ -114,22 +131,39 @@ const referencesToRemainingUsers = async () => {
 		remainingUser.classList.add("remaining-user");
 		remainingUser.innerHTML = `<a href="#">${remainingUserData.username}</a>`;
 		remainingUsersContainer.appendChild(remainingUser);
-		remainingUser.addEventListener("click", () => {
-			addNewFriend(remainingUserData.id);
-		});
 
 		const hourglassIcon = document.createElement("img");
 		hourglassIcon.src = "../images/hourglass.png";
 		hourglassIcon.classList.add("hourglass-icon");
 		hourglassIcon.id = `hourglass-for-${remainingUserData.id}`;
-		hourglassIcon.classList.add("hidden");
+
+		if (!pendingIDs.includes(remainingUserIDs[i])) {
+			hourglassIcon.classList.add("hidden");
+		}
 
 		document.getElementById(`${remainingUserData.id}-element`).appendChild(hourglassIcon);
+
+		remainingUser.addEventListener("click", () => {
+			sendFriendRequest(remainingUserData.id);
+		});
 	}
 };
 
 // Send new friend request
 const sendFriendRequest = async (selectedUserID) => {
+	// Check if you've already sent a friend request to the selected user and if so, exit function
+	const userInfo = await fetch(`/users/${currentUserID}`);
+	if (!userInfo.ok) {
+		console.error("Failed to fetch user info");
+		return;
+	}
+	const userData = await userInfo.json();
+	pendingIDs = userData.pending;
+
+	if (pendingIDs.includes(selectedUserID)) {
+		return;
+	}
+
 	// Add selected user ID to current user's pending friends list
 	const dataToSend = {
 		user_id: currentUserID,
@@ -151,12 +185,12 @@ const sendFriendRequest = async (selectedUserID) => {
 		});
 
 	// Show hourglass icon for selected user
-	document.getElementById(`hourglass-for${selectedUserID}`).classList.remove("hidden");
+	document.getElementById(`hourglass-for-${selectedUserID}`).classList.remove("hidden");
 
 	// Add new friend request message to selected user's inbox
 	const messageToSend = {
 		addressee_id: selectedUserID,
-		sender_id: currentUserID,
+		sender_id: parseInt(currentUserID),
 		message_type: "friend_request",
 		key: "inbox",
 		add: true,

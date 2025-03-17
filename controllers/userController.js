@@ -96,6 +96,7 @@ export async function updatePending(req, res) {
 		if (add && !user[key].includes(friend_id)) {
 			// Add new friend id to "pending" array
 			user[key].push(friend_id);
+			console.log(user);
 
 			res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
 		} else if (!add && user[key].includes(friend_id)) {
@@ -130,6 +131,7 @@ export async function updateFriend(req, res) {
 		if (add && !user[key].includes(friend_id)) {
 			// Add new friend id to "friends" array
 			user[key].push(friend_id);
+			console.log(user);
 
 			res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
 		} else if (!add && user[key].includes(friend_id)) {
@@ -164,7 +166,8 @@ export async function updateInbox(req, res) {
 
 		if (add) {
 			// Add new message to "inbox" array
-			user[key].push({ id: `${sender_id}`, type: `${message_type}` });
+			user[key].push({ id: sender_id, type: `${message_type}` });
+			console.log(user);
 
 			res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
 		} else {
@@ -178,7 +181,7 @@ export async function updateInbox(req, res) {
 		}
 	} catch (error) {
 		res.status(500).json({
-			message: "Error updating user friend list",
+			message: "Error updating user inbox",
 			error: error.message,
 		});
 	}

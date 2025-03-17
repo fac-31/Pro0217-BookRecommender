@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const bookID = z.string();
-const friendID = z.number();
+export const friendID = z.number();
 
 export const bookUserDataSchema = z.object({
 	id: z.string(),

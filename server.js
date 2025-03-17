@@ -49,7 +49,7 @@ fs.open(json_file, "r", function (error) {
 	}
 });
 
-app.set("views", import.meta.dirname + "/public");
+app.set("views", "public");
 
 app.use(function (req, res, next) {
 	if (req.url.includes(".") || req.url.includes("/api/")) {

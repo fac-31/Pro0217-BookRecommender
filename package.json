@@ -19,7 +19,7 @@
 		"dev": "nodemon server.js",
 		"check": "prettier --check .",
 		"format": "prettier --write .",
-		"test:e2e": "npx playwright",
+		"test:e2e": "npx playwright test",
 		"run-and-test": "start-server-and-test start http://localhost:3000 test:e2e"
 	},
 	"dependencies": {

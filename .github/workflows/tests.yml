@@ -22,12 +22,10 @@ jobs:
             - name: Install playwright
               run: npx playwright install
 
-            - name: Setup env
-              run: |
-                  echo "OPENAI_KEY=${{ secrets.OPENAI_KEY }}" > .env
-
             - name: Run and test
               run: npm run run-and-test
+              env:
+                  OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
 
             - name: Upload results
               uses: actions/upload-artifact@v4

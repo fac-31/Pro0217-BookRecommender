@@ -21,6 +21,8 @@ jobs:
 
             - name: Start server
               run: node server.js
+              env:
+                  OPENAI_KEY: ${{ vars.OPENAI_KEY }}
 
             - name: Start tests
               run: npx playwright test

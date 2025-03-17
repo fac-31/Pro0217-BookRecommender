@@ -23,11 +23,8 @@ jobs:
               run: |
                   echo "OPENAI_KEY=${{ secrets.OPENAI_KEY }}" > .env
 
-            - name: Start server
-              run: node server.js
-
-            - name: Start tests
-              run: npx playwright test
+            - name: Run and test
+              run: npm run run-and-test
 
             - name: Upload results
               uses: actions/upload-artifact@v4

@@ -133,7 +133,7 @@ const referencesToRemainingUsers = async () => {
 		remainingUsersContainer.appendChild(remainingUser);
 
 		const hourglassIcon = document.createElement("img");
-		hourglassIcon.src = "../images/hourglass.png";
+		hourglassIcon.src = "../images/hourglass.gif";
 		hourglassIcon.classList.add("hourglass-icon");
 		hourglassIcon.id = `hourglass-for-${remainingUserData.id}`;
 
@@ -294,9 +294,9 @@ const removeFriend = async (selectedUserID) => {
 	});
 
 	const hourglassIcon = document.createElement("img");
-	hourglassIcon.src = "../images/hourglass.png";
+	hourglassIcon.src = "../images/hourglass.gif";
 	hourglassIcon.classList.add("hourglass-icon");
-	// hourglassIcon.classList.add("hidden");
+	hourglassIcon.classList.add("hidden");
 
 	document.getElementById(`${estrangedFriendData.id}-element`).appendChild(hourglassIcon);
 };

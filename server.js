@@ -2,7 +2,12 @@
 import express from "express";
 const app = express();
 app.use(express.json()); // Middleware to parse JSON bodie
+import { setupSwagger } from "./swagger.js";
+
 const PORT = process.env.PORT || 3000;
+
+// Register Swagger
+setupSwagger(app);
 
 import jsonServer from "json-server";
 import fs from "fs";

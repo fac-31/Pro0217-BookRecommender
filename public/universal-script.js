@@ -22,16 +22,24 @@ const pageTransitionFunc = (destination) => {
 const interactionAnimation = (likeOrDislike, bookDiv) => {
 	switch (likeOrDislike) {
 		case "like":
-			bookDiv.classList.add("jump-highlight-like");
-			setTimeout(() => {
-				bookDiv.classList.remove("jump-highlight-like");
-			}, 500);
-			break;
 		case "dislike":
-			bookDiv.classList.add("jump-highlight-dislike");
+			bookDiv.classList.add("jump-highlight-" + likeOrDislike);
+			bookDiv.style.width = bookDiv.offsetWidth + "px";
+			bookDiv.style.height = bookDiv.offsetHeight + "px";
+			bookDiv.style.margin = "0";
+
 			setTimeout(() => {
-				bookDiv.classList.remove("jump-highlight-dislike");
+				bookDiv.classList.remove("jump-highlight-" + likeOrDislike);
+				bookDiv.style.opacity = "0";
+				bookDiv.style.width = "0";
+				bookDiv.style.height = "0";
+				bookDiv.style.margin = "-10px";
+				bookDiv.style.borderWidth = "0";
 			}, 500);
+
+			setTimeout(() => {
+				bookDiv.remove();
+			}, 1500);
 			break;
 		default:
 			throw new Error("bad argument passed to interactionAnimation");
@@ -82,6 +90,7 @@ const createButtonElements = (bookDiv, index, book, fetchUsersBooks) => {
 		interactionAnimation("like", bookDiv);
 		librarianDialogue.innerHTML = `<p>Good choice! I'll add "${book.title}" to your reading list!<p>`;
 		await judgementPassed("likes", book);
+
 		if (fetchUsersBooks != undefined) fetchUsersBooks();
 	});
 	acceptBtn.addEventListener("mouseenter", () => {

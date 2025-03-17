@@ -19,7 +19,7 @@
 		"dev": "nodemon server.js",
 		"check": "prettier --check .",
 		"format": "prettier --write .",
-		"start:test": "cross-env NODE_ENV=test node server.js" ,
+		"start:test": "cross-env NODE_ENV=test node server.js",
 		"test:e2e": "npx playwright test",
 		"run-and-test": "start-server-and-test start:test http://localhost:3000 test:e2e"
 	},

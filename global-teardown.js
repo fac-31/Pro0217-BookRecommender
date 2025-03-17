@@ -5,5 +5,5 @@ export default async function globalSetup() {
 	if (fs.existsSync("./TESTdb.json")) {
 		fs.unlinkSync("./TESTdb.json");
 		console.log("Deleted existing db.json before tests");
-	} 
+	}
 }

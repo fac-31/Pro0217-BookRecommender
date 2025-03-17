@@ -49,6 +49,39 @@ paths:
                   message:
                     type: string
                     example: "User not found"
+  /users/add:
+    post:
+      summary: Add a new user
+      description: Create a new user with a username
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+                  example: "New"
+      responses:
+        201:
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        400:
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid user data"
 
 components:
   schemas:

@@ -1,5 +1,9 @@
 // @ts-check
 import { defineConfig, devices } from "@playwright/test";
+import fs from "fs";
+import path from "path";
+
+const TEST_DB_PATH = path.join(process.cwd(), "TESTdb.json");
 
 /**
  * Read environment variables from file.
@@ -32,6 +36,7 @@ export default defineConfig({
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: "on-first-retry",
 	},
+	globalTeardown: "./global-teardown.js",
 
 	/* Configure projects for major browsers */
 	projects: [

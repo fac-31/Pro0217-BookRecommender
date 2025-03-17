@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 3000;
 // Register Swagger
 setupSwagger(app);
 
-
 import jsonServer from "json-server";
 import fs from "fs";
 import path from "path";

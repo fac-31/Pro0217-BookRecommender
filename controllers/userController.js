@@ -45,7 +45,9 @@ export async function updateBook(req, res) {
 		let key = req.body.key; // "likes" or "dislikes"
 		let add = req.body.add; // true to add, false to remove
 
+		console.log("update book called, fetching users");
 		let user = await fetchAPI(req, "users/" + user_id, "GET");
+		console.log("update book user fetched");
 		if (Object.keys(user).length == 0)
 			return res.status(400).json({ error: "Invalid user id" });
 
@@ -63,10 +65,16 @@ export async function updateBook(req, res) {
 			user[key].push(bookData);
 
 			// Add book infos to the list, if does not exist
+			console.log("getOrCreateFromAPI book called,getting the book");
 			await getOrCreateFromAPI(req, "books", bookSchema, book, "id");
+			console.log("getOrCreateFromAPI book called,done fetching the book");
 
-			//patch user information with new book.
-			return res.send(await fetchAPI(req, "users/" + user_id, "PATCH", user));
+			//patch user information with new book
+			console.log("patching user");
+			const response = await fetchAPI(req, "users/" + user_id, "PATCH", user);
+			console.log("patching user done");
+
+			return res.send(response);
 		} else if (!add && index >= 0) {
 			// Remove book id from the array
 			user[key].splice(index, 1);

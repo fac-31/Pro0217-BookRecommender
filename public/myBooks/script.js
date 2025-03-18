@@ -34,7 +34,7 @@ const createMyBooksElements = (books, bookContainer, id_reason_dict) => {
 		removeBtn.innerHTML = "✕";
 		removeBtn.addEventListener("click", (e) => {
 			e.stopPropagation();
-			judgementPassed("likes", book, false);
+			judgementPassed("dislikes", book, false);
 			bookDiv.remove();
 			if (librarianDialogue) {
 				librarianDialogue.innerHTML = `<p>I've removed "${book.title}" from your reading list.</p>`;

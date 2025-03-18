@@ -51,14 +51,8 @@ export async function createRecommendationsByUserPreferences(user) {
 }
 
 async function getLikedOrDislikedBooks(ids) {
-	//TODO: generalise the hardcoded fix here.
 	const req = {
 		protocol: "http", // Explicitly set the protocol
-		headers: {
-			host: "localhost:3000", // Define the host
-			"Content-Type": "application/json",
-			Accept: "application/json",
-		},
 		body: {}, // Empty because it's a GET request
 		params: {}, // Empty if no route params
 		query: {}, // Empty if no query params

@@ -13,7 +13,6 @@ export async function fetchAPI(req, path, method, body = undefined) {
 
 	return await mutex.runExclusive(async () => {
 		const url = getUrlAPI(req, path);
-		console.log("Fetching URL:", url);
 	
 		try {
 			const response = await fetch(url, {

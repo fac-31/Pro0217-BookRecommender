@@ -41,7 +41,7 @@ export async function createRecommendationsByUserPreferences(req, res) {
 		user = userSchema.parse(user);
 
 		// Call the Recommendation model
-		const recommendations = await createRecommendationsByUserPreferencesModel(user);
+		const recommendations = await createRecommendationsByUserPreferencesModel(user, req);
 		if (!recommendations) {
 			return res
 				.status(406)

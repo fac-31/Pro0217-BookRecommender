@@ -13,22 +13,21 @@ export async function fetchAPI(req, path, method, body = undefined) {
 
 	return await mutex.runExclusive(async () => {
 		const url = getUrlAPI(req, path);
-	
+
 		try {
 			const response = await fetch(url, {
 				method: method,
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(body),
 			});
-	
+
 			console.log("Response status:", response.status);
 			return await response.json();
 		} catch (error) {
 			console.error("Fetch error:", error);
-			throw error;  // Re-throw to see the original error
+			throw error; // Re-throw to see the original error
 		}
 	});
-	
 }
 
 export async function getOrCreateFromAPI(req, path, schema, def, key) {

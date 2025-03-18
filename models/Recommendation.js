@@ -52,11 +52,11 @@ export async function createRecommendationsByUserPreferences(user, req) {
 
 async function getLikedOrDislikedBooks(ids, req1) {
 	const req = {
-		protocol: req1.protocol, 
+		protocol: req1.protocol,
 		headers: req1.headers,
-		body: {}, 
-		params: {}, 
-		query: {}, 
+		body: {},
+		params: {},
+		query: {},
 	};
 
 	let titles = [];

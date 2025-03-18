@@ -22,7 +22,7 @@ export async function createRecommendations(userPrompt) {
 	}
 }
 
-export async function createRecommendationsByUserPreferences(user) {
+export async function createRecommendationsByUserPreferences(user, req) {
 	try {
 		//no history of likes.
 		if (user.likes.length == 0 && user.dislikes.length == 0) return;
@@ -31,13 +31,13 @@ export async function createRecommendationsByUserPreferences(user) {
 
 		if (user.likes.length > 0) {
 			const book_ids = user.likes.map((bookData) => bookData.id);
-			const titles = await getLikedOrDislikedBooks(book_ids);
+			const titles = await getLikedOrDislikedBooks(book_ids, req);
 			userPrompt += "I like the following books: " + titles + ". ";
 		}
 
 		if (user.dislikes.length > 0) {
 			const book_ids = user.dislikes.map((bookData) => bookData.id);
-			const titles = await getLikedOrDislikedBooks(book_ids);
+			const titles = await getLikedOrDislikedBooks(book_ids, req);
 			userPrompt += "I dislike the following books: " + titles + ". ";
 		}
 
@@ -50,15 +50,11 @@ export async function createRecommendationsByUserPreferences(user) {
 	}
 }
 
-async function getLikedOrDislikedBooks(ids) {
+async function getLikedOrDislikedBooks(ids, req1) {
 	//TODO: generalise the hardcoded fix here.
 	const req = {
-		protocol: "http", // Explicitly set the protocol
-		headers: {
-			host: "localhost:3000", // Define the host
-			"Content-Type": "application/json",
-			Accept: "application/json",
-		},
+		protocol: req1.protocol, // Explicitly set the protocol
+		headers: req1.headers,
 		body: {}, // Empty because it's a GET request
 		params: {}, // Empty if no route params
 		query: {}, // Empty if no query params

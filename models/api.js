@@ -11,18 +11,25 @@ function getUrlAPI(req, path) {
 export async function fetchAPI(req, path, method, body = undefined) {
 	// General use API
 
-	//the mutex (=mutual exclusion mechanism) guarantees that only one async call accesses the DB at a time.
-	//this will allow the deployment to be run by multiple clients (hopefully)
 	return await mutex.runExclusive(async () => {
 		const url = getUrlAPI(req, path);
-		const response = await fetch(url, {
-			method: method,
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(body),
-		});
-
-		return await response.json();
+		console.log("Fetching URL:", url);
+	
+		try {
+			const response = await fetch(url, {
+				method: method,
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(body),
+			});
+	
+			console.log("Response status:", response.status);
+			return await response.json();
+		} catch (error) {
+			console.error("Fetch error:", error);
+			throw error;  // Re-throw to see the original error
+		}
 	});
+	
 }
 
 export async function getOrCreateFromAPI(req, path, schema, def, key) {

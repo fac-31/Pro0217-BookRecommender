@@ -51,13 +51,12 @@ export async function createRecommendationsByUserPreferences(user, req) {
 }
 
 async function getLikedOrDislikedBooks(ids, req1) {
-	//TODO: generalise the hardcoded fix here.
 	const req = {
-		protocol: req1.protocol, // Explicitly set the protocol
+		protocol: req1.protocol,
 		headers: req1.headers,
-		body: {}, // Empty because it's a GET request
-		params: {}, // Empty if no route params
-		query: {}, // Empty if no query params
+		body: {},
+		params: {},
+		query: {},
 	};
 
 	let titles = [];

@@ -13,7 +13,7 @@ export async function fetchAPI(req, path, method, body = undefined) {
 
 	//the mutex (=mutual exclusion mechanism) guarantees that only one async call accesses the DB at a time.
 	//this will allow the deployment to be run by multiple clients (hopefully)
-	return mutex.runExclusive(async () => {
+	return await mutex.runExclusive(async () => {
 		const url = getUrlAPI(req, path);
 		const response = await fetch(url, {
 			method: method,

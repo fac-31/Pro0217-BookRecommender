@@ -21,7 +21,6 @@ export async function fetchAPI(req, path, method, body = undefined) {
 				body: JSON.stringify(body),
 			});
 
-			console.log("Response status:", response.status);
 			return await response.json();
 		} catch (error) {
 			console.error("Fetch error:", error);

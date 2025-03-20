@@ -6,12 +6,13 @@ import { userSchema, usersSchema } from "../models/schemas/userSchema.js";
 export async function createRecommendations(req, res) {
 	try {
 		const userPrompt = req.body.userPrompt;
-		if (!userPrompt) {
+		const count = req.body.count;
+		if (!userPrompt || !count) {
 			return res.status(400).json({ error: "Missing prompt in request body." });
 		}
 
 		// Call the Recommendation model
-		const recommendations = await createRecommendationsModel(userPrompt);
+		const recommendations = await createRecommendationsModel(userPrompt, count);
 		if (!recommendations) {
 			return res.status(406).json({ message: "No recommendations found" });
 		}

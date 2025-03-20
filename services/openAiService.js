@@ -2,7 +2,7 @@ import openai from "../config/openai.js";
 import { booksSchema } from "../models/schemas/bookSchema.js";
 import { zodResponseFormat } from "openai/helpers/zod.mjs";
 
-export async function generateAIBookRecommendations(userPrompt) {
+export async function generateAIBookRecommendations(userPrompt, count) {
 	if (!userPrompt) {
 		throw new Error("Missing userPrompt in body of request");
 	}
@@ -13,7 +13,7 @@ export async function generateAIBookRecommendations(userPrompt) {
 			{
 				role: "system",
 				content: `You are a book recommendation model. 
-          Recommend exactly four books. 
+          Recommend exactly ${count} books. 
           The reason should be no longer than 1-2 sentences.
           The reason should reference the user's prompt.`,
 			},

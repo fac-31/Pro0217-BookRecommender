@@ -1,0 +1,46 @@
+import { test, expect } from "@playwright/test";
+
+test("test", async ({ page }) => {
+	await page.goto("http://localhost:3000/");
+	await page.getByRole("textbox", { name: "ENTER YOUR FIRST NAME BELOW" }).click();
+	await page.getByRole("textbox", { name: "ENTER YOUR FIRST NAME BELOW" }).fill("Alpha");
+	await page.getByRole("button", { name: "SUBMIT" }).click();
+	await page.waitForResponse((response) => response.url().includes("/add"));
+	await page.goto("http://localhost:3000/library-interior/");
+	await page.getByRole("link", { name: "Log out" }).click();
+	await page.getByRole("textbox", { name: "ENTER YOUR FIRST NAME BELOW" }).click();
+	await page.getByRole("textbox", { name: "ENTER YOUR FIRST NAME BELOW" }).fill("Beta");
+	await page.getByRole("button", { name: "SUBMIT" }).click();
+    await page.waitForResponse((response) => response.url().includes("/add"));
+	await page.goto("http://localhost:3000/library-interior/");
+	await page.getByText("My Friends").click();
+
+	await page.getByText("My Friends").click();
+	await page.getByText("Add friend").click();
+	await page.getByRole("link", { name: "Alpha" }).click();
+	await page.getByRole("link", { name: "Log out" }).click();
+	await page.getByRole("textbox", { name: "ENTER YOUR FIRST NAME BELOW" }).click();
+	await page.getByRole("textbox", { name: "ENTER YOUR FIRST NAME BELOW" }).fill("Alpha");
+	await page.getByRole("button", { name: "SUBMIT" }).click();
+    await page.waitForResponse((response) => response.url().includes("/add"));
+	await page.goto("http://localhost:3000/library-interior/");
+	await page.getByText("My Inbox").click();
+	await page.getByRole("button", { name: "✓" }).click();
+	await page.getByRole("button", { name: "✕" }).click();
+	await page.getByText("My Friends").click();
+	await page.getByRole("link", { name: "Beta" }).click();
+	await page.getByRole("heading", { name: "Beta's Reading List" }).click();
+	await page.getByRole("link", { name: "Log out" }).click();
+	await page.getByRole("textbox", { name: "ENTER YOUR FIRST NAME BELOW" }).click();
+	await page.getByRole("textbox", { name: "ENTER YOUR FIRST NAME BELOW" }).fill("Beta");
+	await page.getByRole("button", { name: "SUBMIT" }).click();
+    await page.waitForResponse((response) => response.url().includes("/add"));
+	await page.goto("http://localhost:3000/library-interior/");
+	await page.getByText("My Inbox").click();
+	await page.getByText("Alpha accepted your friend").click();
+	await page.locator("#request_accepted-from-user-1").getByRole("button", { name: "✕" }).click();
+	await page.getByRole("button", { name: "✕" }).click();
+	await page.getByText("My Friends").click();
+	await page.getByRole("link", { name: "Alpha" }).click();
+	await page.getByRole("heading", { name: "Alpha's Reading List" }).click();
+});

@@ -24,17 +24,11 @@ const interactionAnimation = (likeOrDislike, bookDiv) => {
 		case "like":
 		case "dislike":
 			bookDiv.classList.add("jump-highlight-" + likeOrDislike);
-			bookDiv.style.width = bookDiv.offsetWidth + "px";
-			bookDiv.style.height = bookDiv.offsetHeight + "px";
-			bookDiv.style.margin = "0";
+			updateBookDislay(bookDiv, true);
 
 			setTimeout(() => {
 				bookDiv.classList.remove("jump-highlight-" + likeOrDislike);
-				bookDiv.style.opacity = "0";
-				bookDiv.style.width = "0";
-				bookDiv.style.height = "0";
-				bookDiv.style.margin = "-10px";
-				bookDiv.style.borderWidth = "0";
+				updateBookDislay(bookDiv, false);
 			}, 500);
 
 			setTimeout(() => {
@@ -45,6 +39,15 @@ const interactionAnimation = (likeOrDislike, bookDiv) => {
 			throw new Error("bad argument passed to interactionAnimation");
 	}
 };
+
+const updateBookDislay = (bookDiv, show, timeout = 0) => {
+	setTimeout(() => {
+		bookDiv.style.opacity = show ? "1" : "0";
+		bookDiv.style.width = show ? "128px" : "0";
+		bookDiv.style.margin = show ? "0" : "-10px";
+		bookDiv.style.borderWidth = show ? "unset" : "0";
+	}, timeout);
+}
 
 const judgementPassed = async (key, book, add = true) => {
 	const dataToSend = {
@@ -125,6 +128,7 @@ const createBookElements = (data, length, bookRecommendationContainer, fetchUser
 		const book = data.books[i];
 		const bookDiv = document.createElement("div");
 		bookDiv.classList.add("book");
+		updateBookDislay(bookDiv, false);
 
 		//add image
 		const img = document.createElement("img");
@@ -138,5 +142,6 @@ const createBookElements = (data, length, bookRecommendationContainer, fetchUser
 
 		createButtonElements(bookDiv, i, book, fetchUsersBooks);
 		bookRecommendationContainer.appendChild(bookDiv);
+		updateBookDislay(bookDiv, true, 100);
 	}
 };

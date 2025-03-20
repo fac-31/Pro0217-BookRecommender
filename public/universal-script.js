@@ -103,7 +103,7 @@ const judgementPassed = async (key, book, add = true) => {
 	}
 };
 
-const createButtonElements = (bookDiv, book, fetchUsersBooks) => {
+const createButtonElements = (bookDiv, book, onBookLiked) => {
 	const librarianDialogue = document.querySelector(".dialogue-div");
 
 	// Create buttons container
@@ -120,7 +120,8 @@ const createButtonElements = (bookDiv, book, fetchUsersBooks) => {
 		librarianDialogue.innerHTML = `<p>Good choice! I'll add "${book.title}" to your reading list!<p>`;
 		await judgementPassed("likes", book);
 
-		if (fetchUsersBooks != undefined) fetchUsersBooks();
+		if (onBookLiked != undefined)
+			onBookLiked(bookDiv, book);
 	});
 	acceptBtn.addEventListener("mouseenter", () => {
 		librarianDialogue.innerHTML = `<p>Interested, I can add it to your reading list?</p>`;
@@ -158,7 +159,8 @@ const createRemoveButton = (bookDiv, book) => {
 	removeBtn.addEventListener("click", (e) => {
 		e.stopPropagation();
 		judgementPassed("likes", book, false);
-		bookDiv.remove();
+		interactionAnimation("dislike", bookDiv);
+
 		if (librarianDialogue) {
 			librarianDialogue.innerHTML = `<p>I've removed "${book.title}" from your reading list.</p>`;
 		}
@@ -173,7 +175,7 @@ const createRemoveButton = (bookDiv, book) => {
 	bookDiv.appendChild(buttonsDiv);
 };
 
-const createBookElements = (data, length, bookRecommendationContainer, fetchUsersBooks) => {
+const createBookElements = (data, length, bookRecommendationContainer, onBookLiked) => {
 	// Convert array to data object if needed
 	data = Array.isArray(data) ? { books: data } : data;
 
@@ -184,6 +186,6 @@ const createBookElements = (data, length, bookRecommendationContainer, fetchUser
 			book,
 			book.reason_for_recommendation,
 		);
-		createButtonElements(bookDiv, book, fetchUsersBooks);
+		createButtonElements(bookDiv, book, onBookLiked);
 	}
 };

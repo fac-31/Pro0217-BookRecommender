@@ -62,11 +62,22 @@ async function fetchUserRecommendation() {
 		const data = await response.json();
 		const bookRecommendationContainer = document.getElementById("my-recommendations-container");
 		const length = 4;
-		createBookElements(data, length, bookRecommendationContainer, fetchUsersBooks);
+		createBookElements(data, length, bookRecommendationContainer, onBookLiked);
 
 		const recomendationsText = document.querySelector("#recomendations-text");
 		recomendationsText.innerHTML = `<p>Based on your reading list you might like these!</p>`;
 	}
+}
+
+function onBookLiked(bookDiv, book) {
+	// Add book to the likes list
+	setTimeout(() => {
+		const bookContainer = document.getElementById("my-books-container");
+		
+		const dict = {};
+		dict[book.id] = book.reason_for_recommendation;
+		createMyBooksElements([book], bookContainer, dict);	// TODO use id_reason_dict instead
+	}, 500);
 }
 
 async function init() {

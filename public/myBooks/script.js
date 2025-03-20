@@ -9,6 +9,9 @@ const createMyBooksElements = (books, bookContainer, id_reason_dict) => {
 		const bookDiv = document.createElement("div");
 		bookDiv.classList.add("book");
 
+		// For selecting books in tests
+		bookDiv.setAttribute("bookid", book.id);
+
 		//add image
 		const img = document.createElement("img");
 		img.src = book.cover;

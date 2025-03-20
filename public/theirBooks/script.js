@@ -8,8 +8,7 @@ if (username) {
 const createMyBooksElements = (books, bookContainer, id_reason_dict) => {
 	for (let i = 0; i < books.length; i++) {
 		const book = books[i];
-		const bookDiv = createBookElement(bookContainer, book, id_reason_dict[book.id]);
-		createRemoveButton(bookDiv, book);
+		createBookElement(bookContainer, book, id_reason_dict[book.id]);
 	}
 };
 

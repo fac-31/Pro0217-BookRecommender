@@ -126,6 +126,9 @@ const createBookElements = (data, length, bookRecommendationContainer, fetchUser
 		const bookDiv = document.createElement("div");
 		bookDiv.classList.add("book");
 
+		// For selecting books in tests
+		bookDiv.setAttribute("title", book.title);
+
 		//add image
 		const img = document.createElement("img");
 		img.src = book.cover;

@@ -120,8 +120,7 @@ const createButtonElements = (bookDiv, book, onBookLiked, onBookDisliked) => {
 		librarianDialogue.innerHTML = `<p>Good choice! I'll add "${book.title}" to your reading list!<p>`;
 		await judgementPassed("likes", book);
 
-		if (onBookLiked != undefined)
-			onBookLiked(bookDiv, book);
+		if (onBookLiked != undefined) onBookLiked(bookDiv, book);
 	});
 	acceptBtn.addEventListener("mouseenter", () => {
 		librarianDialogue.innerHTML = `<p>Interested, I can add it to your reading list?</p>`;
@@ -136,9 +135,8 @@ const createButtonElements = (bookDiv, book, onBookLiked, onBookDisliked) => {
 		interactionAnimation("dislike", bookDiv);
 		judgementPassed("dislikes", book);
 		librarianDialogue.innerHTML = `<p>Got it! I won't recommend books like "${book.title}" going forward! <p>`;
-		
-		if (onBookDisliked != undefined)
-			onBookDisliked(bookDiv, book);
+
+		if (onBookDisliked != undefined) onBookDisliked(bookDiv, book);
 	});
 	rejectBtn.addEventListener("mouseenter", () => {
 		librarianDialogue.innerHTML = `<p>Not a fan of ${book.title}? I can remember to not recommend similar books in the future?</p>`;
@@ -178,7 +176,13 @@ const createRemoveButton = (bookDiv, book) => {
 	bookDiv.appendChild(buttonsDiv);
 };
 
-const createBookElements = (data, length, bookRecommendationContainer, onBookLiked, onBookDisliked) => {
+const createBookElements = (
+	data,
+	length,
+	bookRecommendationContainer,
+	onBookLiked,
+	onBookDisliked,
+) => {
 	// Convert array to data object if needed
 	data = Array.isArray(data) ? { books: data } : data;
 

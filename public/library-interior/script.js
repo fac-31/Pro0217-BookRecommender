@@ -39,7 +39,7 @@ const getRecommendations = async (count) => {
 		"user-prompt-recommendations-container",
 	);
 	createBookElements(data, count, bookRecommendationContainer, onBookSelected, onBookSelected);
-}
+};
 
 const checkLibrary = async () => {
 	try {
@@ -58,7 +58,7 @@ const checkLibrary = async () => {
 const onBookSelected = (bookDiv, book) => {
 	// Selecting a book frees up a space to get another book
 	getRecommendations(1);
-}
+};
 
 const goBack = () => {
 	document.getElementById("darkness").classList.opacity = 0;

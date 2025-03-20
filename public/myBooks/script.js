@@ -73,10 +73,10 @@ function onBookLiked(bookDiv, book) {
 	// Add book to the likes list
 	setTimeout(() => {
 		const bookContainer = document.getElementById("my-books-container");
-		
+
 		const dict = {};
 		dict[book.id] = book.reason_for_recommendation;
-		createMyBooksElements([book], bookContainer, dict);	// TODO use id_reason_dict instead
+		createMyBooksElements([book], bookContainer, dict); // TODO use id_reason_dict instead
 	}, 500);
 }
 

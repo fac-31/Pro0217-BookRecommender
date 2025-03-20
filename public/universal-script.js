@@ -40,6 +40,32 @@ const interactionAnimation = (likeOrDislike, bookDiv) => {
 	}
 };
 
+const createBookElement = (container, book, reason) => {
+	const bookDiv = document.createElement("div");
+	bookDiv.classList.add("book");
+	updateBookDislay(bookDiv, false);
+
+	//add image
+	const img = document.createElement("img");
+	img.src = book.cover;
+	img.alt = book.title;
+	bookDiv.appendChild(img);
+	// Add mouseover event for book info
+	bookDiv.addEventListener("mouseover", () => {
+		const librarianDialogue = document.querySelector(".dialogue-div");
+		if (librarianDialogue) {
+			librarianDialogue.innerHTML = `
+				<p>${book.title}, by ${book.author} was released in ${book.year}</p>
+				<p>Reason: ${reason || "No reason provided."}</p>
+			`;
+		}
+	});
+
+	container.appendChild(bookDiv);
+	updateBookDislay(bookDiv, true, 100);
+	return bookDiv;
+};
+
 const updateBookDislay = (bookDiv, show, timeout = 0) => {
 	setTimeout(() => {
 		bookDiv.style.opacity = show ? "1" : "0";
@@ -47,7 +73,7 @@ const updateBookDislay = (bookDiv, show, timeout = 0) => {
 		bookDiv.style.margin = show ? "0" : "-10px";
 		bookDiv.style.borderWidth = show ? "unset" : "0";
 	}, timeout);
-}
+};
 
 const judgementPassed = async (key, book, add = true) => {
 	const dataToSend = {
@@ -77,7 +103,7 @@ const judgementPassed = async (key, book, add = true) => {
 	}
 };
 
-const createButtonElements = (bookDiv, index, book, fetchUsersBooks) => {
+const createButtonElements = (bookDiv, book, fetchUsersBooks) => {
 	const librarianDialogue = document.querySelector(".dialogue-div");
 
 	// Create buttons container
@@ -118,30 +144,46 @@ const createButtonElements = (bookDiv, index, book, fetchUsersBooks) => {
 	buttonsDiv.appendChild(rejectBtn);
 	bookDiv.appendChild(buttonsDiv);
 };
-const createBookElements = (data, length, bookRecommendationContainer, fetchUsersBooks) => {
+
+const createRemoveButton = (bookDiv, book) => {
 	const librarianDialogue = document.querySelector(".dialogue-div");
 
+	// Create remove button
+	const buttonsDiv = document.createElement("div");
+	buttonsDiv.classList.add("book-buttons");
+
+	const removeBtn = document.createElement("button");
+	removeBtn.classList.add("reject");
+	removeBtn.innerHTML = "✕";
+	removeBtn.addEventListener("click", (e) => {
+		e.stopPropagation();
+		judgementPassed("likes", book, false);
+		bookDiv.remove();
+		if (librarianDialogue) {
+			librarianDialogue.innerHTML = `<p>I've removed "${book.title}" from your reading list.</p>`;
+		}
+	});
+	removeBtn.addEventListener("mouseenter", () => {
+		if (librarianDialogue) {
+			librarianDialogue.innerHTML = `<p>Would you like to remove "${book.title}" from your reading list?</p>`;
+		}
+	});
+
+	buttonsDiv.appendChild(removeBtn);
+	bookDiv.appendChild(buttonsDiv);
+};
+
+const createBookElements = (data, length, bookRecommendationContainer, fetchUsersBooks) => {
 	// Convert array to data object if needed
 	data = Array.isArray(data) ? { books: data } : data;
 
 	for (let i = 0; i < length; i++) {
 		const book = data.books[i];
-		const bookDiv = document.createElement("div");
-		bookDiv.classList.add("book");
-		updateBookDislay(bookDiv, false);
-
-		//add image
-		const img = document.createElement("img");
-		img.src = book.cover;
-		img.alt = book.title;
-		bookDiv.appendChild(img);
-		// Add mouseover event for book info
-		bookDiv.addEventListener("mouseover", () => {
-			librarianDialogue.innerHTML = `<p>${book.title}, by ${book.author} was released in ${book.year}. ${book.reason_for_recommendation}</p>`;
-		});
-
-		createButtonElements(bookDiv, i, book, fetchUsersBooks);
-		bookRecommendationContainer.appendChild(bookDiv);
-		updateBookDislay(bookDiv, true, 100);
+		const bookDiv = createBookElement(
+			bookRecommendationContainer,
+			book,
+			book.reason_for_recommendation,
+		);
+		createButtonElements(bookDiv, book, fetchUsersBooks);
 	}
 };

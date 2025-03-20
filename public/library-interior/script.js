@@ -24,23 +24,27 @@ bookPreferenceForm.onsubmit = (e) => {
 let foundBooks;
 let bookData;
 
+const getRecommendations = async (count) => {
+	const response = await fetch("/recommendations", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ userPrompt, count }),
+	});
+
+	const data = await response.json();
+	localStorage.setItem("bookData", JSON.stringify(data));
+	bookData = JSON.parse(localStorage.getItem("bookData"));
+
+	const bookRecommendationContainer = document.getElementById(
+		"user-prompt-recommendations-container",
+	);
+	createBookElements(data, count, bookRecommendationContainer, onBookSelected, onBookSelected);
+}
+
 const checkLibrary = async () => {
 	try {
-		const response = await fetch("/recommendations", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ userPrompt }),
-		});
-
-		const data = await response.json();
-		localStorage.setItem("bookData", JSON.stringify(data));
-		bookData = JSON.parse(localStorage.getItem("bookData"));
-
-		const length = 4;
-		const bookRecommendationContainer = document.getElementById(
-			"user-prompt-recommendations-container",
-		);
-		createBookElements(data, length, bookRecommendationContainer);
+		const count = 4;
+		await getRecommendations(count);
 
 		foundBooks = true;
 		comeBack();
@@ -50,6 +54,11 @@ const checkLibrary = async () => {
 		comeBack();
 	}
 };
+
+const onBookSelected = (bookDiv, book) => {
+	// Selecting a book frees up a space to get another book
+	getRecommendations(1);
+}
 
 const goBack = () => {
 	document.getElementById("darkness").classList.opacity = 0;

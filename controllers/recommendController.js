@@ -30,6 +30,7 @@ export async function createRecommendations(req, res) {
 export async function createRecommendationsByUserPreferences(req, res) {
 	try {
 		const user_id = req.params.userId; // Extract userId from the URL
+		const count = req.body.count;
 
 		if (!user_id) {
 			return res.status(400).json({ error: "Missing user_id in request body." });
@@ -42,7 +43,7 @@ export async function createRecommendationsByUserPreferences(req, res) {
 		user = userSchema.parse(user);
 
 		// Call the Recommendation model
-		const recommendations = await createRecommendationsByUserPreferencesModel(user, req);
+		const recommendations = await createRecommendationsByUserPreferencesModel(user, count, req);
 		if (!recommendations) {
 			return res
 				.status(406)

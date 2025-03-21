@@ -50,21 +50,21 @@ async function fetchUsersBooks() {
 	}
 }
 
-async function fetchUserRecommendation() {
+async function fetchUserRecommendation(count) {
 	const response = await fetch(`/recommendations/byUserPreferences/${userId}`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
+		body: JSON.stringify({ count }),
 	});
 
 	if (response.ok) {
 		const data = await response.json();
 		const bookRecommendationContainer = document.getElementById("my-recommendations-container");
-		const length = 4;
 		const recomendationsText = document.querySelector("#recomendations-text");
 		recomendationsText.innerHTML = `<p>Based on your reading list you might like these!</p>`;
-		createBookElements(data, length, bookRecommendationContainer, onBookLiked);
+		createBookElements(data, count, bookRecommendationContainer, onBookLiked, onBookDisliked);
 	}
 }
 
@@ -77,11 +77,19 @@ function onBookLiked(bookDiv, book) {
 		dict[book.id] = book.reason_for_recommendation;
 		createMyBooksElements([book], bookContainer, dict); // TODO use id_reason_dict instead
 	}, 500);
+
+	// Find a new recommendation to replace it
+	fetchUserRecommendation(1);
+}
+
+function onBookDisliked(bookDiv, book) {
+	// Find a new recommendation to replace it
+	fetchUserRecommendation(1);
 }
 
 async function init() {
 	await fetchUsersBooks();
-	await fetchUserRecommendation();
+	await fetchUserRecommendation(4);
 }
 
 init();

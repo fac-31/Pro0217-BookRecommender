@@ -22,7 +22,7 @@ export async function createRecommendations(userPrompt, count) {
 	}
 }
 
-export async function createRecommendationsByUserPreferences(user, req) {
+export async function createRecommendationsByUserPreferences(user, count, req) {
 	try {
 		//no history of likes.
 		if (user.likes.length == 0 && user.dislikes.length == 0) return;
@@ -43,7 +43,7 @@ export async function createRecommendationsByUserPreferences(user, req) {
 
 		userPrompt += "Take care not to recommend any of the books mentioned above.";
 
-		return await createRecommendations(userPrompt);
+		return await createRecommendations(userPrompt, count);
 	} catch (error) {
 		console.error("Error in Recommendation model: ", error);
 		throw new Error("Failed to create recommendations by preferences");

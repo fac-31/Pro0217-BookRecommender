@@ -1,0 +1,22 @@
+name: Notify Discord on Pull Request
+
+on:
+    pull_request:
+        types: [opened, reopened, synchronize]
+
+jobs:
+    notify-discord:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Send Discord Notification
+              env:
+                  DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+                  PR_TITLE: ${{ github.event.pull_request.title }}
+                  PR_URL: ${{ github.event.pull_request.html_url }}
+                  PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+                  PR_DESCRIPTION: ${{ github.event.pull_request.body }}
+              run: |
+                  curl -H "Content-Type: application/json" \
+                  -X POST \
+                  -d "{\"username\": \"GitHub\", \"content\": \"📢 **New Pull Request!**\n🔹 **Title:** $PR_TITLE\n🔗 **URL:** $PR_URL\n👤 **Author:** $PR_AUTHOR\n📝 **Description:** $PR_DESCRIPTION\"}" \
+                  "$DISCORD_WEBHOOK_URL"

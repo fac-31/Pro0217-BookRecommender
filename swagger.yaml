@@ -250,7 +250,66 @@ paths:
                                     message:
                                         type: string
                                         example: "User or book not found"
-  #outer.post("/update-inbox", updateInbox);
+
+    /users/update-inbox:
+        post:
+            summary: Update a user's inbox
+            description: Add or remove a message from inbox
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            required:
+                                - addressee_id
+                                - sender_id
+                                - message_type
+                                - key
+                                - add
+                            properties:
+                                addressee_id:
+                                    type: integer
+                                    example: 1
+                                sender_id:
+                                    type: integer
+                                    example: 2
+                                message_type:
+                                    type: string
+                                    example: "request_accepted"
+                                key:
+                                    type: string
+                                    example: "inbox"
+                                add:
+                                    type: boolean
+                                    example: true
+            responses:
+                200:
+                    description: User's inbox updated successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/User"
+                400:
+                    description: Invalid request data
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: "Invalid input"
+                404:
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: "User not found"
 
     /recommendations:
         post:

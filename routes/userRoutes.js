@@ -18,5 +18,4 @@ router.post("/update-pending", updatePending);
 router.post("/update-friend", updateFriend);
 router.post("/update-inbox", updateInbox);
 
-
 export { router as userRoutes };

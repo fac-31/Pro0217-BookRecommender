@@ -43,6 +43,7 @@ const interactionAnimation = (likeOrDislike, bookDiv) => {
 const createBookElement = (container, book, reason) => {
 	const bookDiv = document.createElement("div");
 	bookDiv.classList.add("book");
+	bookDiv.setAttribute("bookid", book.id); // For selecting books in tests
 	updateBookDislay(bookDiv, false);
 
 	//add image

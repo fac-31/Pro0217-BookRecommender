@@ -185,25 +185,3 @@ export async function updateInbox(req, res) {
 		});
 	}
 }
-
-// UPDATE a user
-export async function updateUser(req, res) {
-	try {
-		res.send(
-			await fetchAPI(req, "users/" + req.params.id, "PATCH", {
-				name: "Changed",
-			}),
-		);
-	} catch (error) {
-		res.status(500).json({ message: "Error updating user", error: error.message });
-	}
-}
-
-// DELETE a user
-export async function deleteUser(req, res) {
-	try {
-		res.send(await fetchAPI(req, "users/" + req.params.id, "DELETE"));
-	} catch (error) {
-		res.status(500).json({ message: "Error deleting user", error: error.message });
-	}
-}

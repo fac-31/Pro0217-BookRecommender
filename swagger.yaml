@@ -138,11 +138,119 @@ paths:
                                     message:
                                         type: string
                                         example: "User or book not found"
-
-    #TODO:
-    #router.post("/update-pending", updatePending);
-    #router.post("/update-friend", updateFriend);
-    #outer.post("/update-inbox", updateInbox);
+    /users/update-pending:
+        post:
+            summary: Update a user's friends request to pending
+            description: Add or remove a user from a user's pending list
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            required:
+                                - user_id
+                                - friend_id
+                                - key
+                                - add
+                            properties:
+                                user_id:
+                                    type: integer
+                                    example: 1
+                                friend_id:
+                                    type: integer
+                                    example: 2
+                                key:
+                                    type: string
+                                    enum: [pending]
+                                    example: "pending"
+                                add:
+                                    type: boolean
+                                    example: true
+            responses:
+                200:
+                    description: User's pending list updated successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/User"
+                400:
+                    description: Invalid request data
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: "Invalid input"
+                404:
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: "User or book not found"
+    /users/update-friend:
+        post:
+            summary: Update a user's friends request to friends
+            description: Add or remove a user from a user's friend list
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            required:
+                                - user_id
+                                - friend_id
+                                - key
+                                - add
+                            properties:
+                                user_id:
+                                    type: integer
+                                    example: 1
+                                friend_id:
+                                    type: integer
+                                    example: 2
+                                key:
+                                    type: string
+                                    enum: [friend]
+                                    example: "friend"
+                                add:
+                                    type: boolean
+                                    example: true
+            responses:
+                200:
+                    description: User's friend's list updated successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/User"
+                400:
+                    description: Invalid request data
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: "Invalid input"
+                404:
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                        example: "User or book not found"
+  #outer.post("/update-inbox", updateInbox);
 
     /recommendations:
         post:

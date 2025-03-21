@@ -162,14 +162,11 @@ paths:
                                     example: "I like sad cool books"
             responses:
                 200:
-                    description: A list of recommended books
+                    description: A list of books corresponding to the given IDs
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    type: string
-                                    example: "The Fault in Our Stars"
+                                $ref: "#/components/schemas/Books"
                 400:
                     description: Invalid user prompt
                     content:
@@ -205,14 +202,11 @@ paths:
                       example: 1
             responses:
                 200:
-                    description: A list of recommended books based on user preferences
+                    description: A list of books corresponding to the given IDs
                     content:
                         application/json:
                             schema:
-                                type: array
-                                items:
-                                    type: string
-                                    example: "The Fault in Our Stars"
+                                $ref: "#/components/schemas/Books"
                 404:
                     description: User not found
                     content:

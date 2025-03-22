@@ -14,7 +14,6 @@
 }
 
 body {
-	background-color: var(--lightgreen);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -78,6 +77,27 @@ h3 {
 	image-rendering: pixelated;
 }
 
+.new-prompt-btn {
+	width: 10vw;
+	background-color: #950606;
+	color: white;
+	border: none;
+	border-radius: 7px;
+	padding: 0.4rem;
+	font-family: "Playwrite IT Moderna", serif;
+	font-size: 0.8rem;
+	text-align: center;
+	cursor: pointer;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin: 0 1rem 1rem 0;
+}
+
+.new-prompt-btn:hover {
+	box-shadow: 0 0 0.5vw 0.5vw #950606;
+}
+
 /* Dialogue */
 .dialogue-div {
 	position: fixed;
@@ -116,7 +136,7 @@ h3 {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	padding: 1.7vw;
+	padding: 0 1.7vw 1.7vw 1.7vw;
 	font-family: "Playwrite IT Moderna", serif;
 	font-weight: 300;
 	margin-bottom: 2vh;
@@ -147,7 +167,7 @@ h3 {
 	font-family: "Playwrite IT Moderna", serif;
 	font-size: 1.1rem;
 	color: white;
-	margin-top: 1vh;
+	margin-top: 3vh;
 	cursor: pointer;
 	min-width: max-content;
 }
@@ -436,6 +456,18 @@ span {
 	justify-content: space-between;
 	align-items: flex-start;
 	padding: 5px 0 5px 5px;
+}
+
+.inbox-empty-message {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -80%);
+	color: black;
+	font-family: "Playwrite IT Moderna", serif;
+	font-weight: 300;
+	font-size: 1rem;
+	text-align: center;
 }
 
 .message {

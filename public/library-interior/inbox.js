@@ -32,8 +32,15 @@ const getMessages = async () => {
 };
 
 const displayMessages = async () => {
+	document.querySelector(".inbox-empty-message").classList.add("hidden");
+
 	if (document.querySelector(".message")) {
 		document.querySelector(".message").remove(); // delete all displayed messages so as to refresh inbox
+	}
+
+	if (messages.length == 0) {
+		document.querySelector(".inbox-empty-message").classList.remove("hidden");
+		return;
 	}
 
 	// Create message elements and append them to inbox element
@@ -174,6 +181,7 @@ const acceptFriendRequest = async (selectedMessageID) => {
 		.then(() => {
 			clearFriendsAndRemainingUsersContainers();
 			getFriendsAndRemainingUsers();
+			getMessages();
 		});
 };
 
@@ -230,6 +238,9 @@ const rejectFriendRequest = async (selectedMessageID) => {
 				},
 				body: JSON.stringify(messageToSend),
 			});
+		})
+		.then(() => {
+			getMessages();
 		});
 };
 
@@ -250,9 +261,7 @@ const deleteMessage = async (selectedMessageID, selectedMessageType) => {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify(messageToDelete),
-	})
-		.then((response) => response.json())
-		.catch((error) => {
-			console.error("Error:", error);
-		});
+	}).then(() => {
+		getMessages();
+	});
 };

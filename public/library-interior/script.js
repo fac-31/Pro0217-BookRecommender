@@ -21,7 +21,6 @@ bookPreferenceForm.onsubmit = (e) => {
 	bookPreferenceForm.classList.add("hidden");
 };
 
-let foundBooks;
 let bookData;
 
 const getRecommendations = async (count) => {
@@ -47,10 +46,12 @@ const checkLibrary = async () => {
 		await getRecommendations(count);
 
 		foundBooks = true;
+		outOfFrame = false;
 		comeBack();
 	} catch (error) {
 		console.error("Error:", error);
 		foundBooks = false;
+		outOfFrame = false;
 		comeBack();
 	}
 };

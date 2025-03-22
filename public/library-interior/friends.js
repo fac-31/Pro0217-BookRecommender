@@ -252,53 +252,69 @@ const addNewFriend = async (selectedUserID) => {
 
 // Remove friend
 const removeFriend = async (selectedUserID) => {
+	// Remove link from user's friends list
+	document.getElementById(`${selectedUserID}-element`).remove();
+
 	// Remove selected user ID from current user's friends array
-	const dataToSend = {
+	const dataToSend1 = {
 		user_id: currentUserID,
 		friend_id: selectedUserID,
 		key: "friends",
 		add: false,
 	};
 
-	fetch("/users/update-friend", {
+	let estrangedFriendData;
+
+	// Remove current user ID from selected user's friends array
+	const dataToSend2 = {
+		user_id: selectedUserID,
+		friend_id: parseInt(currentUserID),
+		key: "friends",
+		add: false,
+	};
+
+	await fetch("/users/update-friend", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify(dataToSend),
+		body: JSON.stringify(dataToSend1),
 	})
+		.then(() => {
+			return fetch("/users/update-friend", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(dataToSend2),
+			});
+		})
+		.then(() => {
+			return fetch(`/users/${selectedUserID}`); // Get estranged friend's data from database
+		})
 		.then((response) => response.json())
-		.catch((error) => {
-			console.error("Error:", error);
+		.then((data) => {
+			estrangedFriendData = data;
+		})
+		.then(() => {
+			// Create 'link' for user in list of remaining users
+			const estrangedFriend = document.createElement("div");
+			estrangedFriend.id = `${estrangedFriendData.id}-element`;
+			estrangedFriend.classList.add("remaining-user");
+			estrangedFriend.innerHTML = `<a href ="#">${estrangedFriendData.username}</a>`;
+			remainingUsersContainer.appendChild(estrangedFriend);
+			estrangedFriend.addEventListener("click", () => {
+				sendFriendRequest(estrangedFriendData.id);
+			});
+
+			const hourglassIcon = document.createElement("img");
+			hourglassIcon.src = "../images/hourglass.gif";
+			hourglassIcon.id = `hourglass-for-${estrangedFriendData.id}`;
+			hourglassIcon.classList.add("hourglass-icon");
+			hourglassIcon.classList.add("hidden");
+
+			document.getElementById(`${estrangedFriendData.id}-element`).appendChild(hourglassIcon);
 		});
-
-	// Remove link from user's friends list
-	document.getElementById(`${selectedUserID}-element`).remove();
-
-	// Get estranged friend's data from database
-	const estrangedFriendInfo = await fetch(`/users/${selectedUserID}`);
-	if (!estrangedFriendInfo.ok) {
-		console.error("Failed to fetch remaining user info");
-		return;
-	}
-	const estrangedFriendData = await estrangedFriendInfo.json();
-
-	// Create 'link' for user in list of remaining users
-	const estrangedFriend = document.createElement("div");
-	estrangedFriend.id = `${estrangedFriendData.id}-element`;
-	estrangedFriend.classList.add("remaining-user");
-	estrangedFriend.innerHTML = `<a href ="#">${estrangedFriendData.username}</a>`;
-	remainingUsersContainer.appendChild(estrangedFriend);
-	estrangedFriend.addEventListener("click", () => {
-		addNewFriend(estrangedFriendData.id);
-	});
-
-	const hourglassIcon = document.createElement("img");
-	hourglassIcon.src = "../images/hourglass.gif";
-	hourglassIcon.classList.add("hourglass-icon");
-	hourglassIcon.classList.add("hidden");
-
-	document.getElementById(`${estrangedFriendData.id}-element`).appendChild(hourglassIcon);
 };
 
 getFriendsAndRemainingUsers();

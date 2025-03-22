@@ -6,7 +6,7 @@ const canvasHeight = canvas.height;
 const librarianImage = new Image();
 librarianImage.src = "/images/librarian-spritesheet.png";
 const deskImage = new Image();
-deskImage.src = "/images/table-new.png";
+deskImage.src = "/images/table-empty.png";
 let frameX = 0;
 let frameY = 0;
 let gameFrame = 0;
@@ -15,11 +15,16 @@ const framesPerSecond = 30;
 
 let outOfFrame = false;
 let behindDesk = true;
-let progress = canvasWidth / 2 - 27;
+let foundBooks = false;
+let progress = canvasWidth / 2 - 23;
 
 const drawLibrarian = (x, y) => {
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 	ctx.drawImage(librarianImage, 53 * frameX, 53 * frameY, 53, 53, x, y, 53, 53);
+};
+
+const drawDesk = () => {
+	deskImage.src = foundBooks ? "/images/table-with-books.png" : "/images/table-empty.png";
 	ctx.drawImage(deskImage, 0, 0, 100, 100, canvasWidth / 2 - 50, canvasHeight / 2 - 26, 100, 100);
 };
 
@@ -35,13 +40,17 @@ const librarianIdle = () => {
 
 	frameY = 0;
 	staggerFrames = 20;
-	drawLibrarian(canvasWidth / 2 - 27, 0);
+	drawLibrarian(canvasWidth / 2 - 23, 0);
+	drawDesk();
 	animateLibrarian();
 
 	requestAnimationFrame(librarianIdle);
 };
 
 const walkAway = () => {
+	foundBooks = false;
+	drawDesk();
+
 	if (outOfFrame) {
 		checkLibrary();
 		return;
@@ -75,9 +84,13 @@ const walkAway = () => {
 	}, 1000 / framesPerSecond);
 };
 
+const newPromptBtn = document.querySelector(".new-prompt-btn");
+
 const comeBack = () => {
 	if (behindDesk) {
 		librarianIdle();
+
+		newPromptBtn.classList.remove("hidden");
 
 		if (foundBooks) {
 			librarianDialogue.innerHTML = "<p>Here we are, take a look at these!</p>";

@@ -11,15 +11,9 @@
     />
     <link rel="stylesheet" href="/styles.css" />
 
-    <% if (url == "/library-interior/" || url == "/myBooks/" || url == "/theirBooks/") { %>
-		<link rel="stylesheet" href="/interiorstyles.css" />
-	<% } else { %>
-        <link rel="stylesheet" href="/frontstyles.css" />
-    <% } %>
-
-    <!-- <% for (let i = 0; i < styles.length; i++) { %>
+    <% for (let i = 0; i < styles.length; i++) { %>
         <link rel="stylesheet" href="<%- styles[i] %>" />
-    <% } %> -->
+    <% } %>
 
     <link rel="icon" type="image/x-icon" href="/images/<%- icon %>.png" />
 </head>

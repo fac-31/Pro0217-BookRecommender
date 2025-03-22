@@ -84,9 +84,13 @@ const walkAway = () => {
 	}, 1000 / framesPerSecond);
 };
 
+const newPromptBtn = document.querySelector(".new-prompt-btn");
+
 const comeBack = () => {
 	if (behindDesk) {
 		librarianIdle();
+
+		newPromptBtn.classList.remove("hidden");
 
 		if (foundBooks) {
 			librarianDialogue.innerHTML = "<p>Here we are, take a look at these!</p>";

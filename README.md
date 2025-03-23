@@ -10,6 +10,7 @@ Your local library simulation app, here for all your book recommendation needs!
 - A personal reading list, curated by your own good self by liking books our resident librarian Oskar brings back.
 - Smart recommendations generated based on the content of your reading list.
 - "Friends" feature, allowing you to add other users as friends (and snoop(y) on their reading lists too!)
+- A personal inbox, informing you of new friend requests received and keeping you updated on the status of friend requests you have sent.
 
 ## 🛠️ Tech Stack
 

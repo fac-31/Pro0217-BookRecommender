@@ -26,7 +26,7 @@ Your local library simulation app, here for all your book recommendation needs!
 
 1. Quick, clone the repository!
 ```bash
-git clone https://github.com/yourusername/Pro0217-MyTarotation.git
+git clone https://github.com/yourusername/Pro0217-BookRecommender.git
 ```
 
 2. Install all those dependencies...

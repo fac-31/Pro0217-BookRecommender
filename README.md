@@ -19,7 +19,7 @@ Your local library simulation app, here for all your book recommendation needs!
   - OpenAI API for book recommendations
   - Google Books API for book covers
 - **"Database"**: local JSON file served by JSON-Server
-- **Data Persistence**: localStorage object
+- **Data (User ID) Persistence**: localStorage object
 - **Input Validation**: Zod schema validation
 
 ## 🚀 Commencing countdown, engines on!

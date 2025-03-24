@@ -17,7 +17,6 @@ let frameY = 0;
 let gameFrame = 0;
 let staggerFrames = 20;
 const framesPerSecond = 30;
-
 let outOfFrame = false;
 let behindDesk = true;
 let foundBooks = false;

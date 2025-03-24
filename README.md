@@ -53,7 +53,7 @@ npm run start
 
 ## 🎯 API Endpoints
 
-To be updated
+See the full API documentation [here](docs/api.md).
 
 ---
 Happy reading! Oskar 🐾

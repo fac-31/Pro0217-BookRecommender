@@ -1,0 +1,833 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "User API",
+    "version": "1.0.0",
+    "description": "API Documentation for retrieving users"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "description": "Retrieve a list of all users",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Get a user by ID",
+        "description": "Retrieve a specific user by their unique ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Numeric ID of the user to retrieve",
+            "schema": {
+              "type": "integer",
+              "example": 2
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/add": {
+      "post": {
+        "summary": "Add a new user",
+        "description": "Create a new user with a username",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "username"
+                ],
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "New"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid user data"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update-book": {
+      "post": {
+        "summary": "Update a user's book data (likes/dislikes)",
+        "description": "Add or remove a book from a user's `likes` or `dislikes` list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "user_id",
+                  "book_id",
+                  "key",
+                  "add"
+                ],
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "book_id": {
+                    "type": "string",
+                    "example": "69"
+                  },
+                  "key": {
+                    "type": "string",
+                    "enum": [
+                      "likes",
+                      "dislikes"
+                    ],
+                    "example": "likes"
+                  },
+                  "add": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User's book list updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid input"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User or book not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User or book not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update-pending": {
+      "post": {
+        "summary": "Update a user's friends request to pending",
+        "description": "Add or remove a user from a user's pending list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "user_id",
+                  "friend_id",
+                  "key",
+                  "add"
+                ],
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "friend_id": {
+                    "type": "integer",
+                    "example": 2
+                  },
+                  "key": {
+                    "type": "string",
+                    "enum": [
+                      "pending"
+                    ],
+                    "example": "pending"
+                  },
+                  "add": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User's pending list updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid input"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User or book not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update-friend": {
+      "post": {
+        "summary": "Update a user's friends request to friends",
+        "description": "Add or remove a user from a user's friend list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "user_id",
+                  "friend_id",
+                  "key",
+                  "add"
+                ],
+                "properties": {
+                  "user_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "friend_id": {
+                    "type": "integer",
+                    "example": 2
+                  },
+                  "key": {
+                    "type": "string",
+                    "enum": [
+                      "friend"
+                    ],
+                    "example": "friend"
+                  },
+                  "add": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User's friend's list updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid input"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User or book not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update-inbox": {
+      "post": {
+        "summary": "Update a user's inbox",
+        "description": "Add or remove a message from inbox",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "addressee_id",
+                  "sender_id",
+                  "message_type",
+                  "key",
+                  "add"
+                ],
+                "properties": {
+                  "addressee_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "sender_id": {
+                    "type": "integer",
+                    "example": 2
+                  },
+                  "message_type": {
+                    "type": "string",
+                    "example": "request_accepted"
+                  },
+                  "key": {
+                    "type": "string",
+                    "example": "inbox"
+                  },
+                  "add": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User's inbox updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid input"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recommendations": {
+      "post": {
+        "summary": "Get book recommendations based on a user's prompt",
+        "description": "Provide book recommendations based on the user's interest prompt",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "userPrompt"
+                ],
+                "properties": {
+                  "userPrompt": {
+                    "type": "string",
+                    "example": "I like sad cool books"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of books corresponding to the given IDs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Books"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid user prompt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid user prompt"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recommendations/byUserPreferences/{id}": {
+      "post": {
+        "summary": "Get book recommendations based on a user's preferences (using user ID)",
+        "description": "Provide book recommendations based on the stored preferences of a user identified by the ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Numeric ID of the user whose preferences are used for recommendations",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of books corresponding to the given IDs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Books"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/fetchBooksByIDs": {
+      "post": {
+        "summary": "Fetch books by IDs",
+        "description": "Retrieve a list of books by providing an array of book IDs",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "ids"
+                ],
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "_dkvAAAAMAAJ",
+                      "b5XJTggrslgC",
+                      "CEQU4psAbCMC"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A list of books corresponding to the given IDs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Books"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid request format"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "One or more books not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Some books were not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BookUserData": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "book123"
+          },
+          "reason": {
+            "type": "string",
+            "example": "Loved the storyline"
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "type": {
+            "type": "string",
+            "example": "friend_request"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "john_doe"
+          },
+          "id": {
+            "type": "integer",
+            "example": 123
+          },
+          "likes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BookUserData"
+            }
+          },
+          "dislikes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BookUserData"
+            }
+          },
+          "pending": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "example": [
+              101,
+              102
+            ]
+          },
+          "friends": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "example": [
+              201,
+              202
+            ]
+          },
+          "inbox": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            }
+          }
+        }
+      },
+      "Users": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/User"
+        }
+      },
+      "Book": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "_dkvAAAAMAAJ"
+          },
+          "title": {
+            "type": "string",
+            "example": "Pride and Prejudice"
+          },
+          "author": {
+            "type": "string",
+            "example": "Jane Austen"
+          },
+          "year": {
+            "type": "string",
+            "example": "1813"
+          },
+          "cover": {
+            "type": "string",
+            "example": "https://example.com/cover.jpg"
+          },
+          "reason_for_recommendation": {
+            "type": "string",
+            "example": "A classic romance novel with timeless themes"
+          }
+        }
+      },
+      "Books": {
+        "type": "object",
+        "properties": {
+          "books": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Book"
+            }
+          }
+        }
+      }
+    }
+  }
+}

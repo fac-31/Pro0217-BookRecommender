@@ -5,8 +5,13 @@ const canvasHeight = canvas.height;
 
 const librarianImage = new Image();
 librarianImage.src = "/images/librarian-spritesheet.png";
-const deskImage = new Image();
-deskImage.src = "/images/table-empty.png";
+
+const deskEmpty = new Image();
+deskEmpty.src = "/images/table-empty.png";
+
+const deskWithBooks = new Image();
+deskWithBooks.src = "/images/table-with-books.png";
+
 let frameX = 0;
 let frameY = 0;
 let gameFrame = 0;
@@ -24,8 +29,8 @@ const drawLibrarian = (x, y) => {
 };
 
 const drawDesk = () => {
-	deskImage.src = foundBooks ? "/images/table-with-books.png" : "/images/table-empty.png";
-	ctx.drawImage(deskImage, 0, 0, 100, 100, canvasWidth / 2 - 50, canvasHeight / 2 - 26, 100, 100);
+	const img = foundBooks ? deskWithBooks : deskEmpty;
+	ctx.drawImage(img, 0, 0, 100, 100, canvasWidth / 2 - 50, canvasHeight / 2 - 26, 100, 100);
 };
 
 const animateLibrarian = () => {
@@ -61,7 +66,7 @@ const walkAway = () => {
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 	ctx.drawImage(librarianImage, 53 * frameX, 53 * frameY, 53, 53, progress, 0, 53, 53);
 
-	ctx.drawImage(deskImage, 0, 0, 100, 100, canvasWidth / 2 - 50, canvasHeight / 2 - 26, 100, 100);
+	drawDesk();
 
 	if (gameFrame % staggerFrames === 0) {
 		if (frameX < 1) {
@@ -110,7 +115,7 @@ const comeBack = () => {
 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 	ctx.drawImage(librarianImage, 53 * frameX, 53 * frameY, 53, 53, progress, 0, 53, 53);
 
-	ctx.drawImage(deskImage, 0, 0, 100, 100, canvasWidth / 2 - 50, canvasHeight / 2 - 26, 100, 100);
+	drawDesk();
 
 	if (gameFrame % staggerFrames === 0) {
 		if (frameX < 1) {

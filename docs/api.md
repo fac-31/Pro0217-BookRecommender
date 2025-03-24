@@ -1,20 +1,19 @@
 ---
 title: User API v1.0.0
 language_tabs:
-  - shell: Shell
-  - http: HTTP
-  - javascript: JavaScript
-  - ruby: Ruby
-  - python: Python
-  - php: PHP
-  - java: Java
-  - go: Go
+    - shell: Shell
+    - http: HTTP
+    - javascript: JavaScript
+    - ruby: Ruby
+    - python: Python
+    - php: PHP
+    - java: Java
+    - go: Go
 toc_footers: []
 includes: []
 search: true
 highlight_theme: darkula
 headingLevel: 2
-
 ---
 
 <!-- Generator: Widdershins v4.0.1 -->
@@ -27,11 +26,11 @@ API Documentation for retrieving users
 
 Base URLs:
 
-* <a href="http://localhost:3000">http://localhost:3000</a>
+- <a href="http://localhost:3000">http://localhost:3000</a>
 
 <h1 id="user-api-default">Default</h1>
 
-## get__users
+## get\_\_users
 
 > Code samples
 
@@ -50,23 +49,21 @@ Accept: application/json
 ```
 
 ```javascript
-
 const headers = {
-  'Accept':'application/json'
+	Accept: "application/json",
 };
 
-fetch('http://localhost:3000/users',
-{
-  method: 'GET',
+fetch("http://localhost:3000/users", {
+	method: "GET",
 
-  headers: headers
+	headers: headers,
 })
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
+	.then(function (res) {
+		return res.json();
+	})
+	.then(function (body) {
+		console.log(body);
+	});
 ```
 
 ```ruby
@@ -172,7 +169,7 @@ func main() {
 
 `GET /users`
 
-*Get all users*
+_Get all users_
 
 Retrieve a list of all users
 
@@ -182,50 +179,44 @@ Retrieve a list of all users
 
 ```json
 [
-  {
-    "username": "john_doe",
-    "id": 123,
-    "likes": [
-      {
-        "id": "book123",
-        "reason": "Loved the storyline"
-      }
-    ],
-    "dislikes": [
-      {
-        "id": "book123",
-        "reason": "Loved the storyline"
-      }
-    ],
-    "pending": [
-      101,
-      102
-    ],
-    "friends": [
-      201,
-      202
-    ],
-    "inbox": [
-      {
-        "id": 1,
-        "type": "friend_request"
-      }
-    ]
-  }
+	{
+		"username": "john_doe",
+		"id": 123,
+		"likes": [
+			{
+				"id": "book123",
+				"reason": "Loved the storyline"
+			}
+		],
+		"dislikes": [
+			{
+				"id": "book123",
+				"reason": "Loved the storyline"
+			}
+		],
+		"pending": [101, 102],
+		"friends": [201, 202],
+		"inbox": [
+			{
+				"id": 1,
+				"type": "friend_request"
+			}
+		]
+	}
 ]
 ```
 
 <h3 id="get__users-responses">Responses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A list of users|[Users](#schemausers)|
+| Status | Meaning                                                 | Description     | Schema                |
+| ------ | ------------------------------------------------------- | --------------- | --------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1) | A list of users | [Users](#schemausers) |
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## get__users_{id}
+## get\__users_{id}
 
 > Code samples
 
@@ -244,23 +235,21 @@ Accept: application/json
 ```
 
 ```javascript
-
 const headers = {
-  'Accept':'application/json'
+	Accept: "application/json",
 };
 
-fetch('http://localhost:3000/users/{id}',
-{
-  method: 'GET',
+fetch("http://localhost:3000/users/{id}", {
+	method: "GET",
 
-  headers: headers
+	headers: headers,
 })
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
+	.then(function (res) {
+		return res.json();
+	})
+	.then(function (body) {
+		console.log(body);
+	});
 ```
 
 ```ruby
@@ -366,15 +355,15 @@ func main() {
 
 `GET /users/{id}`
 
-*Get a user by ID*
+_Get a user by ID_
 
 Retrieve a specific user by their unique ID
 
 <h3 id="get__users_{id}-parameters">Parameters</h3>
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|integer|true|Numeric ID of the user to retrieve|
+| Name | In   | Type    | Required | Description                        |
+| ---- | ---- | ------- | -------- | ---------------------------------- |
+| id   | path | integer | true     | Numeric ID of the user to retrieve |
 
 > Example responses
 
@@ -382,57 +371,51 @@ Retrieve a specific user by their unique ID
 
 ```json
 {
-  "username": "john_doe",
-  "id": 123,
-  "likes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "dislikes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "pending": [
-    101,
-    102
-  ],
-  "friends": [
-    201,
-    202
-  ],
-  "inbox": [
-    {
-      "id": 1,
-      "type": "friend_request"
-    }
-  ]
+	"username": "john_doe",
+	"id": 123,
+	"likes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"dislikes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"pending": [101, 102],
+	"friends": [201, 202],
+	"inbox": [
+		{
+			"id": 1,
+			"type": "friend_request"
+		}
+	]
 }
 ```
 
 <h3 id="get__users_{id}-responses">Responses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The requested user|[User](#schemauser)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|User not found|Inline|
+| Status | Meaning                                                        | Description        | Schema              |
+| ------ | -------------------------------------------------------------- | ------------------ | ------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)        | The requested user | [User](#schemauser) |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4) | User not found     | Inline              |
 
 <h3 id="get__users_{id}-responseschema">Response Schema</h3>
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## post__users_add
+## post\_\_users_add
 
 > Code samples
 
@@ -582,7 +565,7 @@ func main() {
 
 `POST /users/add`
 
-*Add a new user*
+_Add a new user_
 
 Create a new user with a username
 
@@ -590,16 +573,16 @@ Create a new user with a username
 
 ```json
 {
-  "username": "New"
+	"username": "New"
 }
 ```
 
 <h3 id="post__users_add-parameters">Parameters</h3>
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|true|none|
-|» username|body|string|true|none|
+| Name       | In   | Type   | Required | Description |
+| ---------- | ---- | ------ | -------- | ----------- |
+| body       | body | object | true     | none        |
+| » username | body | string | true     | none        |
 
 > Example responses
 
@@ -607,57 +590,51 @@ Create a new user with a username
 
 ```json
 {
-  "username": "john_doe",
-  "id": 123,
-  "likes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "dislikes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "pending": [
-    101,
-    102
-  ],
-  "friends": [
-    201,
-    202
-  ],
-  "inbox": [
-    {
-      "id": 1,
-      "type": "friend_request"
-    }
-  ]
+	"username": "john_doe",
+	"id": 123,
+	"likes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"dislikes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"pending": [101, 102],
+	"friends": [201, 202],
+	"inbox": [
+		{
+			"id": 1,
+			"type": "friend_request"
+		}
+	]
 }
 ```
 
 <h3 id="post__users_add-responses">Responses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|User created successfully|[User](#schemauser)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid request body|Inline|
+| Status | Meaning                                                          | Description               | Schema              |
+| ------ | ---------------------------------------------------------------- | ------------------------- | ------------------- |
+| 201    | [Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)     | User created successfully | [User](#schemauser) |
+| 400    | [Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1) | Invalid request body      | Inline              |
 
 <h3 id="post__users_add-responseschema">Response Schema</h3>
 
 Status Code **400**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## post__users_update-book
+## post\_\_users_update-book
 
 > Code samples
 
@@ -810,7 +787,7 @@ func main() {
 
 `POST /users/update-book`
 
-*Update a user's book data (likes/dislikes)*
+_Update a user's book data (likes/dislikes)_
 
 Add or remove a book from a user's `likes` or `dislikes` list
 
@@ -818,29 +795,29 @@ Add or remove a book from a user's `likes` or `dislikes` list
 
 ```json
 {
-  "user_id": 1,
-  "book_id": "69",
-  "key": "likes",
-  "add": true
+	"user_id": 1,
+	"book_id": "69",
+	"key": "likes",
+	"add": true
 }
 ```
 
 <h3 id="post__users_update-book-parameters">Parameters</h3>
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|true|none|
-|» user_id|body|integer|true|none|
-|» book_id|body|string|true|none|
-|» key|body|string|true|none|
-|» add|body|boolean|true|none|
+| Name      | In   | Type    | Required | Description |
+| --------- | ---- | ------- | -------- | ----------- |
+| body      | body | object  | true     | none        |
+| » user_id | body | integer | true     | none        |
+| » book_id | body | string  | true     | none        |
+| » key     | body | string  | true     | none        |
+| » add     | body | boolean | true     | none        |
 
 #### Enumerated Values
 
-|Parameter|Value|
-|---|---|
-|» key|likes|
-|» key|dislikes|
+| Parameter | Value    |
+| --------- | -------- |
+| » key     | likes    |
+| » key     | dislikes |
 
 > Example responses
 
@@ -848,64 +825,58 @@ Add or remove a book from a user's `likes` or `dislikes` list
 
 ```json
 {
-  "username": "john_doe",
-  "id": 123,
-  "likes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "dislikes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "pending": [
-    101,
-    102
-  ],
-  "friends": [
-    201,
-    202
-  ],
-  "inbox": [
-    {
-      "id": 1,
-      "type": "friend_request"
-    }
-  ]
+	"username": "john_doe",
+	"id": 123,
+	"likes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"dislikes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"pending": [101, 102],
+	"friends": [201, 202],
+	"inbox": [
+		{
+			"id": 1,
+			"type": "friend_request"
+		}
+	]
 }
 ```
 
 <h3 id="post__users_update-book-responses">Responses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|User's book list updated successfully|[User](#schemauser)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid request data|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|User or book not found|Inline|
+| Status | Meaning                                                          | Description                           | Schema              |
+| ------ | ---------------------------------------------------------------- | ------------------------------------- | ------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)          | User's book list updated successfully | [User](#schemauser) |
+| 400    | [Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1) | Invalid request data                  | Inline              |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)   | User or book not found                | Inline              |
 
 <h3 id="post__users_update-book-responseschema">Response Schema</h3>
 
 Status Code **400**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## post__users_update-pending
+## post\_\_users_update-pending
 
 > Code samples
 
@@ -1058,7 +1029,7 @@ func main() {
 
 `POST /users/update-pending`
 
-*Update a user's friends request to pending*
+_Update a user's friends request to pending_
 
 Add or remove a user from a user's pending list
 
@@ -1066,28 +1037,28 @@ Add or remove a user from a user's pending list
 
 ```json
 {
-  "user_id": 1,
-  "friend_id": 2,
-  "key": "pending",
-  "add": true
+	"user_id": 1,
+	"friend_id": 2,
+	"key": "pending",
+	"add": true
 }
 ```
 
 <h3 id="post__users_update-pending-parameters">Parameters</h3>
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|true|none|
-|» user_id|body|integer|true|none|
-|» friend_id|body|integer|true|none|
-|» key|body|string|true|none|
-|» add|body|boolean|true|none|
+| Name        | In   | Type    | Required | Description |
+| ----------- | ---- | ------- | -------- | ----------- |
+| body        | body | object  | true     | none        |
+| » user_id   | body | integer | true     | none        |
+| » friend_id | body | integer | true     | none        |
+| » key       | body | string  | true     | none        |
+| » add       | body | boolean | true     | none        |
 
 #### Enumerated Values
 
-|Parameter|Value|
-|---|---|
-|» key|pending|
+| Parameter | Value   |
+| --------- | ------- |
+| » key     | pending |
 
 > Example responses
 
@@ -1095,64 +1066,58 @@ Add or remove a user from a user's pending list
 
 ```json
 {
-  "username": "john_doe",
-  "id": 123,
-  "likes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "dislikes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "pending": [
-    101,
-    102
-  ],
-  "friends": [
-    201,
-    202
-  ],
-  "inbox": [
-    {
-      "id": 1,
-      "type": "friend_request"
-    }
-  ]
+	"username": "john_doe",
+	"id": 123,
+	"likes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"dislikes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"pending": [101, 102],
+	"friends": [201, 202],
+	"inbox": [
+		{
+			"id": 1,
+			"type": "friend_request"
+		}
+	]
 }
 ```
 
 <h3 id="post__users_update-pending-responses">Responses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|User's pending list updated successfully|[User](#schemauser)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid request data|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|User not found|Inline|
+| Status | Meaning                                                          | Description                              | Schema              |
+| ------ | ---------------------------------------------------------------- | ---------------------------------------- | ------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)          | User's pending list updated successfully | [User](#schemauser) |
+| 400    | [Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1) | Invalid request data                     | Inline              |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)   | User not found                           | Inline              |
 
 <h3 id="post__users_update-pending-responseschema">Response Schema</h3>
 
 Status Code **400**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## post__users_update-friend
+## post\_\_users_update-friend
 
 > Code samples
 
@@ -1305,7 +1270,7 @@ func main() {
 
 `POST /users/update-friend`
 
-*Update a user's friends request to friends*
+_Update a user's friends request to friends_
 
 Add or remove a user from a user's friend list
 
@@ -1313,28 +1278,28 @@ Add or remove a user from a user's friend list
 
 ```json
 {
-  "user_id": 1,
-  "friend_id": 2,
-  "key": "friend",
-  "add": true
+	"user_id": 1,
+	"friend_id": 2,
+	"key": "friend",
+	"add": true
 }
 ```
 
 <h3 id="post__users_update-friend-parameters">Parameters</h3>
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|true|none|
-|» user_id|body|integer|true|none|
-|» friend_id|body|integer|true|none|
-|» key|body|string|true|none|
-|» add|body|boolean|true|none|
+| Name        | In   | Type    | Required | Description |
+| ----------- | ---- | ------- | -------- | ----------- |
+| body        | body | object  | true     | none        |
+| » user_id   | body | integer | true     | none        |
+| » friend_id | body | integer | true     | none        |
+| » key       | body | string  | true     | none        |
+| » add       | body | boolean | true     | none        |
 
 #### Enumerated Values
 
-|Parameter|Value|
-|---|---|
-|» key|friend|
+| Parameter | Value  |
+| --------- | ------ |
+| » key     | friend |
 
 > Example responses
 
@@ -1342,64 +1307,58 @@ Add or remove a user from a user's friend list
 
 ```json
 {
-  "username": "john_doe",
-  "id": 123,
-  "likes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "dislikes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "pending": [
-    101,
-    102
-  ],
-  "friends": [
-    201,
-    202
-  ],
-  "inbox": [
-    {
-      "id": 1,
-      "type": "friend_request"
-    }
-  ]
+	"username": "john_doe",
+	"id": 123,
+	"likes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"dislikes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"pending": [101, 102],
+	"friends": [201, 202],
+	"inbox": [
+		{
+			"id": 1,
+			"type": "friend_request"
+		}
+	]
 }
 ```
 
 <h3 id="post__users_update-friend-responses">Responses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|User's friend's list updated successfully|[User](#schemauser)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid request data|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|User not found|Inline|
+| Status | Meaning                                                          | Description                               | Schema              |
+| ------ | ---------------------------------------------------------------- | ----------------------------------------- | ------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)          | User's friend's list updated successfully | [User](#schemauser) |
+| 400    | [Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1) | Invalid request data                      | Inline              |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)   | User not found                            | Inline              |
 
 <h3 id="post__users_update-friend-responseschema">Response Schema</h3>
 
 Status Code **400**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## post__users_update-inbox
+## post\_\_users_update-inbox
 
 > Code samples
 
@@ -1553,7 +1512,7 @@ func main() {
 
 `POST /users/update-inbox`
 
-*Update a user's inbox*
+_Update a user's inbox_
 
 Add or remove a message from inbox
 
@@ -1561,24 +1520,24 @@ Add or remove a message from inbox
 
 ```json
 {
-  "addressee_id": 1,
-  "sender_id": 2,
-  "message_type": "request_accepted",
-  "key": "inbox",
-  "add": true
+	"addressee_id": 1,
+	"sender_id": 2,
+	"message_type": "request_accepted",
+	"key": "inbox",
+	"add": true
 }
 ```
 
 <h3 id="post__users_update-inbox-parameters">Parameters</h3>
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|true|none|
-|» addressee_id|body|integer|true|none|
-|» sender_id|body|integer|true|none|
-|» message_type|body|string|true|none|
-|» key|body|string|true|none|
-|» add|body|boolean|true|none|
+| Name           | In   | Type    | Required | Description |
+| -------------- | ---- | ------- | -------- | ----------- |
+| body           | body | object  | true     | none        |
+| » addressee_id | body | integer | true     | none        |
+| » sender_id    | body | integer | true     | none        |
+| » message_type | body | string  | true     | none        |
+| » key          | body | string  | true     | none        |
+| » add          | body | boolean | true     | none        |
 
 > Example responses
 
@@ -1586,64 +1545,58 @@ Add or remove a message from inbox
 
 ```json
 {
-  "username": "john_doe",
-  "id": 123,
-  "likes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "dislikes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "pending": [
-    101,
-    102
-  ],
-  "friends": [
-    201,
-    202
-  ],
-  "inbox": [
-    {
-      "id": 1,
-      "type": "friend_request"
-    }
-  ]
+	"username": "john_doe",
+	"id": 123,
+	"likes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"dislikes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"pending": [101, 102],
+	"friends": [201, 202],
+	"inbox": [
+		{
+			"id": 1,
+			"type": "friend_request"
+		}
+	]
 }
 ```
 
 <h3 id="post__users_update-inbox-responses">Responses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|User's inbox updated successfully|[User](#schemauser)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid request data|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|User not found|Inline|
+| Status | Meaning                                                          | Description                       | Schema              |
+| ------ | ---------------------------------------------------------------- | --------------------------------- | ------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)          | User's inbox updated successfully | [User](#schemauser) |
+| 400    | [Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1) | Invalid request data              | Inline              |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)   | User not found                    | Inline              |
 
 <h3 id="post__users_update-inbox-responseschema">Response Schema</h3>
 
 Status Code **400**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## post__recommendations
+## post\_\_recommendations
 
 > Code samples
 
@@ -1793,7 +1746,7 @@ func main() {
 
 `POST /recommendations`
 
-*Get book recommendations based on a user's prompt*
+_Get book recommendations based on a user's prompt_
 
 Provide book recommendations based on the user's interest prompt
 
@@ -1801,16 +1754,16 @@ Provide book recommendations based on the user's interest prompt
 
 ```json
 {
-  "userPrompt": "I like sad cool books"
+	"userPrompt": "I like sad cool books"
 }
 ```
 
 <h3 id="post__recommendations-parameters">Parameters</h3>
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|true|none|
-|» userPrompt|body|string|true|none|
+| Name         | In   | Type   | Required | Description |
+| ------------ | ---- | ------ | -------- | ----------- |
+| body         | body | object | true     | none        |
+| » userPrompt | body | string | true     | none        |
 
 > Example responses
 
@@ -1818,46 +1771,46 @@ Provide book recommendations based on the user's interest prompt
 
 ```json
 {
-  "books": [
-    {
-      "id": "_dkvAAAAMAAJ",
-      "title": "Pride and Prejudice",
-      "author": "Jane Austen",
-      "year": "1813",
-      "cover": "https://example.com/cover.jpg",
-      "reason_for_recommendation": "A classic romance novel with timeless themes"
-    }
-  ]
+	"books": [
+		{
+			"id": "_dkvAAAAMAAJ",
+			"title": "Pride and Prejudice",
+			"author": "Jane Austen",
+			"year": "1813",
+			"cover": "https://example.com/cover.jpg",
+			"reason_for_recommendation": "A classic romance novel with timeless themes"
+		}
+	]
 }
 ```
 
 <h3 id="post__recommendations-responses">Responses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A list of books corresponding to the given IDs|[Books](#schemabooks)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid user prompt|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal server error|Inline|
+| Status | Meaning                                                                    | Description                                    | Schema                |
+| ------ | -------------------------------------------------------------------------- | ---------------------------------------------- | --------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A list of books corresponding to the given IDs | [Books](#schemabooks) |
+| 400    | [Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)           | Invalid user prompt                            | Inline                |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | Internal server error                          | Inline                |
 
 <h3 id="post__recommendations-responseschema">Response Schema</h3>
 
 Status Code **400**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## post__recommendations_byUserPreferences_{id}
+## post\__recommendations_byUserPreferences_{id}
 
 > Code samples
 
@@ -1876,23 +1829,21 @@ Accept: application/json
 ```
 
 ```javascript
-
 const headers = {
-  'Accept':'application/json'
+	Accept: "application/json",
 };
 
-fetch('http://localhost:3000/recommendations/byUserPreferences/{id}',
-{
-  method: 'POST',
+fetch("http://localhost:3000/recommendations/byUserPreferences/{id}", {
+	method: "POST",
 
-  headers: headers
+	headers: headers,
 })
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
+	.then(function (res) {
+		return res.json();
+	})
+	.then(function (body) {
+		console.log(body);
+	});
 ```
 
 ```ruby
@@ -1998,15 +1949,15 @@ func main() {
 
 `POST /recommendations/byUserPreferences/{id}`
 
-*Get book recommendations based on a user's preferences (using user ID)*
+_Get book recommendations based on a user's preferences (using user ID)_
 
 Provide book recommendations based on the stored preferences of a user identified by the ID
 
 <h3 id="post__recommendations_byuserpreferences_{id}-parameters">Parameters</h3>
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|id|path|integer|true|Numeric ID of the user whose preferences are used for recommendations|
+| Name | In   | Type    | Required | Description                                                           |
+| ---- | ---- | ------- | -------- | --------------------------------------------------------------------- |
+| id   | path | integer | true     | Numeric ID of the user whose preferences are used for recommendations |
 
 > Example responses
 
@@ -2014,46 +1965,46 @@ Provide book recommendations based on the stored preferences of a user identifie
 
 ```json
 {
-  "books": [
-    {
-      "id": "_dkvAAAAMAAJ",
-      "title": "Pride and Prejudice",
-      "author": "Jane Austen",
-      "year": "1813",
-      "cover": "https://example.com/cover.jpg",
-      "reason_for_recommendation": "A classic romance novel with timeless themes"
-    }
-  ]
+	"books": [
+		{
+			"id": "_dkvAAAAMAAJ",
+			"title": "Pride and Prejudice",
+			"author": "Jane Austen",
+			"year": "1813",
+			"cover": "https://example.com/cover.jpg",
+			"reason_for_recommendation": "A classic romance novel with timeless themes"
+		}
+	]
 }
 ```
 
 <h3 id="post__recommendations_byuserpreferences_{id}-responses">Responses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A list of books corresponding to the given IDs|[Books](#schemabooks)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|User not found|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal server error|Inline|
+| Status | Meaning                                                                    | Description                                    | Schema                |
+| ------ | -------------------------------------------------------------------------- | ---------------------------------------------- | --------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A list of books corresponding to the given IDs | [Books](#schemabooks) |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | User not found                                 | Inline                |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | Internal server error                          | Inline                |
 
 <h3 id="post__recommendations_byuserpreferences_{id}-responseschema">Response Schema</h3>
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## post__books_fetchBooksByIDs
+## post\_\_books_fetchBooksByIDs
 
 > Code samples
 
@@ -2207,7 +2158,7 @@ func main() {
 
 `POST /books/fetchBooksByIDs`
 
-*Fetch books by IDs*
+_Fetch books by IDs_
 
 Retrieve a list of books by providing an array of book IDs
 
@@ -2215,20 +2166,16 @@ Retrieve a list of books by providing an array of book IDs
 
 ```json
 {
-  "ids": [
-    "_dkvAAAAMAAJ",
-    "b5XJTggrslgC",
-    "CEQU4psAbCMC"
-  ]
+	"ids": ["_dkvAAAAMAAJ", "b5XJTggrslgC", "CEQU4psAbCMC"]
 }
 ```
 
 <h3 id="post__books_fetchbooksbyids-parameters">Parameters</h3>
 
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|object|true|none|
-|» ids|body|[string]|true|none|
+| Name  | In   | Type     | Required | Description |
+| ----- | ---- | -------- | -------- | ----------- |
+| body  | body | object   | true     | none        |
+| » ids | body | [string] | true     | none        |
 
 > Example responses
 
@@ -2236,47 +2183,47 @@ Retrieve a list of books by providing an array of book IDs
 
 ```json
 {
-  "books": [
-    {
-      "id": "_dkvAAAAMAAJ",
-      "title": "Pride and Prejudice",
-      "author": "Jane Austen",
-      "year": "1813",
-      "cover": "https://example.com/cover.jpg",
-      "reason_for_recommendation": "A classic romance novel with timeless themes"
-    }
-  ]
+	"books": [
+		{
+			"id": "_dkvAAAAMAAJ",
+			"title": "Pride and Prejudice",
+			"author": "Jane Austen",
+			"year": "1813",
+			"cover": "https://example.com/cover.jpg",
+			"reason_for_recommendation": "A classic romance novel with timeless themes"
+		}
+	]
 }
 ```
 
 <h3 id="post__books_fetchbooksbyids-responses">Responses</h3>
 
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A list of books corresponding to the given IDs|[Books](#schemabooks)|
-|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Invalid request body|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|One or more books not found|Inline|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Internal server error|Inline|
+| Status | Meaning                                                                    | Description                                    | Schema                |
+| ------ | -------------------------------------------------------------------------- | ---------------------------------------------- | --------------------- |
+| 200    | [OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)                    | A list of books corresponding to the given IDs | [Books](#schemabooks) |
+| 400    | [Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)           | Invalid request body                           | Inline                |
+| 404    | [Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)             | One or more books not found                    | Inline                |
+| 500    | [Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1) | Internal server error                          | Inline                |
 
 <h3 id="post__books_fetchbooksbyids-responseschema">Response Schema</h3>
 
 Status Code **400**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 Status Code **404**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 Status Code **500**
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|» message|string|false|none|none|
+| Name      | Type   | Required | Restrictions | Description |
+| --------- | ------ | -------- | ------------ | ----------- |
+| » message | string | false    | none         | none        |
 
 <aside class="success">
 This operation does not require authentication
@@ -2293,18 +2240,17 @@ This operation does not require authentication
 
 ```json
 {
-  "id": "book123",
-  "reason": "Loved the storyline"
+	"id": "book123",
+	"reason": "Loved the storyline"
 }
-
 ```
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|string|false|none|none|
-|reason|string|false|none|none|
+| Name   | Type   | Required | Restrictions | Description |
+| ------ | ------ | -------- | ------------ | ----------- |
+| id     | string | false    | none         | none        |
+| reason | string | false    | none         | none        |
 
 <h2 id="tocS_Message">Message</h2>
 <!-- backwards compatibility -->
@@ -2315,18 +2261,17 @@ This operation does not require authentication
 
 ```json
 {
-  "id": 1,
-  "type": "friend_request"
+	"id": 1,
+	"type": "friend_request"
 }
-
 ```
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|integer|false|none|none|
-|type|string|false|none|none|
+| Name | Type    | Required | Restrictions | Description |
+| ---- | ------- | -------- | ------------ | ----------- |
+| id   | integer | false    | none         | none        |
+| type | string  | false    | none         | none        |
 
 <h2 id="tocS_User">User</h2>
 <!-- backwards compatibility -->
@@ -2337,49 +2282,42 @@ This operation does not require authentication
 
 ```json
 {
-  "username": "john_doe",
-  "id": 123,
-  "likes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "dislikes": [
-    {
-      "id": "book123",
-      "reason": "Loved the storyline"
-    }
-  ],
-  "pending": [
-    101,
-    102
-  ],
-  "friends": [
-    201,
-    202
-  ],
-  "inbox": [
-    {
-      "id": 1,
-      "type": "friend_request"
-    }
-  ]
+	"username": "john_doe",
+	"id": 123,
+	"likes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"dislikes": [
+		{
+			"id": "book123",
+			"reason": "Loved the storyline"
+		}
+	],
+	"pending": [101, 102],
+	"friends": [201, 202],
+	"inbox": [
+		{
+			"id": 1,
+			"type": "friend_request"
+		}
+	]
 }
-
 ```
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|username|string|false|none|none|
-|id|integer|false|none|none|
-|likes|[[BookUserData](#schemabookuserdata)]|false|none|none|
-|dislikes|[[BookUserData](#schemabookuserdata)]|false|none|none|
-|pending|[integer]|false|none|none|
-|friends|[integer]|false|none|none|
-|inbox|[[Message](#schemamessage)]|false|none|none|
+| Name     | Type                                  | Required | Restrictions | Description |
+| -------- | ------------------------------------- | -------- | ------------ | ----------- |
+| username | string                                | false    | none         | none        |
+| id       | integer                               | false    | none         | none        |
+| likes    | [[BookUserData](#schemabookuserdata)] | false    | none         | none        |
+| dislikes | [[BookUserData](#schemabookuserdata)] | false    | none         | none        |
+| pending  | [integer]                             | false    | none         | none        |
+| friends  | [integer]                             | false    | none         | none        |
+| inbox    | [[Message](#schemamessage)]           | false    | none         | none        |
 
 <h2 id="tocS_Users">Users</h2>
 <!-- backwards compatibility -->
@@ -2390,45 +2328,38 @@ This operation does not require authentication
 
 ```json
 [
-  {
-    "username": "john_doe",
-    "id": 123,
-    "likes": [
-      {
-        "id": "book123",
-        "reason": "Loved the storyline"
-      }
-    ],
-    "dislikes": [
-      {
-        "id": "book123",
-        "reason": "Loved the storyline"
-      }
-    ],
-    "pending": [
-      101,
-      102
-    ],
-    "friends": [
-      201,
-      202
-    ],
-    "inbox": [
-      {
-        "id": 1,
-        "type": "friend_request"
-      }
-    ]
-  }
+	{
+		"username": "john_doe",
+		"id": 123,
+		"likes": [
+			{
+				"id": "book123",
+				"reason": "Loved the storyline"
+			}
+		],
+		"dislikes": [
+			{
+				"id": "book123",
+				"reason": "Loved the storyline"
+			}
+		],
+		"pending": [101, 102],
+		"friends": [201, 202],
+		"inbox": [
+			{
+				"id": 1,
+				"type": "friend_request"
+			}
+		]
+	}
 ]
-
 ```
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|*anonymous*|[[User](#schemauser)]|false|none|none|
+| Name        | Type                  | Required | Restrictions | Description |
+| ----------- | --------------------- | -------- | ------------ | ----------- |
+| _anonymous_ | [[User](#schemauser)] | false    | none         | none        |
 
 <h2 id="tocS_Book">Book</h2>
 <!-- backwards compatibility -->
@@ -2439,26 +2370,25 @@ This operation does not require authentication
 
 ```json
 {
-  "id": "_dkvAAAAMAAJ",
-  "title": "Pride and Prejudice",
-  "author": "Jane Austen",
-  "year": "1813",
-  "cover": "https://example.com/cover.jpg",
-  "reason_for_recommendation": "A classic romance novel with timeless themes"
+	"id": "_dkvAAAAMAAJ",
+	"title": "Pride and Prejudice",
+	"author": "Jane Austen",
+	"year": "1813",
+	"cover": "https://example.com/cover.jpg",
+	"reason_for_recommendation": "A classic romance novel with timeless themes"
 }
-
 ```
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|string|false|none|none|
-|title|string|false|none|none|
-|author|string|false|none|none|
-|year|string|false|none|none|
-|cover|string|false|none|none|
-|reason_for_recommendation|string|false|none|none|
+| Name                      | Type   | Required | Restrictions | Description |
+| ------------------------- | ------ | -------- | ------------ | ----------- |
+| id                        | string | false    | none         | none        |
+| title                     | string | false    | none         | none        |
+| author                    | string | false    | none         | none        |
+| year                      | string | false    | none         | none        |
+| cover                     | string | false    | none         | none        |
+| reason_for_recommendation | string | false    | none         | none        |
 
 <h2 id="tocS_Books">Books</h2>
 <!-- backwards compatibility -->
@@ -2469,23 +2399,21 @@ This operation does not require authentication
 
 ```json
 {
-  "books": [
-    {
-      "id": "_dkvAAAAMAAJ",
-      "title": "Pride and Prejudice",
-      "author": "Jane Austen",
-      "year": "1813",
-      "cover": "https://example.com/cover.jpg",
-      "reason_for_recommendation": "A classic romance novel with timeless themes"
-    }
-  ]
+	"books": [
+		{
+			"id": "_dkvAAAAMAAJ",
+			"title": "Pride and Prejudice",
+			"author": "Jane Austen",
+			"year": "1813",
+			"cover": "https://example.com/cover.jpg",
+			"reason_for_recommendation": "A classic romance novel with timeless themes"
+		}
+	]
 }
-
 ```
 
 ### Properties
 
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|books|[[Book](#schemabook)]|false|none|none|
-
+| Name  | Type                  | Required | Restrictions | Description |
+| ----- | --------------------- | -------- | ------------ | ----------- |
+| books | [[Book](#schemabook)] | false    | none         | none        |

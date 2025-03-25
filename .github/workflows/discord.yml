@@ -16,19 +16,19 @@ jobs:
                   PR_AUTHOR: ${{ github.event.pull_request.user.login }}
                   PR_DESCRIPTION: ${{ github.event.pull_request.body }}
               run: |
-                # Construct the JSON payload with jq to escape special characters
-                jq -n \
-                  --arg username "GitHub" \
-                  --arg title "$PR_TITLE" \
-                  --arg url "$PR_URL" \
-                  --arg author "$PR_AUTHOR" \
-                  --arg description "$PR_DESCRIPTION" \
-                  --arg content "📢 **New Pull Request!**\n🔹 **Title:** $PR_TITLE\n🔗 **URL:** $PR_URL\n👤 **Author:** $PR_AUTHOR\n📝 **Description:** $PR_DESCRIPTION" \
-                  '{username: $username, content: $content}' \
-                > payload.json
+                  # Construct the JSON payload with jq to escape special characters
+                  jq -n \
+                    --arg username "GitHub" \
+                    --arg title "$PR_TITLE" \
+                    --arg url "$PR_URL" \
+                    --arg author "$PR_AUTHOR" \
+                    --arg description "$PR_DESCRIPTION" \
+                    --arg content "📢 **New Pull Request!**\n🔹 **Title:** $PR_TITLE\n🔗 **URL:** $PR_URL\n👤 **Author:** $PR_AUTHOR\n📝 **Description:** $PR_DESCRIPTION" \
+                    '{username: $username, content: $content}' \
+                  > payload.json
 
-                # Send the payload to Discord via the webhook
-                curl -H "Content-Type: application/json" \
-                     -X POST \
-                     -d @payload.json \
-                     "$DISCORD_WEBHOOK_URL"
+                  # Send the payload to Discord via the webhook
+                  curl -H "Content-Type: application/json" \
+                       -X POST \
+                       -d @payload.json \
+                       "$DISCORD_WEBHOOK_URL"

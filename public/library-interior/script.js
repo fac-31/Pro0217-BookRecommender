@@ -9,7 +9,7 @@ const book4 = document.getElementById("book-4");
 const bookInfoContainer = document.querySelector(".book-info-container");
 
 let userPrompt = localStorage.getItem("userPrompt");
-let bookData;
+let recommendedTitles;
 
 bookPreferenceForm.onsubmit = (e) => {
 	e.preventDefault();
@@ -30,6 +30,7 @@ const fetchUserRecommendation = async (count) => {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ count }),
+		history: recommendedTitles,
 	});
 
 	if (response.ok) {
@@ -48,6 +49,7 @@ const fetchUserRecommendation = async (count) => {
 	}
 };
 
+// For the initial recommendations
 const getRecommendations = async (count) => {
 	try {
 		const response = await fetch("/recommendations", {
@@ -57,8 +59,7 @@ const getRecommendations = async (count) => {
 		});
 
 		const data = await response.json();
-		localStorage.setItem("bookData", JSON.stringify(data));
-		bookData = JSON.parse(localStorage.getItem("bookData"));
+		recommendedTitles = data.books.map((book) => book.title).join(", ");
 
 		const bookRecommendationContainer = document.getElementById(
 			"user-prompt-recommendations-container",

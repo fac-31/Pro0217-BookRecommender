@@ -46,7 +46,6 @@ export async function createRecommendationsByUserPreferences(user, count, req) {
 		if (req.body?.history) {
 			userPrompt += `Also you have already recommended ${req.body.history} so don't recommend those again.`;
 		}
-		console.log(userPrompt);
 		return await createRecommendations(userPrompt, count);
 	} catch (error) {
 		console.error("Error in Recommendation model: ", error);

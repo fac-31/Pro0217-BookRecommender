@@ -24,13 +24,13 @@ bookPreferenceForm.onsubmit = (e) => {
 };
 
 const fetchUserRecommendation = async (count) => {
+	console.log("called");
 	const response = await fetch(`/recommendations/byUserPreferences/${userId}`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ count }),
-		history: recommendedTitles,
+		body: JSON.stringify({ count, history: recommendedTitles }),
 	});
 
 	if (response.ok) {

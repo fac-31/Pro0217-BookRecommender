@@ -1,3 +1,4 @@
+const userId = localStorage.getItem("userID");
 const librarianDialogue = document.querySelector(".dialogue-div");
 const bookPreferenceForm = document.querySelector(".book-preference-form");
 const bookContainer = document.querySelector(".book-container");
@@ -8,6 +9,7 @@ const book4 = document.getElementById("book-4");
 const bookInfoContainer = document.querySelector(".book-info-container");
 
 let userPrompt = localStorage.getItem("userPrompt");
+let recommendedTitles;
 
 bookPreferenceForm.onsubmit = (e) => {
 	e.preventDefault();
@@ -21,23 +23,56 @@ bookPreferenceForm.onsubmit = (e) => {
 	bookPreferenceForm.classList.add("hidden");
 };
 
-let bookData;
-
-const getRecommendations = async (count) => {
-	const response = await fetch("/recommendations", {
+const fetchUserRecommendation = async (count) => {
+	const response = await fetch(`/recommendations/byUserPreferences/${userId}`, {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ userPrompt, count }),
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ count, history: recommendedTitles }),
 	});
 
-	const data = await response.json();
-	localStorage.setItem("bookData", JSON.stringify(data));
-	bookData = JSON.parse(localStorage.getItem("bookData"));
+	if (response.ok) {
+		const data = await response.json();
+		localStorage.setItem("bookData", JSON.stringify(data));
+		const bookRecommendationContainer = document.getElementById(
+			"user-prompt-recommendations-container",
+		);
+		createBookElements(
+			data,
+			count,
+			bookRecommendationContainer,
+			onBookSelected,
+			onBookSelected,
+		);
+	}
+};
 
-	const bookRecommendationContainer = document.getElementById(
-		"user-prompt-recommendations-container",
-	);
-	createBookElements(data, count, bookRecommendationContainer, onBookSelected, onBookSelected);
+// For the initial recommendations
+const getRecommendations = async (count) => {
+	try {
+		const response = await fetch("/recommendations", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ userPrompt, count }),
+		});
+
+		const data = await response.json();
+		recommendedTitles = data.books.map((book) => book.title).join(", ");
+
+		const bookRecommendationContainer = document.getElementById(
+			"user-prompt-recommendations-container",
+		);
+		createBookElements(
+			data,
+			count,
+			bookRecommendationContainer,
+			onBookSelected,
+			onBookSelected,
+		);
+	} catch (error) {
+		console.error(error);
+	}
 };
 
 const checkLibrary = async () => {
@@ -58,7 +93,7 @@ const checkLibrary = async () => {
 
 const onBookSelected = (bookDiv, book) => {
 	// Selecting a book frees up a space to get another book
-	getRecommendations(1);
+	fetchUserRecommendation(1);
 };
 
 const goBack = () => {

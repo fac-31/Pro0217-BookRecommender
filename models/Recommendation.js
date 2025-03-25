@@ -43,6 +43,9 @@ export async function createRecommendationsByUserPreferences(user, count, req) {
 
 		userPrompt += "Take care not to recommend any of the books mentioned above.";
 
+		if (req.body?.history) {
+			userPrompt += `Also you have already recommended ${req.body.history} so don't recommend those again.`;
+		}
 		return await createRecommendations(userPrompt, count);
 	} catch (error) {
 		console.error("Error in Recommendation model: ", error);

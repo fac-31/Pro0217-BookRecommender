@@ -131,10 +131,10 @@ const createButtonElements = (bookDiv, book, onBookLiked, onBookDisliked) => {
 	const rejectBtn = document.createElement("button");
 	rejectBtn.classList.add("reject");
 	rejectBtn.innerHTML = "✕";
-	rejectBtn.addEventListener("click", (e) => {
+	rejectBtn.addEventListener("click", async (e) => {
 		e.stopPropagation();
 		interactionAnimation("dislike", bookDiv);
-		judgementPassed("dislikes", book);
+		await judgementPassed("dislikes", book);
 		librarianDialogue.innerHTML = `<p>Got it! I won't recommend books like "${book.title}" going forward! <p>`;
 
 		if (onBookDisliked != undefined) onBookDisliked(bookDiv, book);

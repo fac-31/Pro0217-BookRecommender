@@ -1,5 +1,6 @@
 const username = localStorage.getItem("username");
 const userId = localStorage.getItem("userID");
+let recommendedTitles;
 
 const createMyBooksElements = (books, bookContainer, id_reason_dict) => {
 	for (let i = 0; i < books.length; i++) {
@@ -56,11 +57,28 @@ async function fetchUserRecommendation(count) {
 		headers: {
 			"Content-Type": "application/json",
 		},
+		body: JSON.stringify({ count, history: recommendedTitles }),
+	});
+	if (response.ok) {
+		const data = await response.json();
+		const bookRecommendationContainer = document.getElementById("my-recommendations-container");
+		createBookElements(data, count, bookRecommendationContainer, onBookLiked, onBookDisliked);
+	}
+}
+
+async function initialFetchUserRecommendation(count) {
+	const response = await fetch(`/recommendations/byUserPreferences/${userId}`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
 		body: JSON.stringify({ count }),
 	});
 
 	if (response.ok) {
 		const data = await response.json();
+		recommendedTitles = data.books.map((book) => book.title).join(", ");
+
 		const bookRecommendationContainer = document.getElementById("my-recommendations-container");
 		const recomendationsText = document.querySelector("#recomendations-text");
 		recomendationsText.innerHTML = `<p>Based on your reading list you might like these!</p>`;
@@ -89,7 +107,7 @@ function onBookDisliked(bookDiv, book) {
 
 async function init() {
 	await fetchUsersBooks();
-	await fetchUserRecommendation(4);
+	await initialFetchUserRecommendation(4);
 }
 
 init();

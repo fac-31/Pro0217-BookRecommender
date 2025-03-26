@@ -1141,7 +1141,7 @@ Accept: application/json
 const inputBody = '{
   "user_id": 1,
   "friend_id": 2,
-  "key": "friend",
+  "key": "friends",
   "add": true
 }';
 const headers = {
@@ -1280,7 +1280,7 @@ Add or remove a user from a user's friend list
 {
 	"user_id": 1,
 	"friend_id": 2,
-	"key": "friend",
+	"key": "friends",
 	"add": true
 }
 ```
@@ -1297,9 +1297,9 @@ Add or remove a user from a user's friend list
 
 #### Enumerated Values
 
-| Parameter | Value  |
-| --------- | ------ |
-| » key     | friend |
+| Parameter | Value   |
+| --------- | ------- |
+| » key     | friends |
 
 > Example responses
 
@@ -1539,6 +1539,15 @@ Add or remove a message from inbox
 | » key          | body | string  | true     | none        |
 | » add          | body | boolean | true     | none        |
 
+#### Enumerated Values
+
+| Parameter      | Value            |
+| -------------- | ---------------- |
+| » message_type | friend_request   |
+| » message_type | request_accepted |
+| » message_type | request_rejected |
+| » key          | inbox            |
+
 > Example responses
 
 > 200 Response
@@ -1618,7 +1627,8 @@ Accept: application/json
 
 ```javascript
 const inputBody = '{
-  "userPrompt": "I like sad cool books"
+  "userPrompt": "I like sad cool books",
+  "count": 4
 }';
 const headers = {
   'Content-Type':'application/json',
@@ -1754,16 +1764,18 @@ Provide book recommendations based on the user's interest prompt
 
 ```json
 {
-	"userPrompt": "I like sad cool books"
+	"userPrompt": "I like sad cool books",
+	"count": 4
 }
 ```
 
 <h3 id="post__recommendations-parameters">Parameters</h3>
 
-| Name         | In   | Type   | Required | Description |
-| ------------ | ---- | ------ | -------- | ----------- |
-| body         | body | object | true     | none        |
-| » userPrompt | body | string | true     | none        |
+| Name         | In   | Type    | Required | Description |
+| ------------ | ---- | ------- | -------- | ----------- |
+| body         | body | object  | true     | none        |
+| » userPrompt | body | string  | true     | none        |
+| » count      | body | integer | true     | none        |
 
 > Example responses
 
@@ -1817,6 +1829,7 @@ This operation does not require authentication
 ```shell
 # You can also use wget
 curl -X POST http://localhost:3000/recommendations/byUserPreferences/{id} \
+  -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
 
 ```
@@ -1824,26 +1837,33 @@ curl -X POST http://localhost:3000/recommendations/byUserPreferences/{id} \
 ```http
 POST http://localhost:3000/recommendations/byUserPreferences/{id} HTTP/1.1
 Host: localhost:3000
+Content-Type: application/json
 Accept: application/json
 
 ```
 
 ```javascript
+const inputBody = '{
+  "count": 4,
+  "history": "The buried giant, the remains of the day, Klara and the sun"
+}';
 const headers = {
-	Accept: "application/json",
+  'Content-Type':'application/json',
+  'Accept':'application/json'
 };
 
-fetch("http://localhost:3000/recommendations/byUserPreferences/{id}", {
-	method: "POST",
-
-	headers: headers,
+fetch('http://localhost:3000/recommendations/byUserPreferences/{id}',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
 })
-	.then(function (res) {
-		return res.json();
-	})
-	.then(function (body) {
-		console.log(body);
-	});
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
 ```
 
 ```ruby
@@ -1851,6 +1871,7 @@ require 'rest-client'
 require 'json'
 
 headers = {
+  'Content-Type' => 'application/json',
   'Accept' => 'application/json'
 }
 
@@ -1865,6 +1886,7 @@ p JSON.parse(result)
 ```python
 import requests
 headers = {
+  'Content-Type': 'application/json',
   'Accept': 'application/json'
 }
 
@@ -1880,6 +1902,7 @@ print(r.json())
 require 'vendor/autoload.php';
 
 $headers = array(
+    'Content-Type' => 'application/json',
     'Accept' => 'application/json',
 );
 
@@ -1933,6 +1956,7 @@ import (
 func main() {
 
     headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
 
@@ -1953,11 +1977,23 @@ _Get book recommendations based on a user's preferences (using user ID)_
 
 Provide book recommendations based on the stored preferences of a user identified by the ID
 
+> Body parameter
+
+```json
+{
+	"count": 4,
+	"history": "The buried giant, the remains of the day, Klara and the sun"
+}
+```
+
 <h3 id="post__recommendations_byuserpreferences_{id}-parameters">Parameters</h3>
 
-| Name | In   | Type    | Required | Description                                                           |
-| ---- | ---- | ------- | -------- | --------------------------------------------------------------------- |
-| id   | path | integer | true     | Numeric ID of the user whose preferences are used for recommendations |
+| Name      | In   | Type    | Required | Description                                                           |
+| --------- | ---- | ------- | -------- | --------------------------------------------------------------------- |
+| id        | path | integer | true     | Numeric ID of the user whose preferences are used for recommendations |
+| body      | body | object  | true     | none                                                                  |
+| » count   | body | integer | true     | none                                                                  |
+| » history | body | string  | false    | none                                                                  |
 
 > Example responses
 

@@ -218,8 +218,8 @@ paths:
                                     example: 2
                                 key:
                                     type: string
-                                    enum: [friend]
-                                    example: "friend"
+                                    enum: [friends]
+                                    example: "friends"
                                 add:
                                     type: boolean
                                     example: true
@@ -276,9 +276,11 @@ paths:
                                     example: 2
                                 message_type:
                                     type: string
+                                    enum: [friend_request, request_accepted, request_rejected]
                                     example: "request_accepted"
                                 key:
                                     type: string
+                                    enum: [inbox]
                                     example: "inbox"
                                 add:
                                     type: boolean
@@ -323,10 +325,14 @@ paths:
                             type: object
                             required:
                                 - userPrompt
+                                - count
                             properties:
                                 userPrompt:
                                     type: string
                                     example: "I like sad cool books"
+                                count:
+                                    type: integer
+                                    example: 4
             responses:
                 200:
                     description: A list of books corresponding to the given IDs
@@ -367,6 +373,21 @@ paths:
                   schema:
                       type: integer
                       example: 1
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            required:
+                                - count
+                            properties:
+                                count:
+                                    type: integer
+                                    example: 4
+                                history:
+                                    type: string
+                                    example: "The buried giant, the remains of the day, Klara and the sun"
             responses:
                 200:
                     description: A list of books corresponding to the given IDs

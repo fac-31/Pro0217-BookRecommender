@@ -218,8 +218,8 @@ paths:
                                     example: 2
                                 key:
                                     type: string
-                                    enum: [friend]
-                                    example: "friend"
+                                    enum: [friends]
+                                    example: "friends"
                                 add:
                                     type: boolean
                                     example: true
@@ -276,9 +276,11 @@ paths:
                                     example: 2
                                 message_type:
                                     type: string
+                                    enum: [friend_request, request_accepted, request_rejected]
                                     example: "request_accepted"
                                 key:
                                     type: string
+                                    enum: [inbox]
                                     example: "inbox"
                                 add:
                                     type: boolean

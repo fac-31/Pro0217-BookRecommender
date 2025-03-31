@@ -63,7 +63,7 @@ app.use(function (req, res, next) {
 		// default values to pass through ejs templates
 
 		// head.ejs
-		res.locals.title = "Book Recommender";
+		res.locals.title = "Stonewaters Library";
 		res.locals.icon = "book-open";
 		res.locals.styles = [];
 

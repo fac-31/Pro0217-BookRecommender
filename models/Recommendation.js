@@ -33,6 +33,7 @@ export async function createRecommendationsByUserPreferences(user, count, req) {
 			const book_ids = user.likes.map((bookData) => bookData.id);
 			const titles = await getLikedOrDislikedBooks(book_ids, req);
 			userPrompt += "I like the following books: " + titles + ". ";
+			userPrompt += " and no mistake about it!";
 		}
 
 		if (user.dislikes.length > 0) {

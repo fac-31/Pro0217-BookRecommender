@@ -14,7 +14,7 @@ jobs:
             - uses: actions/checkout@v4
 
             - name: Run ReDoT Action
-              uses: fac-31/ReDoT@v1.0.2
+              uses: fac-31/ReDoT@v1.0.3
               with:
                   owner: ${{ github.repository_owner }}
                   repo: ${{ github.event.repository.name }}

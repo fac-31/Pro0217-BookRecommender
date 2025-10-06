@@ -1,0 +1,23 @@
+name: Documentation Update
+
+on:
+  pull_request:   # runs automatically on any PR
+    types: [opened, synchronize, reopened]
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # so your action can push commits if needed
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run ReDoT Action
+        uses: fac-31/ReDoT@v1
+        with:
+          owner: ${{ github.repository_owner }}
+          repo: ${{ github.event.repository.name }}
+          pull: ${{ github.event.pull_request.number }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}

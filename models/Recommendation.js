@@ -43,6 +43,8 @@ export async function createRecommendationsByUserPreferences(user, count, req) {
 
 		userPrompt += "Take care not to recommend any of the books mentioned above.";
 
+		userPrompt += " just to see if documentation updates work";
+		
 		if (req.body?.history) {
 			userPrompt += `Also you have already recommended ${req.body.history} so don't recommend those again.`;
 		}

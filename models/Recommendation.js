@@ -1,4 +1,4 @@
-import { generateAIBookRecommendations } from "../services/openAiService.js";
+rimport { generateAIBookRecommendations } from "../services/openAiService.js";
 import { fetchAPI } from "../models/api.js";
 import { bookSchema } from "../models/schemas/bookSchema.js";
 
@@ -51,6 +51,16 @@ export async function createRecommendationsByUserPreferences(user, count, req) {
 		console.error("Error in Recommendation model: ", error);
 		throw new Error("Failed to create recommendations by preferences");
 	}
+}
+
+export function ThisIsATerriblyNewTerribleFunction(ids)
+{
+	let boomboom = [];
+	let sum = 0;
+	for(let i=0;i<10;i++){
+		sum += i
+	}
+	return sum;
 }
 
 async function getLikedOrDislikedBooks(ids, req1) {

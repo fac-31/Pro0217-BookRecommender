@@ -17,4 +17,4 @@ jobs:
           repo: ${{ github.event.repository.name }}
           pull: ${{ github.event.pull_request.number }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          # github_token is optional - defaults to ${{ github.token }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}

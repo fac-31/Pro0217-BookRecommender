@@ -2,19 +2,26 @@ name: Auto-generate Documentation
 on:
   pull_request:
     types: [opened, synchronize]
+
 jobs:
   update-docs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: read
+      pull-requests: write  # Changed from 'read' to 'write'
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}  # Checkout the PR branch
+          repository: ${{ github.event.pull_request.head.repo.full_name }}  # Handle forks
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
       - name: Generate Documentation with ReDoT
-        uses: fac-31/ReDoT@v1  # Replace with actual published action path
+        uses: fac-31/ReDoT@v1
         with:
           owner: ${{ github.repository_owner }}
           repo: ${{ github.event.repository.name }}
           pull: ${{ github.event.pull_request.number }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # auto_commit: true  # Optional, defaults to true

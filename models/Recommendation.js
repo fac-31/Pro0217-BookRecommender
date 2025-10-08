@@ -4,6 +4,11 @@ import { bookSchema } from "../models/schemas/bookSchema.js";
 
 import { fetchBooks, completeBookWithCoverAndID } from "../services/googleBooksAPIWrapper.js";
 
+export async function leaveMeAlone(prompt) {
+	titles = ["boom", "wow"];
+	console.log(titles);
+	return 1+2;
+}
 export async function createRecommendations(userPrompt, count) {
 	try {
 		const recommendations = await generateAIBookRecommendations(userPrompt, count);

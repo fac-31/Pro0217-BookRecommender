@@ -1,27 +1,24 @@
-name: Documentation Update
+name: Auto-generate Documentation
 
 on:
-  pull_request:   # runs automatically on any PR
-    types: [opened, synchronize, reopened]
+    pull_request:
+    types: [opened, synchronize]
 
-permissions:
-  contents: write
-  pull-requests: write
-  
 jobs:
-  update-docs:
+    update-docs:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # so your action can push commits if needed
+        contents: write
+        pull-requests: read
 
     steps:
-      - uses: actions/checkout@v4
+        - uses: actions/checkout@v3
 
-      - name: Run ReDoT Action
-        uses: fac-31/ReDoT@v1
+        - name: Generate Documentation with ReDoT
+        uses: fac-31/ReDoT@v1  # Replace with actual published action path
         with:
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
-          pull: ${{ github.event.pull_request.number }}
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+            owner: ${{ github.repository_owner }}
+            repo: ${{ github.event.repository.name }}
+            pull: ${{ github.event.pull_request.number }}
+            anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+            # github_token is optional - defaults to ${{ github.token }}

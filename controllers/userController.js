@@ -2,6 +2,13 @@ import { bookUserDataSchema, userSchema } from "../models/schemas/userSchema.js"
 import { bookSchema } from "../models/schemas/bookSchema.js";
 import { fetchAPI, getOrCreateFromAPI } from "../models/api.js";
 
+export async function bloodyBrilliant(req, res) {
+		try {
+		res.send(await fetchAPI(req, "users", "GET"));
+	} catch (error) {
+		res.status(500).json({ message: "Error fetching users", error: error.message });
+	}
+}
 // GET all users (Read)
 export async function getUsers(req, res) {
 	try {

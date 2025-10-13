@@ -22,6 +22,11 @@ Your local library simulation app, here for all your book recommendation needs!
 - **Data (User ID) Persistence**: localStorage object
 - **Input Validation**: Zod schema validation
 
+## 📋 Core Functions
+
+### Recommendation Model
+- **SumMe(a, b)** - Asynchronous function that adds two numbers and returns their sum. Located in `models/Recommendation.js`.
+
 ## 🚀 Commencing countdown, engines on!
 
 1. Quick, clone the repository!

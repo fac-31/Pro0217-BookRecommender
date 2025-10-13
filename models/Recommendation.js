@@ -4,6 +4,18 @@ import { bookSchema } from "../models/schemas/bookSchema.js";
 
 import { fetchBooks, completeBookWithCoverAndID } from "../services/googleBooksAPIWrapper.js";
 
+/**
+ * Adds two numbers together.
+ * Note: This function is marked as async but performs synchronous operations.
+ * Consider removing the async keyword if no asynchronous operations are needed.
+ * 
+ * @param {number} a - The first number to add
+ * @param {number} b - The second number to add
+ * @returns {Promise<number>} A promise that resolves to the sum of a and b
+ * @example
+ * const result = await SumMe(5, 3); // Returns 8
+ */
+
 export async function SumMe(a, b)
 {
 	return a+b;

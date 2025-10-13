@@ -60,6 +60,43 @@ npm run start
 
 See the full API documentation [here](docs/api.md).
 
+## 🔄 Data Flow
+
+```mermaid
+graph TD
+    A[Client Request] --> B[Express Server]
+    B --> C{Route Handler}
+    C -->|User Operations| D[User Controller]
+    C -->|Book Recommendations| E[OpenAI API]
+    C -->|Book Covers| F[Google Books API]
+    D --> G[JSON Server Database]
+    D --> H[bloodyBrilliant Function]
+    H --> G
+    E --> I[AI Generated Recommendations]
+    F --> J[Book Cover Images]
+    G --> K[User Data Response]
+    I --> L[Client Response]
+    J --> L
+    K --> L
+    L --> M[Frontend Display]
+    
+    style H fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
+    style H stroke-dasharray: 5 5
+```
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+- **OpenAI API Key Issues**: Ensure your `.env` file contains a valid `OPENAI_KEY`
+- **Port Conflicts**: The default port may be in use. Check console output for the actual port
+- **JSON Server Database**: If user data seems corrupted, check the local JSON file integrity
+- **Friend Requests Not Working**: Verify that user IDs are properly stored in localStorage
+
+### Known Code Issues
+
+⚠️ **Note**: The `bloodyBrilliant()` function in `userController.js` currently duplicates the functionality of `getUsers()`. This redundancy should be reviewed and potentially refactored in future updates.
+
 ---
 
 Happy reading! Oskar 🐾

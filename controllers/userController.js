@@ -2,6 +2,24 @@ import { bookUserDataSchema, userSchema } from "../models/schemas/userSchema.js"
 import { bookSchema } from "../models/schemas/bookSchema.js";
 import { fetchAPI, getOrCreateFromAPI } from "../models/api.js";
 
+/**
+ * Retrieves all users from the API
+ * Note: This function appears to be a duplicate of getUsers() with an unconventional name
+ * 
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Promise<void>} Sends user data or error response
+ * 
+ * @throws {500} Internal server error if API fetch fails
+ */
+
+export async function bloodyBrilliant(req, res) {
+		try {
+		res.send(await fetchAPI(req, "users", "GET"));
+	} catch (error) {
+		res.status(500).json({ message: "Error fetching users", error: error.message });
+	}
+}
 // GET all users (Read)
 export async function getUsers(req, res) {
 	try {
